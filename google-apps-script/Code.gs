@@ -9,6 +9,7 @@ const HEADERS = [
   "Trình độ hiện tại",
   "Mục tiêu JLPT",
   "Ghi chú",
+  "Nguồn",
 ];
 
 function doPost(e) {
@@ -24,12 +25,38 @@ function doPost(e) {
       data.currentLevel || "",
       data.targetJlpt || "",
       data.notes || "",
+      data.source || "",
     ]);
+    notifyNewLead_(data);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
     lock.releaseLock();
+  }
+}
+
+// Gửi email báo đăng ký mới. Đặt địa chỉ nhận trong Project Settings → Script properties: NOTIFY_EMAIL.
+function notifyNewLead_(data) {
+  try {
+    const to = PropertiesService.getScriptProperties().getProperty("NOTIFY_EMAIL");
+    if (!to) return;
+    const body = [
+      "Có đăng ký mới từ website.",
+      "",
+      "Họ tên: " + (data.fullName || ""),
+      "Số điện thoại: " + (data.phone || ""),
+      "Trình độ hiện tại: " + (data.currentLevel || ""),
+      "Mục tiêu JLPT: " + (data.targetJlpt || ""),
+      "Ghi chú: " + (data.notes || ""),
+      "Nguồn: " + (data.source || "(trực tiếp)"),
+      "",
+      "Xem Sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
+    ].join("\n");
+    MailApp.sendEmail(to, "[Đăng ký mới] " + (data.fullName || "không tên") + " - " + (data.targetJlpt || ""), body);
+  } catch (err) {
+    // Lỗi gửi email không được làm hỏng việc ghi dữ liệu
+    console.error("notify failed: " + err);
   }
 }
 

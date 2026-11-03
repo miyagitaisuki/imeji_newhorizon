@@ -35,3 +35,17 @@ Xem [google-apps-script/README.md](google-apps-script/README.md). Cần biến m
 - Secrets: `FB_PAGE_ID`, `FB_PAGE_TOKEN`.
 - Variables: `SITE_URL` là địa chỉ Render của trang, ví dụ `https://ten-trang.onrender.com`.
 
+
+## Đo lường (tùy chọn)
+
+Đặt các biến sau trên Render (hoặc `.env.local` khi chạy local). Thiếu biến nào thì phần đó tự tắt:
+
+- `VITE_GA_ID`: ID Google Analytics 4 (dạng `G-XXXXXXX`).
+- `VITE_META_PIXEL_ID`: ID Meta Pixel.
+
+Form đăng ký gửi kèm nguồn truy cập (UTM và trang giới thiệu) về cột **Nguồn** trong Sheet. Khi chia sẻ link, hãy thêm UTM, ví dụ `https://imeji-newhorizon-1.onrender.com/?utm_source=facebook&utm_medium=post&utm_campaign=hiragana`.
+
+## Bài viết Facebook
+
+- Bài mới để `publish: false` cho đến khi bạn duyệt xong. Khi đổi thành `true` và đưa lên `main`, workflow sẽ đăng.
+- Nếu bài có `image`, workflow chờ đến khi ảnh truy cập được (tối đa 10 phút) rồi mới đăng, vì Render cần thời gian deploy.

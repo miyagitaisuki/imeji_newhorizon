@@ -31,6 +31,19 @@ jobs:
             link="${SITE_URL}/posts/${slug}.html"
             image=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .image // empty' public/posts/index.json)
             if [ -n "$image" ]; then
+              # Render cần vài phút để deploy commit mới. Chờ đến khi ảnh công khai trả về 200.
+              img_url="${SITE_URL}/${image}"
+              code=000
+              for i in $(seq 1 20); do
+                code=$(curl -sS -o /dev/null -w "%{http_code}" -L "$img_url" || echo 000)
+                [ "$code" = "200" ] && break
+                echo "Ảnh chưa sẵn sàng ($code), thử lại sau 30s (${i}/20): ${img_url}"
+                sleep 30
+              done
+              if [ "$code" != "200" ]; then
+                echo "Ảnh không truy cập được sau 10 phút: ${img_url}"
+                exit 1
+              fi
               # Có ảnh: đăng ảnh kèm caption (ảnh phải là JPG/PNG, truy cập công khai qua SITE_URL)
               resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/photos" \
                 --data-urlencode "url=${SITE_URL}/${image}" \
