@@ -309,7 +309,7 @@ export default function App() {
         {/* Sky Sunrise Background Image (Prominently visible behind the entire hero) */}
         <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
           <img
-            src="/assets/aistudio/1220288_f3e851ac.jpg"
+            src="/assets/aistudio/hero.webp"
             alt="Biển mây bình minh rực sáng - Tiếng Nhật Thầy Quang Quy Nhơn"
             className="w-full h-full object-cover object-top sm:object-center filter brightness-100 contrast-[1.05]"
             loading="eager"
@@ -379,7 +379,7 @@ export default function App() {
               <div className="relative w-68 sm:w-80 md:w-88 aspect-[3.8/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/95 dark:border-slate-800/95 group bg-slate-900">
                 {/* Teacher Photo Uploaded by User */}
                 <img
-                  src="/assets/aistudio/IMG_3776.jpg_ef2900d0.jpg"
+                  src="/assets/aistudio/teacher.webp" loading="lazy"
                   alt="ThS. Nguyễn Thanh Quang - Giảng viên Tiếng Nhật Đại học Quy Nhơn"
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
@@ -511,7 +511,7 @@ export default function App() {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-primary-500 shadow-md flex-shrink-0">
                 <img
-                  src="/assets/aistudio/IMG_3776.jpg_ef2900d0.jpg"
+                  src="/assets/aistudio/teacher.webp" loading="lazy"
                   alt="ThS. Nguyễn Thanh Quang"
                   className="w-full h-full object-cover object-top"
                 />
@@ -899,7 +899,7 @@ export default function App() {
           {/* Subtle cloud ambient texture */}
           <div className="absolute inset-0 -z-10 opacity-10 dark:opacity-15 pointer-events-none overflow-hidden">
             <img
-              src="/assets/aistudio/1220288_f3e851ac.jpg"
+              src="/assets/aistudio/hero.webp" loading="lazy"
               alt="Cloud background"
               className="w-full h-full object-cover object-center filter blur-[1px]"
             />
