@@ -125,7 +125,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-japanese-pattern text-slate-800 dark:text-slate-100 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
+    <div className="relative isolate min-h-screen bg-japanese-pattern text-slate-800 dark:text-slate-100 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
       {/* =========================================================================
           TOP NAVIGATION BAR (Optimized Glass Bar)
       ========================================================================= */}
