@@ -29,12 +29,26 @@ jobs:
             title=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .title' public/posts/index.json)
             summary=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .summary' public/posts/index.json)
             link="${SITE_URL}/posts/${slug}.html"
-            resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/feed" \
-              --data-urlencode "message=${title}
+            image=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .image // empty' public/posts/index.json)
+            if [ -n "$image" ]; then
+              # Có ảnh: đăng ảnh kèm caption (ảnh phải là JPG/PNG, truy cập công khai qua SITE_URL)
+              resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/photos" \
+                --data-urlencode "url=${SITE_URL}/${image}" \
+                --data-urlencode "caption=${title}
+
+          ${summary}
+
+          ${link}" \
+                --data-urlencode "published=true" \
+                --data-urlencode "access_token=${FB_PAGE_TOKEN}")
+            else
+              resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/feed" \
+                --data-urlencode "message=${title}
 
           ${summary}" \
-              --data-urlencode "link=${link}" \
-              --data-urlencode "access_token=${FB_PAGE_TOKEN}")
+                --data-urlencode "link=${link}" \
+                --data-urlencode "access_token=${FB_PAGE_TOKEN}")
+            fi
             if ! echo "$resp" | jq -e '.id' >/dev/null 2>&1; then
               echo "Lỗi khi đăng bài ${slug}: $(echo "$resp" | jq -r '.error.message // "không rõ"')"
               exit 1

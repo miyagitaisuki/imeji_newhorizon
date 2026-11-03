@@ -15,7 +15,8 @@
       "summary": "Cách chia thể て và cách dùng mẫu 〜てください để nhờ ai đó làm gì một cách lịch sự, kèm ví dụ và dạng phủ định 〜ないでください.",
       "date": "2026-11-03",
       "publish": true,
-      "fb_posted": true
+      "fb_posted": true,
+      "image": "assets/fb/hero.jpg"
     },
     {
       "slug": "cach-nho-hiragana-theo-nhom",
@@ -23,7 +24,8 @@
       "summary": "Học Hiragana theo hàng và theo nhóm âm, luyện đọc từ thật mỗi ngày để nhớ lâu hơn thay vì học thuộc cả bảng một lúc.",
       "date": "2026-11-03",
       "publish": true,
-      "fb_posted": true
+      "fb_posted": true,
+      "image": "assets/fb/hero.jpg"
     }
   ]
 }
