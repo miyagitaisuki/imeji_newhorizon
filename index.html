@@ -1,41 +1,46 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiếng Nhật thầy Quang</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
-    li { margin-bottom: 1rem; }
-    .date { color: #666; font-size: 0.9rem; }
-  </style>
-</head>
-<body>
-  <h1>Tiếng Nhật thầy Quang</h1>
-  <p>Bài viết mới về học tiếng Nhật.</p>
-  <ul id="posts"></ul>
-  <script>
-    fetch('posts/index.json')
-      .then(r => r.json())
-      .then(data => {
-        const list = document.getElementById('posts');
-        data.posts
-          .filter(p => p.publish)
-          .sort((a, b) => b.date.localeCompare(a.date))
-          .forEach(p => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = 'posts/' + p.slug + '.html';
-            a.textContent = p.title;
-            const d = document.createElement('div');
-            d.className = 'date';
-            d.textContent = p.date;
-            const s = document.createElement('div');
-            s.textContent = p.summary;
-            li.append(a, d, s);
-            list.append(li);
-          });
-      });
-  </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <title>Tiếng Nhật Thầy Quang Quy Nhơn</title>
+    <meta name="description" content="Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang. Tối ưu tốc độ tải trang và giao diện di động." />
+    <meta property="og:title" content="Tiếng Nhật Thầy Quang Quy Nhơn" />
+    <meta property="og:description" content="Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang. Tối ưu tốc độ tải trang và giao diện di động." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://zalo.me" />
+    <!-- Schema.org JSON-LD for Local Education Course -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Tiếng Nhật Thầy Quang Quy Nhơn",
+      "description": "Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "80 Võ Mười",
+        "addressLocality": "Quy Nhơn",
+        "addressRegion": "Bình Định",
+        "addressCountry": "VN"
+      },
+      "telephone": "+84868608647",
+      "founder": {
+        "@type": "Person",
+        "name": "ThS. Nguyễn Thanh Quang",
+        "jobTitle": "Giảng viên tiếng Nhật"
+      }
+    }
+    </script>
+  </head>
+  <body class="antialiased selection:bg-blue-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
+
