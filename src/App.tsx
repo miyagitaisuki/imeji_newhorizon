@@ -141,7 +141,7 @@ export default function App() {
               光
             </span>
             <div>
-              <p className="font-bold text-sm sm:text-base leading-tight tracking-tight text-slate-900 dark:text-white">
+              <p className={`font-bold text-sm sm:text-base leading-tight tracking-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
                 Tiếng Nhật Thầy Quang
               </p>
               <p className="text-[11px] text-primary-600 dark:text-primary-400 font-medium flex items-center gap-1">
@@ -153,7 +153,7 @@ export default function App() {
           </a>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <nav className={`hidden lg:flex items-center gap-6 text-sm font-medium ${scrolled ? "text-slate-600 dark:text-slate-300" : "text-white/90"}`}>
             <a href="#about" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
               Giảng viên
             </a>
@@ -183,7 +183,7 @@ export default function App() {
             <button
               onClick={toggleTheme}
               aria-label="Chuyển chế độ sáng tối"
-              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95"
+              className={`p-2.5 rounded-xl border transition active:scale-95 ${scrolled ? "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" : "border-white/30 text-white hover:bg-white/10"}`}
             >
               {darkMode ? <Sun size={17} /> : <Moon size={17} />}
             </button>
@@ -199,7 +199,7 @@ export default function App() {
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-700 dark:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              className={`lg:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" : "text-white hover:bg-white/10"}`}
               aria-label="Mở menu điều hướng"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -304,21 +304,21 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content (Glass Panel ensures 100% text contrast in both light & dark modes) */}
-            <div className="lg:col-span-7 glass-panel p-6 sm:p-9 rounded-3xl border border-white/80 dark:border-slate-800/80 shadow-2xl space-y-6 text-center lg:text-left backdrop-blur-md bg-white/80 dark:bg-slate-950/80">
+            <div className="lg:col-span-7 p-6 sm:p-9 rounded-3xl border border-white/25 shadow-2xl space-y-6 text-center lg:text-left backdrop-blur-xl bg-slate-900/25 text-white">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
                 <Sparkles size={14} className="text-amber-500" />
                 <span>Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight leading-[1.18] text-slate-950 dark:text-white">
-                Học tiếng Nhật thực chiến <br />
-                <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-sky-500 bg-clip-text text-transparent">
+              <h1 className="text-balance text-3xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight leading-[1.18] text-white">
+                Học tiếng Nhật thực chiến{" "}
+                <span className="whitespace-nowrap bg-gradient-to-r from-sky-300 via-primary-400 to-sky-300 bg-clip-text text-transparent">
                   từ N5 đến N2
                 </span>{" "}
                 tại Quy Nhơn
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-lg text-slate-800 dark:text-slate-200 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
                 Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, Thạc sĩ tốt nghiệp tại Nhật Bản. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và hỗ trợ 24/7.
               </p>
 
@@ -342,7 +342,7 @@ export default function App() {
               </div>
 
               {/* Trust Indicators */}
-              <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-slate-700 dark:text-slate-300 font-semibold border-t border-slate-200/70 dark:border-slate-800/70">
+              <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
                 <span className="flex items-center gap-1.5">
                   <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số giới hạn &lt; 15 bạn
                 </span>
