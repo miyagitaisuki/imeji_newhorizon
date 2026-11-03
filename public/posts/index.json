@@ -28,11 +28,20 @@
       "image": "assets/fb/hero.jpg"
     },
     {
-      "slug": "bai-thu-dang-tu-dong",
-      "title": "Bài thử đăng tự động",
-      "summary": "Bài thử nghiệm quy trình đăng bài tự động lên Facebook kèm ảnh.",
+      "slug": "katakana-de-nham",
+      "title": "Katakana: 4 cặp chữ hay nhầm nhất",
+      "summary": "Bốn cặp chữ Katakana người mới hay nhầm, kèm mẹo phân biệt nhanh để đọc đúng ngay từ đầu.",
       "date": "2026-11-03",
-      "publish": true,
+      "publish": false,
+      "fb_posted": false,
+      "image": "assets/fb/hero.jpg"
+    },
+    {
+      "slug": "ba-loi-nguoi-moi-hay-mac",
+      "title": "Ba lỗi người mới học tiếng Nhật hay mắc",
+      "summary": "Ba lỗi phổ biến khi mới học tiếng Nhật, và cách sửa ngay từ tuần đầu tiên.",
+      "date": "2026-11-03",
+      "publish": false,
       "fb_posted": false,
       "image": "assets/fb/hero.jpg"
     }

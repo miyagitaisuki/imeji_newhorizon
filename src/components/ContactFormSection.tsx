@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send, Check, Phone, Mail, MapPin, MessageCircle, Globe, Copy, CheckCheck } from "lucide-react";
 import confetti from "canvas-confetti";
+import { getSource, trackEvent } from "../lib/analytics";
 
 // URL web app của Google Apps Script (xem google-apps-script/README.md)
 const SHEET_ENDPOINT = import.meta.env.VITE_SHEET_ENDPOINT as string | undefined;
@@ -46,7 +47,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }),
+        body: JSON.stringify({ ...formData, source: getSource(), submittedAt: new Date().toISOString() }),
       });
     } catch {
       setSubmitError("Không gửi được thông tin. Vui lòng kiểm tra mạng và thử lại, hoặc gọi 0868608647.");
@@ -55,6 +56,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
     }
     setSending(false);
     setFormSubmitted(true);
+    trackEvent("generate_lead", { target_jlpt: formData.targetJlpt });
 
     // Trigger celebratory confetti
     try {

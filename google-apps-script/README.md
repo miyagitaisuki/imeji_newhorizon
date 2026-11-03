@@ -17,3 +17,13 @@ Khi học viên gửi form, một dòng mới sẽ xuất hiện trong sheet **�
 Khi test local, tạo file `.env.local` ở thư mục gốc với cùng biến trên.
 
 Lưu ý: nếu sửa `Code.gs` sau này, phải **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới** thì URL mới có code mới. URL không đổi.
+
+## Thông báo email khi có đăng ký mới (tùy chọn)
+
+1. Trong Apps Script, vào **Project Settings (biểu tượng bánh răng) → Script properties → Add script property**.
+2. Tên: `NOTIFY_EMAIL`, giá trị: địa chỉ email nhận thông báo.
+3. Sau khi sửa `Code.gs`, phải **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới**.
+
+## Cột "Nguồn"
+
+Từ bản này, mỗi dòng có thêm cột **Nguồn** (UTM và trang giới thiệu). Với sheet đã có sẵn, hãy thêm tiêu đề `Nguồn` vào ô G1 để cột hiển thị đúng.

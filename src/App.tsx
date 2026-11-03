@@ -37,6 +37,7 @@ import { PostsSection } from "./components/PostsSection";
 import { BottomNav } from "./components/BottomNav";
 import { PlacementQuizModal } from "./components/PlacementQuizModal";
 import { PerformanceAuditModal } from "./components/PerformanceAuditModal";
+import { initAnalytics } from "./lib/analytics";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -58,6 +59,7 @@ export default function App() {
   });
 
   useEffect(() => {
+    initAnalytics();
     // Check initial dark mode from storage or OS
     const savedTheme = localStorage.getItem("thayquang_theme");
     if (savedTheme === "dark") {
@@ -811,81 +813,6 @@ export default function App() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SECTION 8: HỌC VIÊN CỦA LỚP (COLLAGE / SHOWCASE)
-      ========================================================================= */}
-      <section className="py-20 bg-slate-100/50 dark:bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
-              Khoảnh khắc lớp học
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Học viên của lớp thầy Quang
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3">
-              Nhiều thế hệ sinh viên và người đi làm đã đồng hành cùng thầy Quang trên hành trình chinh phục tiếng Nhật tại Quy Nhơn.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="glass-panel p-6 rounded-3xl space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-400 to-indigo-500 text-white flex items-center justify-center font-bold text-sm">
-                  HN
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-slate-900 dark:text-white">
-                    Hoàng Nam
-                  </h4>
-                  <p className="text-[11px] text-slate-500">Đậu JLPT N3 (138/180) - Sinh viên QNU</p>
-                </div>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                “Thầy dạy rất có tâm, phương pháp học chữ Kanji bằng hình ảnh và bộ thủ của thầy giúp mình không còn bị ám ảnh học trước quên sau nữa. Nhờ vậy mình đã đỗ N3 ngay lần thi đầu.”
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="glass-panel p-6 rounded-3xl space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-500 text-white flex items-center justify-center font-bold text-sm">
-                  MT
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-slate-900 dark:text-white">
-                    Minh Thư
-                  </h4>
-                  <p className="text-[11px] text-slate-500">Đậu JLPT N4 - Nhân viên văn phòng</p>
-                </div>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                “Lớp học buổi tối rất phù hợp với người đi làm như mình. Sĩ số nhỏ nên thầy sửa phát âm từng bạn rất kỹ. Thầy còn cung cấp bộ Flashcard Anki ôn trên điện thoại siêu tiện lợi.”
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="glass-panel p-6 rounded-3xl space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center font-bold text-sm">
-                  TA
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-slate-900 dark:text-white">
-                    Tuấn Anh
-                  </h4>
-                  <p className="text-[11px] text-slate-500">Học bổng trao đổi Nhật Bản</p>
-                </div>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                “Kinh nghiệm sống và du học tại Nhật của thầy Quang là kho tàng vô giá. Thầy đã hướng dẫn mình viết đơn xin học bổng và luyện phỏng vấn trực tiếp rất chu đáo.”
-              </p>
             </div>
           </div>
         </div>
