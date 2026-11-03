@@ -290,14 +290,14 @@ export default function App() {
         {/* Sky Sunrise Background Image (Prominently visible behind the entire hero) */}
         <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
           <img
-            src="/assets/aistudio/hero.webp"
+            src="/assets/aistudio/clouds-blue.jpg"
             alt="Biển mây bình minh rực sáng - Tiếng Nhật Thầy Quang Quy Nhơn"
             className="w-full h-full object-cover object-top sm:object-center filter brightness-100 contrast-[1.05]"
             loading="eager"
             fetchPriority="high"
           />
           {/* Subtle overlay that lets the sky and clouds shine through while providing a smooth transition */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-transparent dark:from-slate-950/75 dark:via-slate-950/50 dark:to-slate-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20 dark:from-black/85 dark:via-black/65 dark:to-black/35" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-50 dark:from-[#0b0f19] to-transparent" />
         </div>
 
