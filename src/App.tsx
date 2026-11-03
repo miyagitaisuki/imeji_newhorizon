@@ -362,7 +362,7 @@ export default function App() {
                 <img
                   src="/assets/aistudio/teacher.webp" loading="lazy"
                   alt="ThS. Nguyễn Thanh Quang - Giảng viên Tiếng Nhật Đại học Quy Nhơn"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-[50%_18%] scale-125 group-hover:scale-[1.35] transition-transform duration-700"
                 />
 
                 {/* Subtle dark gradient overlay at bottom for crystal clear text readability */}
