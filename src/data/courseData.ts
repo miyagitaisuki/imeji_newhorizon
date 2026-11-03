@@ -104,7 +104,7 @@ export const FAQS = [
     a: "Có. Học viên tham gia tối thiểu 90% số buổi học và hoàn thành các bài tập, bài thi thử theo quy định sẽ được hỗ trợ tối đa để đạt mục tiêu kỳ thi JLPT gần nhất.",
   },
   {
-    q: "Tôi có được hỗ trợ giải bài tập ngoài giờ không?",
-    a: "Có. Thầy Quang và nhóm học tập hoạt động 24/7 trên Zalo. Bạn có thể gửi câu hỏi, bài văn viết thử hoặc đề thi thử bất cứ lúc nào để được sửa lỗi chi tiết.",
+    q: "Học liệu của lớp gồm những gì?",
+    a: "Tài liệu tự biên soạn, bộ flashcard Anki, đề thi JLPT thử có đáp án chi tiết và bài luyện nghe theo từng giai đoạn của khóa học.",
   },
 ];

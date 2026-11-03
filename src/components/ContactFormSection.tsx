@@ -247,7 +247,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   <div>
                     <p className="text-[11px] text-slate-400">Hotline / Zalo</p>
                     <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition">
-                      0868 608 647
+                      086 860 8647
                     </p>
                   </div>
                 </a>
