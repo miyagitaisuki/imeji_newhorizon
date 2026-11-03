@@ -26,6 +26,15 @@
       "publish": true,
       "fb_posted": true,
       "image": "assets/fb/hero.jpg"
+    },
+    {
+      "slug": "bai-thu-dang-tu-dong",
+      "title": "Bài thử đăng tự động",
+      "summary": "Bài thử nghiệm quy trình đăng bài tự động lên Facebook kèm ảnh.",
+      "date": "2026-11-03",
+      "publish": true,
+      "fb_posted": false,
+      "image": "assets/fb/hero.jpg"
     }
   ]
 }
