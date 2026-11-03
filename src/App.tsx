@@ -735,10 +735,8 @@ export default function App() {
                 {[
                   "Flashcard Anki thông minh",
                   "Kho đề thi JLPT thử có bấm giờ",
-                  "Dashboard theo dõi tiến độ",
                   "Thống kê chi tiết kết quả thi",
                   "Tài liệu số hóa PDF bản quyền",
-                  "Video bài giảng xem lại",
                 ].map((feat, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                     <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
@@ -786,7 +784,6 @@ export default function App() {
               "Kho từ vựng thông minh Flashcard Anki",
               "Bộ đề thi JLPT thử có đáp án chi tiết",
               "Học liệu đa dạng: tài liệu, flashcard và đề thi thử",
-              "Tài khoản Dashboard theo dõi tiến độ",
               "Cam kết hỗ trợ học lại nếu chưa thi đỗ",
             ].map((perk, i) => (
               <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
