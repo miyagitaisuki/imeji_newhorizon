@@ -142,7 +142,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   inputMode="tel"
                   autoComplete="tel"
                   required
-                  placeholder="Ví dụ: 0868 608 647"
+                  placeholder="Ví dụ: 09xx xxx xxx"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition min-h-[44px]"

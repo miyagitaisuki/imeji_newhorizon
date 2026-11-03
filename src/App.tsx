@@ -36,7 +36,6 @@ import { ContactFormSection } from "./components/ContactFormSection";
 import { PostsSection } from "./components/PostsSection";
 import { BottomNav } from "./components/BottomNav";
 import { PlacementQuizModal } from "./components/PlacementQuizModal";
-import { PerformanceAuditModal } from "./components/PerformanceAuditModal";
 import { initAnalytics } from "./lib/analytics";
 
 export default function App() {
@@ -47,7 +46,6 @@ export default function App() {
 
   // Modals
   const [quizOpen, setQuizOpen] = useState(false);
-  const [auditOpen, setAuditOpen] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -181,17 +179,6 @@ export default function App() {
 
           {/* Action buttons on Header */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Speed & Mobile Optimization Inspector button */}
-            <button
-              onClick={() => setAuditOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-300/80 dark:border-emerald-800 hover:scale-105 active:scale-95 transition"
-              title="Xem các đề xuất tối ưu tốc độ & giao diện di động đã triển khai"
-            >
-              <Zap size={13} className="text-emerald-600 dark:text-emerald-400 animate-pulse" />
-              <span className="hidden sm:inline">Tối ưu Tốc độ & Mobile</span>
-              <span className="sm:hidden font-bold">⚡ Tối ưu</span>
-            </button>
-
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
@@ -290,14 +277,6 @@ export default function App() {
                   <Sparkles size={14} className="text-amber-500" />
                   <span>Trắc nghiệm kiểm tra trình độ (30 giây)</span>
                 </button>
-
-                <a
-                  onClick={() => setMobileMenuOpen(false)}
-                  href="#register"
-                  className="text-center py-3 rounded-xl bg-primary-600 text-white font-semibold text-xs shadow-md"
-                >
-                  Đăng ký tư vấn miễn phí ngay
-                </a>
               </div>
             </motion.div>
           )}
@@ -734,61 +713,9 @@ export default function App() {
 
         {/* Dashboard Showcase Frame */}
         <div className="rounded-3xl p-5 sm:p-10 glass-panel border border-slate-200 dark:border-slate-800 shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Mockup Preview */}
-            <div className="lg:col-span-7 bg-white dark:bg-slate-950 rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-slate-800 shadow-inner space-y-4">
-              {/* Fake Browser header */}
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-900 pb-3">
-                <span className="w-3 h-3 rounded-full bg-red-400 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-400 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-400 inline-block" />
-                <span className="text-[11px] text-slate-400 ml-2 font-mono">
-                  portal.thayquang-nihongo.vn
-                </span>
-              </div>
-
-              {/* Dashboard Content Mock */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div className="p-3.5 rounded-xl bg-blue-50 dark:bg-slate-900 border border-blue-100 dark:border-slate-800">
-                  <p className="text-[10px] text-slate-500">Tiến độ bài học</p>
-                  <p className="text-lg font-bold text-primary-600">82%</p>
-                  <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-2">
-                    <div className="bg-primary-600 h-1.5 rounded-full w-[82%]" />
-                  </div>
-                </div>
-                <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-slate-900 border border-emerald-100 dark:border-slate-800">
-                  <p className="text-[10px] text-slate-500">Từ vựng Anki</p>
-                  <p className="text-lg font-bold text-emerald-600">1.420 từ</p>
-                  <p className="text-[9px] text-emerald-600 mt-1 font-medium">95% đã ghi nhớ</p>
-                </div>
-                <div className="p-3.5 rounded-xl bg-purple-50 dark:bg-slate-900 border border-purple-100 dark:border-slate-800 col-span-2 sm:col-span-1">
-                  <p className="text-[10px] text-slate-500">Điểm thi thử JLPT</p>
-                  <p className="text-lg font-bold text-purple-600">145 / 180</p>
-                  <p className="text-[9px] text-purple-600 mt-1 font-medium">Đạt chuẩn N4</p>
-                </div>
-              </div>
-
-              {/* List of recent activities */}
-              <div className="space-y-2 pt-2">
-                <div className="flex items-center justify-between text-xs p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900/60">
-                  <span className="flex items-center gap-2">
-                    <BookOpen size={14} className="text-primary-500 flex-shrink-0" />
-                    <span className="truncate">Ngữ pháp Bài 28: Động từ thể sai khiến</span>
-                  </span>
-                  <span className="text-[10px] text-emerald-500 font-semibold flex-shrink-0">Đã xong</span>
-                </div>
-                <div className="flex items-center justify-between text-xs p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900/60">
-                  <span className="flex items-center gap-2">
-                    <Layers size={14} className="text-amber-500 flex-shrink-0" />
-                    <span className="truncate">Deck Kanji N4: Bộ thủ & Âm Hán Việt</span>
-                  </span>
-                  <span className="text-[10px] text-primary-500 font-semibold flex-shrink-0">Ôn tập</span>
-                </div>
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 gap-8 items-center">
             {/* Checklist of Features */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-12 space-y-4">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 Mọi công cụ bạn cần để giỏi tiếng Nhật
               </h3>
@@ -950,13 +877,6 @@ export default function App() {
             <span>ThS. Nguyễn Thanh Quang</span>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setAuditOpen(true)}
-              className="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
-            >
-              <Zap size={13} />
-              <span>Xem Báo cáo Tối ưu Tốc độ</span>
-            </button>
             <span>© {new Date().getFullYear()} All rights reserved.</span>
           </div>
         </div>
@@ -966,15 +886,6 @@ export default function App() {
           FLOATING ACTIONS (Zalo Chat & Quick Call Button)
       ========================================================================= */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-3">
-        {/* Speed inspector pill */}
-        <button
-          onClick={() => setAuditOpen(true)}
-          className="glass-panel px-3.5 py-1.5 rounded-full text-xs font-semibold text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 flex items-center gap-1.5 shadow-lg hover:scale-105 active:scale-95 transition"
-        >
-          <Zap size={13} className="text-emerald-500" />
-          <span>Báo cáo Tối ưu hóa</span>
-        </button>
-
         {/* Floating Zalo */}
         <a
           href="https://zalo.me/0868608647"
@@ -990,7 +901,6 @@ export default function App() {
       {/* Mobile Bottom Thumb Navigation Bar */}
       <BottomNav
         onOpenQuiz={() => setQuizOpen(true)}
-        onOpenAudit={() => setAuditOpen(true)}
       />
 
       {/* Level Placement Quiz Modal */}
@@ -998,12 +908,6 @@ export default function App() {
         isOpen={quizOpen}
         onClose={() => setQuizOpen(false)}
         onSelectLevel={handleSelectQuizResult}
-      />
-
-      {/* Speed & Mobile Optimization Audit Modal */}
-      <PerformanceAuditModal
-        isOpen={auditOpen}
-        onClose={() => setAuditOpen(false)}
       />
     </div>
   );

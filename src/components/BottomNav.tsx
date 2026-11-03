@@ -3,10 +3,9 @@ import { BookOpen, Map, Sparkles, Send, Phone, MessageCircle } from "lucide-reac
 
 interface Props {
   onOpenQuiz: () => void;
-  onOpenAudit: () => void;
 }
 
-export const BottomNav: React.FC<Props> = ({ onOpenQuiz, onOpenAudit }) => {
+export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-1 pointer-events-none">
       <div className="max-w-md mx-auto glass-panel rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 p-1.5 flex items-center justify-around pointer-events-auto backdrop-blur-xl">
