@@ -230,7 +230,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 ThS. Nguyễn Thanh Quang
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                Giảng viên Đại học Quy Nhơn (QNU) ・ JLPT N1 Holder
+                Giảng viên Trường Đại học Quy Nhơn (QNU) ・ JLPT N1 Holder
               </p>
             </div>
 

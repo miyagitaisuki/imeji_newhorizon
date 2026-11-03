@@ -365,7 +365,7 @@ export default function App() {
                 {/* Teacher Photo Uploaded by User */}
                 <img
                   src="/assets/aistudio/teacher.webp" loading="lazy"
-                  alt="ThS. Nguyễn Thanh Quang - Giảng viên Tiếng Nhật Đại học Quy Nhơn"
+                  alt="ThS. Nguyễn Thanh Quang - Giảng viên Tiếng Nhật Trường Đại học Quy Nhơn"
                   className="w-full h-full object-cover object-[50%_18%] scale-125 group-hover:scale-[1.35] transition-transform duration-700"
                 />
 
@@ -375,7 +375,7 @@ export default function App() {
                 <div className="w-full h-full flex flex-col items-center justify-between p-5 sm:p-6 z-10 relative">
                   <div className="w-full flex justify-between items-start">
                     <span className="px-3 py-1 rounded-full glass-panel text-[11px] font-bold text-white tracking-wide border-white/30 backdrop-blur-md shadow-md">
-                      🇯🇵 Giảng viên Đại học QNU
+                      🇯🇵 Giảng viên Trường Đại học Quy Nhơn (QNU)
                     </span>
                     <img
                       src="/assets/brand/logo.png"
@@ -395,7 +395,7 @@ export default function App() {
                       ThS. Nguyễn Thanh Quang
                     </h3>
                     <p className="text-xs text-slate-200 mt-0.5">
-                      Giảng viên Đại học Quy Nhơn (QNU)
+                      Giảng viên Trường Đại học Quy Nhơn (QNU)
                     </p>
                     <p className="text-[11px] text-amber-200 mt-1 italic font-medium">
                       “Thực chiến JLPT N5 - N2 ・ Tận tâm đồng hành”
@@ -510,7 +510,7 @@ export default function App() {
                   ThS. Nguyễn Thanh Quang
                 </h3>
                 <p className="text-xs text-primary-600 dark:text-primary-400 font-semibold mt-0.5">
-                  Giảng viên Đại học Quy Nhơn (QNU) ・ JLPT N1 Holder
+                  Giảng viên Trường Đại học Quy Nhơn (QNU) ・ JLPT N1 Holder
                 </p>
               </div>
             </div>
@@ -523,7 +523,7 @@ export default function App() {
 
             <div className="pt-2 flex flex-wrap gap-2.5">
               <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
-                # Đại học Quy Nhơn (QNU)
+                # Trường Đại học Quy Nhơn (QNU)
               </span>
               <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
                 # JLPT N1 Holder

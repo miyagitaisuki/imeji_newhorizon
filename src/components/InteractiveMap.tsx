@@ -20,7 +20,7 @@ export const InteractiveMap: React.FC = () => {
               80 Võ Mười, Ngô Mây, Quy Nhơn
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Cách Đại học Quy Nhơn (QNU) chỉ 3 phút di chuyển, thuận tiện cho sinh viên & người đi làm
+              Cách Trường Đại học Quy Nhơn (QNU) chỉ 3 phút di chuyển, thuận tiện cho sinh viên & người đi làm
             </p>
           </div>
 
