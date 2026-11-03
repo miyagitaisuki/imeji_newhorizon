@@ -1,0 +1,13 @@
+{
+  "site_title": "Tiếng Nhật thầy Quang",
+  "posts": [
+    {
+      "slug": "bai-mau",
+      "title": "Bài viết mẫu",
+      "summary": "Đây là bài mẫu để kiểm tra quy trình đăng bài.",
+      "date": "2026-11-03",
+      "publish": false,
+      "fb_posted": false
+    }
+  ]
+}

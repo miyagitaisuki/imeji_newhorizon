@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiếng Nhật thầy Quang</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+    li { margin-bottom: 1rem; }
+    .date { color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Tiếng Nhật thầy Quang</h1>
+  <p>Bài viết mới về học tiếng Nhật.</p>
+  <ul id="posts"></ul>
+  <script>
+    fetch('posts/index.json')
+      .then(r => r.json())
+      .then(data => {
+        const list = document.getElementById('posts');
+        data.posts
+          .filter(p => p.publish)
+          .sort((a, b) => b.date.localeCompare(a.date))
+          .forEach(p => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = 'posts/' + p.slug + '.html';
+            a.textContent = p.title;
+            const d = document.createElement('div');
+            d.className = 'date';
+            d.textContent = p.date;
+            const s = document.createElement('div');
+            s.textContent = p.summary;
+            li.append(a, d, s);
+            list.append(li);
+          });
+      });
+  </script>
+</body>
+</html>
