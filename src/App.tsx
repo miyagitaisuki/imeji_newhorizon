@@ -137,9 +137,13 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo & Teacher Branding */}
           <a href="#" className="flex items-center gap-3 group">
-            <span className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
-              光
-            </span>
+            <img
+              src="/assets/brand/logo.png"
+              alt="Logo Tiếng Nhật Thầy Quang"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+            />
             <div>
               <p className={`font-bold text-sm sm:text-base leading-tight tracking-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
                 Tiếng Nhật Thầy Quang
@@ -373,9 +377,13 @@ export default function App() {
                     <span className="px-3 py-1 rounded-full glass-panel text-[11px] font-bold text-white tracking-wide border-white/30 backdrop-blur-md shadow-md">
                       🇯🇵 Giảng viên Đại học QNU
                     </span>
-                    <div className="w-9 h-9 rounded-xl bg-primary-600/90 text-white flex items-center justify-center font-bold text-base shadow-md">
-                      光
-                    </div>
+                    <img
+                      src="/assets/brand/logo.png"
+                      alt="Logo"
+                      width={36}
+                      height={36}
+                      className="w-9 h-9 object-contain drop-shadow-md"
+                    />
                   </div>
 
                   <div className="w-full text-white text-left">
