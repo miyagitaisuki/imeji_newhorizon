@@ -21,6 +21,10 @@ Trang landing page và danh sách bài viết học tiếng Nhật. Hosted miễ
 2. Thêm mục vào `public/posts/index.json` với `publish: true` và `fb_posted: false`.
 3. Commit và push lên `main`.
 
+## Form đăng ký -> Google Sheet
+
+Xem [google-apps-script/README.md](google-apps-script/README.md). Cần biến môi trường `VITE_SHEET_ENDPOINT` (URL web app Apps Script) khi build.
+
 ## Cấu hình Render
 
 - Build command: `npm install && npm run build`
@@ -30,3 +34,4 @@ Trang landing page và danh sách bài viết học tiếng Nhật. Hosted miễ
 
 - Secrets: `FB_PAGE_ID`, `FB_PAGE_TOKEN`.
 - Variables: `SITE_URL` là địa chỉ Render của trang, ví dụ `https://ten-trang.onrender.com`.
+

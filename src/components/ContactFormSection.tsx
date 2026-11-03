@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Send, Check, Phone, Mail, MapPin, MessageCircle, Globe, Copy, CheckCheck } from "lucide-react";
 import confetti from "canvas-confetti";
 
+// URL web app của Google Apps Script (xem google-apps-script/README.md)
+const SHEET_ENDPOINT = import.meta.env.VITE_SHEET_ENDPOINT as string | undefined;
+
 interface Props {
   formData: {
     fullName: string;
@@ -24,9 +27,33 @@ interface Props {
 export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!SHEET_ENDPOINT) {
+      setSubmitError("Chưa cấu hình nơi nhận thông tin. Vui lòng gọi trực tiếp 0868608647.");
+      return;
+    }
+
+    setSending(true);
+    setSubmitError("");
+    try {
+      // Apps Script không trả CORS header, nên gửi text/plain + no-cors.
+      // Phản hồi bị ẩn (opaque), nên chỉ biết là yêu cầu đã được gửi đi.
+      await fetch(SHEET_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }),
+      });
+    } catch {
+      setSubmitError("Không gửi được thông tin. Vui lòng kiểm tra mạng và thử lại, hoặc gọi 0868608647.");
+      setSending(false);
+      return;
+    }
+    setSending(false);
     setFormSubmitted(true);
 
     // Trigger celebratory confetti
@@ -170,11 +197,18 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
               <button
                 type="submit"
-                className="w-full mt-3 py-3.5 sm:py-4 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm transition shadow-lg shadow-primary-500/25 active:scale-[0.98] flex items-center justify-center gap-2 min-h-[48px]"
+                disabled={sending}
+                className="w-full mt-3 py-3.5 sm:py-4 rounded-2xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white font-bold text-sm transition shadow-lg shadow-primary-500/25 active:scale-[0.98] flex items-center justify-center gap-2 min-h-[48px]"
               >
                 <Send size={16} />
-                <span>Xác nhận gửi thông tin tư vấn</span>
+                <span>{sending ? "Đang gửi..." : "Xác nhận gửi thông tin tư vấn"}</span>
               </button>
+
+              {submitError && (
+                <p role="alert" className="text-xs text-red-600 dark:text-red-400 text-center">
+                  {submitError}
+                </p>
+              )}
 
               <p className="text-[11px] text-slate-400 text-center">
                 🔒 Cam kết bảo mật thông tin cá nhân. Thầy Quang sẽ trực tiếp giải đáp mọi thắc mắc.
