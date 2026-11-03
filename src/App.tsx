@@ -323,7 +323,7 @@ export default function App() {
               </h1>
 
               <p className="text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-                Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, Thạc sĩ tốt nghiệp tại Nhật Bản. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và hỗ trợ 24/7.
+                Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, thạc sĩ Ngôn ngữ học. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và học liệu đa dạng.
               </p>
 
               {/* Action Buttons */}
@@ -348,7 +348,7 @@ export default function App() {
               {/* Trust Indicators */}
               <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
                 <span className="flex items-center gap-1.5">
-                  <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số giới hạn &lt; 15 bạn
+                  <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số dưới 6 bạn
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
@@ -410,7 +410,7 @@ export default function App() {
                   <GraduationCap size={16} />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 dark:text-white">Thạc sĩ Nhật Bản</p>
+                  <p className="font-bold text-slate-900 dark:text-white">Thạc sĩ Ngôn ngữ học</p>
                   <p className="text-[10px] text-slate-500">Chuyên ngành đào tạo</p>
                 </div>
               </div>
@@ -471,10 +471,10 @@ export default function App() {
             </div>
             <div className="pt-2 md:pt-0">
               <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
-                100%
+                Đa dạng
               </p>
               <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
-                Hỗ trợ & giải đáp ngoài giờ
+                Học liệu đa dạng
               </p>
             </div>
           </div>
@@ -515,7 +515,7 @@ export default function App() {
               </div>
             </div>
             <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-              ThS. Nguyễn Thanh Quang hiện là giảng viên đại học với hơn 10 năm kinh nghiệm giảng dạy tiếng Nhật chuyên nghiệp. Với trình độ JLPT N1 cùng nền tảng học thuật chuyên sâu thu nhận từ chương trình Thạc sĩ tại Nhật Bản, thầy xây dựng phương pháp học tập thực chiến, loại bỏ rào cản sợ Hán tự (Kanji) và ngữ pháp phức tạp.
+              ThS. Nguyễn Thanh Quang hiện là giảng viên đại học với hơn 10 năm kinh nghiệm giảng dạy tiếng Nhật chuyên nghiệp. Với trình độ JLPT N1 cùng bằng thạc sĩ Ngôn ngữ học, thầy xây dựng phương pháp học tập thực chiến, loại bỏ rào cản sợ Hán tự (Kanji) và ngữ pháp phức tạp.
             </p>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
               Lớp học không chỉ tập trung vào việc thi đỗ chứng chỉ JLPT điểm cao, mà còn chú trọng khả năng ứng dụng phản xạ ngôn ngữ thực tế trong môi trường học bổng, du học và làm việc tại các doanh nghiệp Nhật Bản.
@@ -529,18 +529,18 @@ export default function App() {
                 # JLPT N1 Holder
               </span>
               <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
-                # Master Degree in Japan
+                # Thạc sĩ Ngôn ngữ học
               </span>
             </div>
           </div>
 
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
             {[
-              { title: "Thạc sĩ Nhật Bản", desc: "Được đào tạo bài bản và thụ hưởng tinh thần giáo dục xứ Phù Tang.", icon: GraduationCap },
+              { title: "Thạc sĩ Ngôn ngữ học", desc: "Nền tảng học thuật chuyên sâu về ngôn ngữ và phương pháp giảng dạy.", icon: GraduationCap },
               { title: "Trình độ JLPT N1", desc: "Năng lực tiếng Nhật cao cấp nhất, nắm trọn ngữ nghĩa tinh tế.", icon: Award },
               { title: "Giảng viên Đại học", desc: "Kinh nghiệm sư phạm chuẩn mực, phương pháp truyền cảm hứng.", icon: Users },
               { title: "Tài liệu tự biên soạn", desc: "Hệ thống hóa kiến thức súc tích, lược bỏ lan man không cần thiết.", icon: BookOpen },
-              { title: "Hỗ trợ ngoài giờ", desc: "Đồng hành qua Zalo, nhóm học tập trao đổi bài vở 24/7.", icon: MessageCircle },
+              { title: "Học liệu đa dạng", desc: "Tài liệu, flashcard, đề thi thử và bài luyện nghe cho từng giai đoạn học.", icon: Layers },
               { title: "Cam kết đầu ra", desc: "Đảm bảo học viên đạt mục tiêu JLPT khi theo đúng lộ trình.", icon: UserCheck },
             ].map((card, idx) => (
               <div
@@ -613,9 +613,9 @@ export default function App() {
               },
               {
                 num: "06",
-                title: "Mentoring ngoài giờ",
-                desc: "Giải đáp thắc mắc bài tập nhanh chóng qua Zalo nhóm, sửa bài viết luận và luyện nói 1-1 trước kỳ thi.",
-                icon: MessageCircle,
+                title: "Học liệu đa dạng",
+                desc: "Tài liệu tự biên soạn, flashcard Anki, đề thi thử có đáp án và bài luyện nghe theo từng giai đoạn.",
+                icon: BookOpen,
               },
             ].map((item, idx) => (
               <div
@@ -785,7 +785,7 @@ export default function App() {
               "Toàn bộ tài liệu biên soạn độc quyền",
               "Kho từ vựng thông minh Flashcard Anki",
               "Bộ đề thi JLPT thử có đáp án chi tiết",
-              "Hỗ trợ giải đáp bài tập ngoài giờ qua Zalo",
+              "Học liệu đa dạng: tài liệu, flashcard và đề thi thử",
               "Tài khoản Dashboard theo dõi tiến độ",
               "Cam kết hỗ trợ học lại nếu chưa thi đỗ",
             ].map((perk, i) => (
@@ -804,7 +804,7 @@ export default function App() {
               Đăng ký ngay hôm nay
             </a>
             <p className="text-[11px] text-slate-400 mt-3">
-              Lớp học giới hạn tối đa 15 học viên mỗi khóa để đảm bảo chất lượng.
+              Lớp học giới hạn dưới 6 học viên mỗi khóa để đảm bảo chất lượng.
             </p>
           </div>
         </div>
@@ -893,14 +893,14 @@ export default function App() {
       {/* =========================================================================
           FLOATING ACTIONS (Zalo Chat & Quick Call Button)
       ========================================================================= */}
-      <div className="hidden md:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-3">
+      <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-40 flex flex-col items-end gap-3">
         {/* Floating Zalo */}
         <a
           href="https://zalo.me/0868608647"
           target="_blank"
           rel="noreferrer"
           aria-label="Nhắn tin Zalo với Thầy Quang"
-          className="w-13 h-13 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-transform"
+          className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
         >
           <MessageCircle size={24} />
         </a>
