@@ -1,7 +1,7 @@
 import React from "react";
-import { BookOpen, Map, Sparkles, Send, MessageCircle } from "lucide-react";
-import { ZALO_URL } from "../data/siteInfo";
-import { trackZalo } from "../lib/analytics";
+import { Gamepad2, LogIn, Sparkles, Send } from "lucide-react";
+import { PORTAL_URL, PRACTICE_URL } from "../data/siteInfo";
+import { trackEcosystem } from "../lib/analytics";
 
 interface Props {
   base: string; // "" trên trang chủ, "/" trên trang con
@@ -13,19 +13,12 @@ export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-1 pointer-events-none">
       <div className="max-w-md mx-auto glass-panel rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 p-1.5 flex items-center justify-around pointer-events-auto backdrop-blur-xl">
         <a
-          href={`${base}#courses`}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:text-primary-600 active:scale-90 transition"
+          href={PRACTICE_URL}
+          onClick={() => trackEcosystem("practice", "bottom_nav")}
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 dark:text-primary-400 active:scale-90 transition"
         >
-          <BookOpen size={18} />
-          <span className="text-[10px] font-medium mt-0.5">Khóa học</span>
-        </a>
-
-        <a
-          href={`${base}#roadmap`}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:text-primary-600 active:scale-90 transition"
-        >
-          <Map size={18} />
-          <span className="text-[10px] font-medium mt-0.5">Lộ trình</span>
+          <Gamepad2 size={18} />
+          <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Luyện tập</span>
         </a>
 
         {/* Level Quiz Button */}
@@ -35,19 +28,17 @@ export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
         >
           <span className="absolute -top-1 right-1 w-2 h-2 rounded-full bg-amber-500 animate-ping" />
           <Sparkles size={18} />
-          <span className="text-[10px] font-bold mt-0.5">Test trình độ</span>
+          <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Test trình độ</span>
         </button>
 
-        {/* Quick Zalo */}
+        {/* Cổng học viên (eduscan) */}
         <a
-          href={ZALO_URL}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => trackZalo("bottom_nav")}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-blue-600 dark:text-blue-400 active:scale-90 transition"
+          href={PORTAL_URL}
+          onClick={() => trackEcosystem("portal", "bottom_nav")}
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 dark:text-primary-400 active:scale-90 transition"
         >
-          <MessageCircle size={18} />
-          <span className="text-[10px] font-medium mt-0.5">Zalo</span>
+          <LogIn size={18} />
+          <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Học viên</span>
         </a>
 
         {/* Primary CTA button */}

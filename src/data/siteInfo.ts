@@ -15,6 +15,10 @@ export const PHONE_DISPLAY = "086 860 8647";
 export const ZALO_URL = `https://zalo.me/${PHONE}`;
 export const EMAIL = "lienhe@imejiquynhon.com";
 
+// Hệ sinh thái học tập: game luyện tập (imeji_dominion) và cổng học viên (eduscan)
+export const PRACTICE_URL = "/luyen-tap/";
+export const PORTAL_URL = "https://app.imejiquynhon.com/";
+
 export const ADDRESS_STREET = "80 Võ Mười";
 export const ADDRESS_WARD = "P. Quy Nhơn Nam";
 export const ADDRESS_PROVINCE = "Gia Lai";

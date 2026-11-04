@@ -14,6 +14,8 @@ import {
   TrendingUp,
   UserCheck,
   Users,
+  Gamepad2,
+  LogIn,
 } from "lucide-react";
 
 import { ROADMAP_STEPS, FAQS } from "../data/courseData";
@@ -30,7 +32,10 @@ import {
   COMMITMENT_TITLE,
   COMMITMENT_DETAIL,
   useNextStartLabel,
+  PRACTICE_URL,
+  PORTAL_URL,
 } from "../data/siteInfo";
+import { trackEcosystem } from "../lib/analytics";
 
 type Form = ReturnType<typeof useRegistrationForm>;
 
@@ -502,6 +507,31 @@ function HomeContent({ form }: { form: Form }) {
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Không cần mang vác sách vở cồng kềnh. Học viên tại lớp được cấp quyền truy cập toàn bộ tài nguyên số hóa:
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-2">
+              <a
+                href={PRACTICE_URL}
+                onClick={() => trackEcosystem("practice", "ecosystem")}
+                className="group flex items-center gap-3 p-4 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white shadow-lg shadow-primary-500/25 active:scale-[0.98] transition"
+              >
+                <span className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0"><Gamepad2 size={20} /></span>
+                <span>
+                  <span className="block font-bold text-sm">Luyện tập Minna no Nihongo</span>
+                  <span className="block text-xs text-primary-100">Game từ vựng, ngữ pháp, hội thoại ・ miễn phí</span>
+                </span>
+              </a>
+              <a
+                href={PORTAL_URL}
+                onClick={() => trackEcosystem("portal", "ecosystem")}
+                className="group flex items-center gap-3 p-4 rounded-2xl border border-primary-300 dark:border-primary-700 bg-white/70 dark:bg-slate-900/60 hover:bg-primary-50 dark:hover:bg-primary-950/40 active:scale-[0.98] transition"
+              >
+                <span className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0"><LogIn size={20} /></span>
+                <span>
+                  <span className="block font-bold text-sm text-slate-900 dark:text-white">Cổng học viên EduScan</span>
+                  <span className="block text-xs text-slate-500 dark:text-slate-400">Điểm danh, học phí, bài tập, kết quả</span>
+                </span>
+              </a>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {[
