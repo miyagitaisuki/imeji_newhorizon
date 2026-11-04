@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Quản trị bài viết – Tiếng Nhật Thầy Quang</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  <style>
+    #kytu { position: fixed; right: 12px; bottom: 12px; z-index: 9999; font: 14px system-ui, sans-serif; }
+    #kytu > button { background: #2563eb; color: #fff; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+    #kytu .panel { display: none; position: absolute; right: 0; bottom: 48px; width: 300px; background: #fff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    #kytu.open .panel { display: block; }
+    #kytu .panel p { margin: 4px 0 8px; color: #475569; font-size: 12px; }
+    #kytu .grid { display: flex; flex-wrap: wrap; gap: 4px; }
+    #kytu .grid button { min-width: 36px; height: 36px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; font-size: 18px; cursor: pointer; }
+    #kytu .grid button:hover { background: #dbeafe; }
+    #kytu .toast { position: absolute; right: 0; bottom: 48px; background: #0f172a; color: #fff; padding: 6px 10px; border-radius: 6px; white-space: nowrap; display: none; }
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@3.17.1/dist/decap-cms.js"></script>
+  <script>
+    // Giao diện xem trước dùng đúng kiểu chữ của trang bài viết
+    CMS.registerPreviewStyle("/assets/post.css");
+
+    // Xem trước giống trang bài viết thật: tiêu đề, ngày, tác giả, ảnh đại diện, nội dung
+    CMS.registerPreviewTemplate("posts", createClass({
+      render: function () {
+        var d = this.props.entry.get("data");
+        var date = String(d.get("date") || "").slice(0, 10).split("-").reverse().join("/");
+        var img = d.get("image") ? this.props.getAsset(d.get("image")) : null;
+        return h("div", {},
+          d.get("publish") ? null : h("p", { className: "note" }, "Bài nháp: chưa hiện trên web."),
+          h("h1", {}, d.get("title")),
+          h("p", { className: "byline" }, date + " · ThS. Nguyễn Thanh Quang"),
+          img ? h("img", { src: img.toString(), alt: "" }) : null,
+          this.props.widgetFor("body"));
+      },
+    }));
+
+    // Khối "Ví dụ tiếng Nhật": câu tiếng Nhật + nghĩa tiếng Việt
+    CMS.registerEditorComponent({
+      id: "vidu",
+      label: "Ví dụ tiếng Nhật",
+      fields: [
+        { name: "jp", label: "Câu tiếng Nhật", widget: "string" },
+        { name: "vi", label: "Nghĩa tiếng Việt", widget: "string" },
+      ],
+      // Lưu ý: không dùng cờ "m" cho mẫu, nếu không mẫu sẽ khớp nhầm ở dòng phía dưới và nuốt các khối khác.
+      pattern: /^<p class="jp">(.*?)<\/p>\n<p class="vi">(.*?)<\/p>/,
+      fromBlock: (m) => ({ jp: m[1], vi: m[2] }),
+      toBlock: (d) => `<p class="jp">${d.jp || ""}</p>\n<p class="vi">${d.vi || ""}</p>`,
+      toPreview: (d) => `<p class="jp">${d.jp || ""}</p><p class="vi">${d.vi || ""}</p>`,
+    });
+
+    // Khối "Ghi chú": khung nền xanh. Nội dung viết bằng Markdown (**đậm**, *nghiêng*, [chữ](https://...)).
+    // Lưu thành một khối liền; dòng trống giữa các đoạn được lưu thành <br> (scripts/prerender.mjs tách lại khi dựng trang).
+    CMS.registerEditorComponent({
+      id: "ghichu",
+      label: "Ghi chú (khung xanh)",
+      fields: [{ name: "text", label: "Nội dung ghi chú", widget: "text", hint: "In đậm: **chữ**. Liên kết: [chữ](https://...). Để một dòng trống giữa hai đoạn." }],
+      pattern: /^<div class="note">\n([\s\S]*?)\n<\/div>/,
+      fromBlock: function (m) { return { text: m[1].replace(/\n<br>\n/g, "\n\n") }; },
+      toBlock: function (d) {
+        var t = (d.text || "").trim().replace(/\n\s*\n/g, "\n<br>\n");
+        return '<div class="note">\n' + t + "\n</div>";
+      },
+      toPreview: function (d) {
+        var esc = (d.text || "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        return '<div class="note">' + esc.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>") + "</div>";
+      },
+    });
+  </script>
+
+  <!-- Bảng ký tự hay dùng: bấm để chép, rồi dán (Ctrl+V) vào chỗ cần chèn -->
+  <div id="kytu">
+    <div class="toast"></div>
+    <div class="panel">
+      <p>Bấm một ký tự để chép, rồi dán vào bài bằng Ctrl+V (điện thoại: giữ ngón tay → Dán).</p>
+      <div class="grid"></div>
+    </div>
+    <button type="button" aria-expanded="false">あ Ký tự</button>
+  </div>
+  <script>
+    (function () {
+      var chars = "〜 「 」 『 』 、 。 ・ ー ！ ？ （ ） ★ ☆ ○ × → ← ⇒ ※ … 々 ゛ ゜ ① ② ③ ④ ⑤ ✓ – — “ ”".split(" ");
+      var box = document.getElementById("kytu"), grid = box.querySelector(".grid"), toast = box.querySelector(".toast");
+      var toggle = box.querySelector(":scope > button");
+      toggle.onclick = function () { var o = box.classList.toggle("open"); toggle.setAttribute("aria-expanded", o); };
+      chars.forEach(function (c) {
+        var b = document.createElement("button");
+        b.type = "button"; b.textContent = c; b.title = "Chép " + c;
+        b.onclick = function () {
+          var done = function () { toast.textContent = "Đã chép " + c + " – dán bằng Ctrl+V"; toast.style.display = "block"; box.classList.remove("open"); setTimeout(function () { toast.style.display = "none"; }, 1800); };
+          if (navigator.clipboard) navigator.clipboard.writeText(c).then(done, done); else done();
+        };
+        grid.appendChild(b);
+      });
+    })();
+  </script>
+</body>
+</html>

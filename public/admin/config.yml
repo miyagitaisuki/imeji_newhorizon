@@ -1,0 +1,107 @@
+# Cấu hình trang quản trị bài viết (Decap CMS). Hướng dẫn: docs/quan-tri-bai-viet.md
+backend:
+  name: github
+  repo: miyagitaisuki/imeji_newhorizon
+  branch: main
+  # Máy chủ đăng nhập GitHub (thư mục oauth/). Sửa thành địa chỉ thật sau khi tạo trên Render.
+  base_url: https://imeji-cms-auth.onrender.com
+  commit_messages:
+    create: "Bài viết mới: {{slug}}"
+    update: "Sửa bài: {{slug}}"
+    delete: "Xóa bài: {{slug}}"
+    uploadMedia: "Tải ảnh: {{path}}"
+    deleteMedia: "Xóa ảnh: {{path}}"
+
+# Chạy thử trên máy: `npm run cms` và `npm run dev`, rồi mở http://localhost:3000/admin/index.html
+local_backend: true
+
+locale: vi
+site_url: https://imejiquynhon.com
+display_url: https://imejiquynhon.com
+logo_url: /assets/brand/logo.png
+
+media_folder: public/assets/posts
+public_folder: /assets/posts
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: posts
+    label: Bài viết
+    label_singular: bài viết
+    description: >-
+      Bài viết hiện trên trang /posts/. Bật "Hiển thị trên web" để đăng; bài đang hiển thị và chưa đăng Facebook
+      sẽ được tự động đăng lên Facebook Page sau khi lưu.
+    folder: content/posts
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    preview_path: "posts/{{slug}}.html"
+    summary: "{{title}} · {{date | date('DD/MM/YYYY')}}{{publish | ternary('', ' · (nháp)')}}"
+    sortable_fields: ["date", "title"]
+    view_groups:
+      - label: Nhóm
+        field: category
+    fields:
+      - label: Tiêu đề
+        name: title
+        widget: string
+        hint: "Nên chứa từ khóa người học hay tìm, dưới 60 ký tự. Đường dẫn bài được tạo từ tiêu đề lúc tạo bài và không đổi về sau."
+      - label: Ngày đăng
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+      - label: Ngày cập nhật
+        name: updated
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        required: false
+        default: ""
+        hint: "Điền khi sửa nội dung đáng kể của bài đã đăng. Google sẽ thấy bài được cập nhật."
+      - label: Nhóm
+        name: category
+        widget: select
+        options:
+          - { label: "Tiếng Nhật N5", value: n5 }
+          - { label: "Tiếng Nhật N4", value: n4 }
+          - { label: "Tiếng Nhật N3", value: n3 }
+          - { label: "Phương pháp học", value: phuong-phap }
+      - label: Tóm tắt
+        name: summary
+        widget: text
+        hint: "1–2 câu, 120–155 ký tự. Hiện ở danh sách bài và trong bài đăng Facebook."
+      - label: Mô tả cho Google
+        name: description
+        widget: text
+        required: false
+        hint: "Để trống thì dùng phần tóm tắt."
+      - label: Ảnh đại diện
+        name: image
+        widget: image
+        required: false
+        choose_url: false
+        hint: "Ảnh JPG/PNG ngang, khoảng 1200×630. Dùng khi chia sẻ lên Facebook, Zalo."
+      - label: Hiển thị trên web
+        name: publish
+        widget: boolean
+        default: false
+        hint: "Tắt = bài nháp (không hiện trong danh sách, Google không lập chỉ mục)."
+      - label: Đã đăng Facebook
+        name: fb_posted
+        widget: boolean
+        default: false
+        hint: "Hệ thống tự bật sau khi đăng lên Facebook. Tắt lại nếu muốn đăng bài này lên Facebook lần nữa."
+      - label: Nội dung
+        name: body
+        widget: markdown
+        modes: ["rich_text", "raw"]
+        editor_components: ["image", "vidu", "ghichu"]

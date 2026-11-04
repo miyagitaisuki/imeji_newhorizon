@@ -26,35 +26,20 @@ Ghi chú theo mùa:
 
 ## Khung mỗi bài viết
 
-1. **Tiêu đề** chứa từ khóa chính, dưới 65 ký tự nếu được.
-2. **Mô tả** (`summary` trong `index.json`) 120–155 ký tự, có từ khóa, nói rõ người đọc sẽ nhận được gì.
+1. **Tiêu đề** chứa từ khóa chính, dưới 60 ký tự nếu được.
+2. **Tóm tắt** 120–155 ký tự, có từ khóa, nói rõ người đọc sẽ nhận được gì.
 3. **Mở bài** 2–3 câu trả lời thẳng câu hỏi của người tìm kiếm.
-4. **Thân bài** 800–1.200 chữ, chia mục bằng thẻ `<h2>`, có ví dụ tiếng Nhật kèm nghĩa (kiểu `.jp` / `.vi` như các bài hiện có).
+4. **Thân bài** 800–1.200 chữ, chia mục bằng tiêu đề mục (Heading 2), có khối **Ví dụ tiếng Nhật** kèm nghĩa.
 5. **Liên kết nội bộ**: ít nhất 1 liên kết tới trang khóa học trong cột "Liên kết tới" và 1 liên kết tới bài viết cũ liên quan.
-6. Khung **mời đăng ký** (`<div class="cta">`) ở cuối bài, chép từ bài hiện có.
-7. **Ảnh** (nếu có): JPG ngang, tỉ lệ khoảng 1200×630, để trong `public/assets/fb/`.
+6. **Ảnh đại diện** riêng cho từng bài: JPG ngang, khoảng 1200×630.
 
-Khi build, hệ thống **tự thêm**: canonical, dữ liệu Article và Breadcrumb cho Google, đường dẫn điều hướng, mục "Đọc tiếp" (bài liên quan cùng nhóm và trang khóa học), và đưa bài vào `sitemap.xml`.
+Khi build, hệ thống **tự thêm**: khung mời đăng ký học thử, tác giả và ngày, canonical, dữ liệu Article và Breadcrumb cho Google, đường dẫn điều hướng, mục "Đọc tiếp" (bài liên quan cùng nhóm và trang khóa học), và đưa bài vào `sitemap.xml`.
 
 ## Quy trình đăng
 
-1. Tạo `public/posts/<slug>.html`. Slug viết không dấu, có từ khóa, ví dụ `kinh-nghiem-thi-jlpt-n5`.
-2. Thêm vào `public/posts/index.json`:
-   ```json
-   {
-     "slug": "kinh-nghiem-thi-jlpt-n5",
-     "title": "Kinh nghiệm thi JLPT N5: cấu trúc đề, điểm đỗ và cách phân bổ thời gian",
-     "summary": "…",
-     "date": "2026-11-16",
-     "category": "n5",
-     "publish": false,
-     "fb_posted": false,
-     "image": "assets/fb/ten-anh.jpg"
-   }
-   ```
-   `category` là một trong: `n5`, `n4`, `n3`, `phuong-phap`.
-3. Thầy Quang duyệt nội dung, rồi đổi `publish` thành `true` và đưa lên `main`. Website cập nhật, và workflow tự đăng Facebook.
-4. Sau khi đăng: vào Google Search Console → **Kiểm tra URL** → dán link bài → **Yêu cầu lập chỉ mục**. Đăng thêm một "Cập nhật" trên Google Business Profile có link tới bài.
+1. Viết bài tại **https://imejiquynhon.com/admin/** (hướng dẫn chi tiết: `docs/quan-tri-bai-viet.md`). Để **Hiển thị trên web** tắt khi còn là bản nháp.
+2. Thầy Quang duyệt nội dung (bản nháp xem được ở `https://imejiquynhon.com/posts/<đường-dẫn>.html`, Google không lập chỉ mục), rồi bật **Hiển thị trên web** và bấm **Công bố ngay**. Website cập nhật, và bài được tự đăng lên Facebook.
+3. Sau khi đăng: vào Google Search Console → **Kiểm tra URL** → dán link bài → **Yêu cầu lập chỉ mục**. Đăng thêm một "Cập nhật" trên Google Business Profile có link tới bài.
 
 ## Đo hiệu quả (mỗi tháng)
 

@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/posts-lib.mjs",
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build": "node scripts/posts-lib.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
+    "cms": "npx --yes decap-server@3.11.5",
     "clean": "rm -rf dist dist-ssr",
+    "prelint": "node scripts/posts-lib.mjs",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
@@ -16,7 +19,9 @@
     "@vitejs/plugin-react": "^6.1.1",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^14.9.0",
+    "js-yaml": "5.4.3",
     "lucide-react": "^0.546.0",
+    "marked": "18.1.1",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "vite": "^8.3.0"

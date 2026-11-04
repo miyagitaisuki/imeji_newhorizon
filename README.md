@@ -7,12 +7,14 @@ Tài liệu vận hành trong thư mục `docs/`:
 - `docs/google-business-profile.md`: nội dung soạn sẵn cho Google Maps
 - `docs/lich-blog-12-tuan.md`: lịch bài viết theo từ khóa và quy trình đăng
 - `docs/quy-trinh-xin-danh-gia.md`: xin đánh giá Google từ học viên
+- `docs/quan-tri-bai-viet.md`: **trang quản trị `/admin/`** để viết, sửa bài, chèn ảnh (cài đặt và cách dùng)
 
 ## Phát triển
 
 - Cài đặt: `npm install`.
 - Chạy local: `npm run dev`.
-- Build: `npm run build` ra thư mục `dist/`. Build gồm 3 bước: bản cho trình duyệt, bản dựng HTML trên máy build, và `scripts/prerender.mjs` tạo **HTML dựng sẵn** cho từng trang (Google, Zalo, Facebook đọc được nội dung ngay, không cần chạy JavaScript), bổ sung SEO cho bài viết và sinh `sitemap.xml`, `robots.txt`.
+- Build: `npm run build` ra thư mục `dist/`. Build gồm 4 bước: `scripts/posts-lib.mjs` đọc bài viết tạo danh mục, bản cho trình duyệt, bản dựng HTML trên máy build, và `scripts/prerender.mjs` tạo **HTML dựng sẵn** cho từng trang (Google, Zalo, Facebook đọc được nội dung ngay, không cần chạy JavaScript), dựng trang bài viết từ Markdown và sinh `sitemap.xml`, `robots.txt`.
+- Sửa bài trên máy: `npm run cms` cùng lúc với `npm run dev`, mở `http://localhost:3000/admin/index.html`.
 
 ## Cấu trúc
 
@@ -23,15 +25,15 @@ Tài liệu vận hành trong thư mục `docs/`:
 - `src/data/courseDetails.ts`: nội dung chi tiết từng trang khóa học (`/khoa-hoc/n5/`, `/n4/`, `/n3/`).
 - `src/seo.ts`: tiêu đề, mô tả, dữ liệu có cấu trúc (JSON-LD) cho từng trang.
 - `src/router.tsx` và `src/pages/`: các trang. Thêm trang mới thì thêm vào cả `router.tsx` và `PAGES` trong `seo.ts`.
-- `src/data/posts.ts`: đọc `public/posts/index.json` lúc build, liệt kê các bài có `publish: true` (trang chủ hiện 4 bài mới nhất, `/posts/` hiện tất cả theo nhóm).
-- `public/posts/`: các bài viết dạng HTML và file `index.json` làm danh mục. Vite copy nguyên thư mục này vào `dist/`.
-- `.github/workflows/facebook-post.yml`: khi `public/posts/index.json` thay đổi, workflow đăng các bài có `publish: true` và `fb_posted: false` lên Facebook Page, rồi đánh dấu `fb_posted: true`.
+- `content/posts/*.md`: **bài viết** dạng Markdown, phần đầu file là thông tin bài (tiêu đề, ngày, nhóm, tóm tắt, ảnh, `publish`, `fb_posted`). Thường sửa qua trang quản trị `/admin/`.
+- `public/admin/`: trang quản trị Decap CMS (`config.yml` là cấu hình các ô nhập). `oauth/`: máy chủ đăng nhập GitHub cho trang quản trị (Render Web Service riêng).
+- `public/assets/post.css`: giao diện trang bài viết (dùng chung cho trang thật và khung xem trước trong `/admin/`). Ảnh bài viết: `public/assets/posts/`.
+- `src/data/posts.ts`: danh mục bài (sinh ra `src/generated/posts.json` lúc build), liệt kê các bài có `publish: true` (trang chủ hiện 4 bài mới nhất, `/posts/` hiện tất cả theo nhóm).
+- `.github/workflows/facebook-post.yml` + `scripts/facebook-post.mjs`: khi `content/posts/` thay đổi trên `main`, đăng các bài có `publish: true` và `fb_posted: false` lên Facebook Page, rồi đánh dấu `fb_posted: true` trong file bài.
 
 ## Thêm một bài mới
 
-1. Tạo file `public/posts/ten-bai.html`.
-2. Thêm mục vào `public/posts/index.json` với `category` (`n5`, `n4`, `n3` hoặc `phuong-phap`), `publish: true` và `fb_posted: false`. Chi tiết và khung bài viết: `docs/lich-blog-12-tuan.md`.
-3. Commit và push lên `main`.
+Vào **https://imejiquynhon.com/admin/** → **+ bài viết** (xem `docs/quan-tri-bai-viet.md`). Hoặc tạo tay file `content/posts/<duong-dan-khong-dau>.md` theo mẫu các bài có sẵn rồi đưa lên `main`.
 
 ## Form đăng ký -> Google Sheet
 
@@ -84,5 +86,5 @@ Form đăng ký gửi kèm nguồn truy cập (UTM và trang giới thiệu) v�
 
 ## Bài viết Facebook
 
-- Bài mới để `publish: false` cho đến khi bạn duyệt xong. Khi đổi thành `true` và đưa lên `main`, workflow sẽ đăng.
+- Bài mới để **Hiển thị trên web** tắt (`publish: false`) cho đến khi duyệt xong. Khi bật và lưu lên `main`, workflow sẽ đăng.
 - Nếu bài có `image`, workflow chờ đến khi ảnh truy cập được (tối đa 10 phút) rồi mới đăng, vì Render cần thời gian deploy.

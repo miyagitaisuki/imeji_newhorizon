@@ -1,6 +1,6 @@
-// Danh mục bài viết lấy trực tiếp từ public/posts/index.json lúc build,
+// Danh mục bài viết, sinh từ content/posts/*.md lúc build (scripts/posts-lib.mjs),
 // để danh sách bài có sẵn trong HTML dựng sẵn (tốt cho Google).
-import postsIndex from "../../public/posts/index.json";
+import postsIndex from "../generated/posts.json";
 
 export type PostCategory = "n5" | "n4" | "n3" | "phuong-phap";
 
@@ -9,13 +9,13 @@ export interface Post {
   title: string;
   summary: string;
   date: string;
+  updated?: string;
   publish: boolean;
   category?: string;
   image?: string;
 }
 
-export const CATEGORY_LABELS: Record<string, string> =
-  (postsIndex as { categories?: Record<string, string> }).categories ?? {};
+export const CATEGORY_LABELS: Record<string, string> = postsIndex.categories;
 
 export const PUBLISHED_POSTS: Post[] = (postsIndex.posts as Post[])
   .filter((p) => p.publish)

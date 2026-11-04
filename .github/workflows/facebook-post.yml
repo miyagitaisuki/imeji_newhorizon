@@ -1,10 +1,10 @@
-﻿name: Đăng bài lên Facebook Page
+name: Đăng bài lên Facebook Page
 
 on:
   push:
     branches: [main]
     paths:
-      - 'public/posts/index.json'
+      - 'content/posts/**'
   workflow_dispatch:
 
 permissions:
@@ -16,68 +16,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Cài thư viện
+        run: npm ci --ignore-scripts
+
       - name: Đăng các bài có publish=true và chưa đăng
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
           SITE_URL: ${{ vars.SITE_URL }}
+        run: node scripts/facebook-post.mjs
+
+      - name: Lưu trạng thái đã đăng
         run: |
-          set -euo pipefail
-          changed=0
-          slugs=$(jq -r '.posts[] | select(.publish==true and .fb_posted==false) | .slug' public/posts/index.json)
-          for slug in $slugs; do
-            title=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .title' public/posts/index.json)
-            summary=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .summary' public/posts/index.json)
-            link="${SITE_URL}/posts/${slug}.html"
-            image=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .image // empty' public/posts/index.json)
-            if [ -n "$image" ]; then
-              # Render cần vài phút để deploy commit mới. Chờ đến khi ảnh công khai trả về 200.
-              img_url="${SITE_URL}/${image}"
-              code=000
-              for i in $(seq 1 20); do
-                code=$(curl -sS -o /dev/null -w "%{http_code}" -L "$img_url" || echo 000)
-                [ "$code" = "200" ] && break
-                echo "Ảnh chưa sẵn sàng ($code), thử lại sau 30s (${i}/20): ${img_url}"
-                sleep 30
-              done
-              if [ "$code" != "200" ]; then
-                echo "Ảnh không truy cập được sau 10 phút: ${img_url}"
-                exit 1
-              fi
-              # Có ảnh: đăng ảnh kèm caption (ảnh phải là JPG/PNG, truy cập công khai qua SITE_URL)
-              resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/photos" \
-                --data-urlencode "url=${SITE_URL}/${image}" \
-                --data-urlencode "caption=${title}
-
-          ${summary}
-
-          ${link}" \
-                --data-urlencode "published=true" \
-                --data-urlencode "access_token=${FB_PAGE_TOKEN}")
-            else
-              resp=$(curl -sS -X POST "https://graph.facebook.com/v26.0/${FB_PAGE_ID}/feed" \
-                --data-urlencode "message=${title}
-
-          ${summary}" \
-                --data-urlencode "link=${link}" \
-                --data-urlencode "access_token=${FB_PAGE_TOKEN}")
-            fi
-            if ! echo "$resp" | jq -e '.id' >/dev/null 2>&1; then
-              echo "Lỗi khi đăng bài ${slug}: $(echo "$resp" | jq -r '.error.message // "không rõ"')"
-              exit 1
-            fi
-            jq --arg s "$slug" '(.posts[] | select(.slug==$s) | .fb_posted) = true' public/posts/index.json > tmp.json
-            mv tmp.json public/posts/index.json
-            changed=1
-            echo "Đã đăng: ${slug}"
-          done
-
-          if [ "$changed" -eq 1 ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add public/posts/index.json
-            git commit -m "Cập nhật trạng thái đăng Facebook [skip ci]"
-            git push
-          else
-            echo "Không có bài mới cần đăng."
+          if git diff --quiet -- content/posts; then
+            echo "Không có thay đổi."
+            exit 0
           fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/posts
+          git commit -m "Cập nhật trạng thái đăng Facebook [skip ci]"
+          git pull --rebase
+          git push
