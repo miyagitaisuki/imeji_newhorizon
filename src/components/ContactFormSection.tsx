@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Send, Check, Phone, Mail, MapPin, MessageCircle, Globe, Copy, CheckCheck } from "lucide-react";
-import confetti from "canvas-confetti";
-import { getSource, trackEvent } from "../lib/analytics";
+import { Send, Check, Phone, Mail, MapPin, MessageCircle, Copy, CheckCheck } from "lucide-react";
+import { getSource, trackEvent, trackCall, trackZalo } from "../lib/analytics";
+import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, SCHEDULE_DAYS, useNextStartLabel } from "../data/siteInfo";
+import { PrivacyNotice } from "./PrivacyNotice";
 
 // URL web app của Google Apps Script (xem google-apps-script/README.md)
 const SHEET_ENDPOINT = import.meta.env.VITE_SHEET_ENDPOINT as string | undefined;
@@ -31,26 +32,42 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
+  const [consent, setConsent] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const startLabel = useNextStartLabel();
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!SHEET_ENDPOINT) {
-      setSubmitError("Chưa cấu hình nơi nhận thông tin. Vui lòng gọi trực tiếp 0868608647.");
+      setSubmitError(`Chưa cấu hình nơi nhận thông tin. Vui lòng gọi trực tiếp ${PHONE}.`);
+      return;
+    }
+    if (!consent) {
+      setSubmitError("Vui lòng đồng ý với chính sách bảo vệ dữ liệu cá nhân để gửi đăng ký.");
       return;
     }
 
     setSending(true);
     setSubmitError("");
     try {
-      // Apps Script không trả CORS header, nên gửi text/plain + no-cors.
-      // Phản hồi bị ẩn (opaque), nên chỉ biết là yêu cầu đã được gửi đi.
-      await fetch(SHEET_ENDPOINT, {
+      // Gửi text/plain để là "simple request" (không cần preflight). Apps Script trả JSON
+      // {ok: true} khi ghi Sheet thành công, nên ta đọc phản hồi để biết chắc đã lưu.
+      const res = await fetch(SHEET_ENDPOINT, {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ ...formData, source: getSource(), submittedAt: new Date().toISOString() }),
+        body: JSON.stringify({
+          ...formData,
+          consent: true,
+          source: getSource(),
+          submittedAt: new Date().toISOString(),
+        }),
       });
+      const result = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+      if (!res.ok || !result?.ok) throw new Error("save_failed");
     } catch {
-      setSubmitError("Không gửi được thông tin. Vui lòng kiểm tra mạng và thử lại, hoặc gọi 0868608647.");
+      setSubmitError(
+        `Chưa gửi được thông tin. Vui lòng thử lại, hoặc gọi/nhắn Zalo ${PHONE_DISPLAY} để được tư vấn ngay.`
+      );
       setSending(false);
       return;
     }
@@ -58,22 +75,22 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
     setFormSubmitted(true);
     trackEvent("generate_lead", { target_jlpt: formData.targetJlpt });
 
-    // Trigger celebratory confetti
-    try {
-      confetti({
-        particleCount: 70,
-        spread: 60,
-        origin: { y: 0.8 },
+    // Pháo giấy chúc mừng (nạp khi cần để trang ban đầu nhẹ hơn)
+    import("canvas-confetti")
+      .then(({ default: confetti }) => confetti({ particleCount: 70, spread: 60, origin: { y: 0.8 } }))
+      .catch(() => {
+        // trình duyệt không hỗ trợ canvas thì bỏ qua
       });
-    } catch {
-      // Ignore if canvas not supported
-    }
+  };
 
-    setTimeout(() => setFormSubmitted(false), 6000);
+  const handleNewSubmission = () => {
+    setFormData((prev) => ({ ...prev, fullName: "", phone: "", notes: "" }));
+    setConsent(false);
+    setFormSubmitted(false);
   };
 
   const handleCopyPhone = () => {
-    navigator.clipboard.writeText("0868608647");
+    navigator.clipboard.writeText(PHONE);
     setCopiedPhone(true);
     setTimeout(() => setCopiedPhone(false), 2000);
   };
@@ -84,14 +101,28 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
         {/* Left Form */}
         <div className="lg:col-span-7 glass-panel p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
-            <span>Tư vấn 1 - 1 miễn phí</span>
+            <span>{FREE_TRIAL} ・ Tư vấn 1 - 1</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
-            Đăng ký nhận lộ trình học
+            Đăng ký học thử miễn phí
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
-            Điền thông tin để được ThS. Nguyễn Thanh Quang tư vấn trực tiếp lộ trình học và xếp lớp phù hợp nhất với thời gian biểu của bạn.
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">
+            Điền thông tin để được ThS. Nguyễn Thanh Quang tư vấn lộ trình và xếp 2 buổi học thử miễn phí, phù hợp với thời gian biểu của bạn.
           </p>
+          <ul className="mb-6 space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li className="flex items-start gap-2">
+              <Check size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+              <span>Lịch học: {SCHEDULE_SHORT}, vào {SCHEDULE_DAYS}</span>
+            </li>
+            {startLabel && (
+              <li className="flex items-start gap-2">
+                <Check size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                <span>
+                  Khai giảng lớp tiếp theo: <strong className="text-slate-900 dark:text-white">{startLabel}</strong>
+                </span>
+              </li>
+            )}
+          </ul>
 
           {formSubmitted ? (
             <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center space-y-3 animate-fade-in">
@@ -107,13 +138,21 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               </p>
               <div className="pt-2">
                 <a
-                  href="https://zalo.me/0868608647"
+                  href={ZALO_URL}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackZalo("form_success")}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition"
                 >
                   <MessageCircle size={14} /> Nhắn tin Zalo trực tiếp ngay
                 </a>
+                <button
+                  type="button"
+                  onClick={handleNewSubmission}
+                  className="block mx-auto mt-3 text-xs text-emerald-800 dark:text-emerald-200 underline underline-offset-2"
+                >
+                  Đăng ký cho người khác
+                </button>
               </div>
             </div>
           ) : (
@@ -178,7 +217,6 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                     <option>JLPT N5</option>
                     <option>JLPT N4</option>
                     <option>JLPT N3</option>
-                    <option>JLPT N2</option>
                     <option>Giao tiếp làm việc</option>
                   </select>
                 </div>
@@ -190,11 +228,33 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="Ví dụ: Mình rảnh tối 2-4-6, muốn hỏi lớp học có kèm tài liệu Anki không..."
+                  placeholder="Ví dụ: Mình rảnh tối thứ 2-4-6, muốn hỏi lớp học có kèm tài liệu Anki không..."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition resize-none"
                 />
+              </div>
+
+              <div className="flex items-start gap-2.5 pt-1">
+                <input
+                  id="consent"
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 flex-shrink-0"
+                />
+                <label htmlFor="consent" className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Tôi đồng ý cho Lớp Tiếng Nhật Thầy Quang sử dụng thông tin trên để liên hệ tư vấn và xếp lớp, theo{" "}
+                  <button
+                    type="button"
+                    onClick={() => setPrivacyOpen(true)}
+                    className="text-primary-600 dark:text-primary-400 font-semibold underline underline-offset-2"
+                  >
+                    chính sách bảo vệ dữ liệu cá nhân
+                  </button>
+                  . <span className="text-red-500">*</span>
+                </label>
               </div>
 
               <button
@@ -203,7 +263,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 className="w-full mt-3 py-3.5 sm:py-4 rounded-2xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white font-bold text-sm transition shadow-lg shadow-primary-500/25 active:scale-[0.98] flex items-center justify-center gap-2 min-h-[48px]"
               >
                 <Send size={16} />
-                <span>{sending ? "Đang gửi..." : "Xác nhận gửi thông tin tư vấn"}</span>
+                <span>{sending ? "Đang gửi..." : "Gửi đăng ký học thử miễn phí"}</span>
               </button>
 
               {submitError && (
@@ -213,7 +273,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               )}
 
               <p className="text-[11px] text-slate-400 text-center">
-                🔒 Cam kết bảo mật thông tin cá nhân. Thầy Quang sẽ trực tiếp giải đáp mọi thắc mắc.
+                🔒 Thông tin chỉ dùng để tư vấn và xếp lớp, không chia sẻ cho bên thứ ba.
               </p>
             </form>
           )}
@@ -238,7 +298,8 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               {/* Phone */}
               <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
                 <a
-                  href="tel:0868608647"
+                  href={`tel:${PHONE}`}
+                  onClick={() => trackCall("contact_card")}
                   className="flex items-center gap-3 group flex-1"
                 >
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
@@ -247,7 +308,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   <div>
                     <p className="text-[11px] text-slate-400">Hotline / Zalo</p>
                     <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition">
-                      086 860 8647
+                      {PHONE_DISPLAY}
                     </p>
                   </div>
                 </a>
@@ -262,16 +323,16 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
               {/* Email */}
               <a
-                href="mailto:nguyenthanhquang@qnu.edu.vn"
+                href={`mailto:${EMAIL}`}
                 className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 hover:border-primary-500 transition group"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center flex-shrink-0">
                   <Mail size={18} />
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] text-slate-400">Email công vụ</p>
+                  <p className="text-[11px] text-slate-400">Email</p>
                   <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate group-hover:text-primary-600 transition">
-                    nguyenthanhquang@qnu.edu.vn
+                    {EMAIL}
                   </p>
                 </div>
               </a>
@@ -284,7 +345,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 <div>
                   <p className="text-[11px] text-slate-400">Địa chỉ lớp học</p>
                   <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    80 Võ Mười, Quy Nhơn, Bình Định
+                    {ADDRESS_FULL}
                   </p>
                 </div>
               </div>
@@ -293,15 +354,17 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
             {/* Quick 1-tap mobile action buttons */}
             <div className="grid grid-cols-2 gap-3 pt-2">
               <a
-                href="tel:0868608647"
+                href={`tel:${PHONE}`}
+                onClick={() => trackCall("contact_button")}
                 className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
               >
                 <Phone size={15} /> Gọi điện ngay
               </a>
               <a
-                href="https://zalo.me/0868608647"
+                href={ZALO_URL}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackZalo("contact_button")}
                 className="py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
               >
                 <MessageCircle size={15} /> Nhắn Zalo
@@ -310,6 +373,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
           </div>
         </div>
       </div>
+      <PrivacyNotice isOpen={privacyOpen} onClose={() => setPrivacyOpen(false)} />
     </section>
   );
 };

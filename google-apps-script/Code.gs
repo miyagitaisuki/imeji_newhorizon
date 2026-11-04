@@ -10,6 +10,7 @@ const HEADERS = [
   "Mục tiêu JLPT",
   "Ghi chú",
   "Nguồn",
+  "Đồng ý xử lý dữ liệu",
 ];
 
 function doPost(e) {
@@ -26,6 +27,7 @@ function doPost(e) {
       data.targetJlpt || "",
       data.notes || "",
       data.source || "",
+      data.consent === true ? "Đồng ý" : "",
     ]);
     notifyNewLead_(data);
     return json_({ ok: true });
@@ -67,6 +69,9 @@ function getOrCreateSheet_() {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
+  } else if (sheet.getLastColumn() < HEADERS.length) {
+    // Sheet tạo từ phiên bản cũ: bổ sung tiêu đề cho các cột mới
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
   return sheet;
 }

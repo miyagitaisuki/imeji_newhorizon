@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { MapPin, Navigation, ExternalLink, Eye, RotateCw } from "lucide-react";
+import { ADDRESS_FULL, MAP_DIRECTIONS_URL, MAP_EMBED_URL } from "../data/siteInfo";
 
 export const InteractiveMap: React.FC = () => {
   const [loadIframe, setLoadIframe] = useState(false);
 
-  const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=80+V%C3%B5+M%C6%B0%E1%BB%9Di%2C+Quy+Nh%C6%A1n%2C+B%C3%ACnh+%C4%90%E1%BB%8Bnh";
-  const embedSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.056262444983!2d109.215!3d13.775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6bf500000000%3A0x0!2zODAgVsO1IE3GsOG7nWksIE5nw7QgTcOieSwgUXV5IE5owqFuLCBCw6xuaCDEkOG7i25o!5e0!3m2!1svi!2svn!4v1710000000000!5m2!1svi!2svn";
+  const googleMapsUrl = MAP_DIRECTIONS_URL;
+  const embedSrc = MAP_EMBED_URL;
 
   return (
     <section className="relative w-full border-t border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/60 overflow-hidden">
@@ -17,11 +18,8 @@ export const InteractiveMap: React.FC = () => {
               <span>Vị trí lớp học</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
-              80 Võ Mười, Ngô Mây, Quy Nhơn
+              {ADDRESS_FULL}
             </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Cách Trường Đại học Quy Nhơn (QNU) chỉ 3 phút di chuyển, thuận tiện cho sinh viên & người đi làm
-            </p>
           </div>
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
@@ -75,7 +73,7 @@ export const InteractiveMap: React.FC = () => {
                     Lớp Học Tiếng Nhật Thầy Quang
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    80 Võ Mười, TP. Quy Nhơn, Bình Định (Khu vực trung tâm, an ninh, bãi đỗ xe rộng rãi)
+                    {ADDRESS_FULL}
                   </p>
                 </div>
 
@@ -85,7 +83,7 @@ export const InteractiveMap: React.FC = () => {
                     className="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-primary-500 text-slate-800 dark:text-slate-200 text-xs font-semibold shadow-sm transition flex items-center gap-2 active:scale-95"
                   >
                     <RotateCw size={14} />
-                    <span>Tải bản đồ tương tác (~2MB)</span>
+                    <span>Xem bản đồ</span>
                   </button>
 
                   <a
@@ -98,10 +96,6 @@ export const InteractiveMap: React.FC = () => {
                     <span>Mở ứng dụng chỉ đường</span>
                   </a>
                 </div>
-
-                <p className="text-[11px] text-slate-400">
-                  ⚡ Tính năng Smart Facade giúp tiết kiệm 2.5MB dữ liệu di động & tăng tốc độ tải trang 70%
-                </p>
               </div>
             </div>
           )}

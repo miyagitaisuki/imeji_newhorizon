@@ -1,46 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>Tiếng Nhật Thầy Quang Quy Nhơn</title>
-    <meta name="description" content="Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang. Tối ưu tốc độ tải trang và giao diện di động." />
-    <meta property="og:title" content="Tiếng Nhật Thầy Quang Quy Nhơn" />
-    <meta property="og:description" content="Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang. Tối ưu tốc độ tải trang và giao diện di động." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://imeji-newhorizon-1.onrender.com/assets/aistudio/hero.webp" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <!--head:start-->
+    <title>Tiếng Nhật Thầy Quang Quy Nhơn – Lớp JLPT N5, N4, N3</title>
+    <!--head:end-->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://zalo.me" />
-    <!-- Schema.org JSON-LD for Local Education Course -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Tiếng Nhật Thầy Quang Quy Nhơn",
-      "description": "Lớp học tiếng Nhật thực chiến từ N5 đến N2 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "80 Võ Mười",
-        "addressLocality": "Quy Nhơn",
-        "addressRegion": "Bình Định",
-        "addressCountry": "VN"
-      },
-      "telephone": "+84868608647",
-      "founder": {
-        "@type": "Person",
-        "name": "ThS. Nguyễn Thanh Quang",
-        "jobTitle": "Giảng viên tiếng Nhật"
-      }
-    }
+    <script>
+      // Gắn chế độ tối trước khi trang hiển thị để không bị nháy màu
+      try {
+        var t = localStorage.getItem("thayquang_theme");
+        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches))
+          document.documentElement.classList.add("dark");
+      } catch (e) {}
     </script>
   </head>
   <body class="antialiased selection:bg-blue-500 selection:text-white">
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

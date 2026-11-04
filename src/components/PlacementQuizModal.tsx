@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X, Sparkles, CheckCircle2, ArrowRight, RotateCcw } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
+import { FREE_TRIAL } from "../data/siteInfo";
 
 interface Props {
   isOpen: boolean;
@@ -35,7 +37,7 @@ const QUESTIONS: Question[] = [
       { label: "Thi lấy chứng chỉ chuẩn đầu ra đại học / du học", level: "Tùy chọn", target: "JLPT N4" },
       { label: "Ứng tuyển công ty Nhật hoặc làm việc với khách hàng Nhật", level: "Tùy chọn", target: "JLPT N3" },
       { label: "Phục vụ sở thích xem anime, manga, văn hóa Nhật", level: "Tùy chọn", target: "JLPT N5" },
-      { label: "Săn học bổng du học toàn phần tại Nhật Bản", level: "Tùy chọn", target: "JLPT N2" },
+      { label: "Săn học bổng du học tại Nhật Bản", level: "Tùy chọn", target: "JLPT N3" },
     ],
   },
 ];
@@ -44,6 +46,15 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ level: string; target: string }[]>([]);
   const [result, setResult] = useState<{ level: string; target: string; courseName: string; reason: string } | null>(null);
+
+  // Mỗi lần mở: bắt đầu lại từ câu 1 và ghi nhận sự kiện bắt đầu trắc nghiệm
+  useEffect(() => {
+    if (!isOpen) return;
+    setCurrentStep(0);
+    setSelectedAnswers([]);
+    setResult(null);
+    trackEvent("quiz_start");
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -73,6 +84,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
         reason = "Trình độ trung cấp chuyên sâu mở ra cơ hội làm việc tại doanh nghiệp Nhật Bản.";
       }
 
+      trackEvent("quiz_complete", { course: recommendedCourse, target_jlpt: recommendedTarget });
       setResult({
         level: recommendedLevel,
         target: recommendedTarget,
@@ -87,8 +99,10 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
       onSelectLevel(result.level, result.target);
       onClose();
       // Scroll smoothly to register form
+      // Trang nào cũng có form #register; nếu không có thì về form ở trang chủ
       const el = document.getElementById("register");
       if (el) el.scrollIntoView({ behavior: "smooth" });
+      else window.location.href = "/#register";
     }
   };
 
@@ -192,6 +206,10 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
                 <span className="text-slate-500">Học phí:</span>
                 <span className="font-bold text-slate-900 dark:text-white">900.000 VNĐ / tháng</span>
               </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Ưu đãi:</span>
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400">{FREE_TRIAL}</span>
+              </div>
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
@@ -199,7 +217,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
                 onClick={handleApplyAndRegister}
                 className="w-full py-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition shadow-lg shadow-primary-500/25 active:scale-95 flex items-center justify-center gap-2"
               >
-                <span>Áp dụng vào Form & Đăng ký</span>
+                <span>Đăng ký học thử miễn phí</span>
                 <ArrowRight size={16} />
               </button>
 

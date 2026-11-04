@@ -88,7 +88,25 @@ export function initAnalytics() {
   }
 }
 
+// Sự kiện GA4 → sự kiện Meta Pixel tương ứng.
+// Sự kiện chuẩn của Meta dùng "track", sự kiện tự đặt dùng "trackCustom".
+const META_STANDARD: Record<string, string> = {
+  generate_lead: "Lead",
+  click_zalo: "Contact",
+  click_call: "Contact",
+};
+const META_CUSTOM: Record<string, string> = {
+  quiz_start: "QuizStart",
+  quiz_complete: "QuizComplete",
+};
+
 // Gửi sự kiện tới GA4 và Meta Pixel. Lỗi thì bỏ qua để không ảnh hưởng người dùng.
+// Các sự kiện đang dùng:
+//   generate_lead  – gửi form đăng ký thành công
+//   click_zalo     – bấm nút/đường dẫn Zalo (params.location: vị trí nút)
+//   click_call     – bấm gọi điện (params.location)
+//   quiz_start     – mở trắc nghiệm chọn lớp
+//   quiz_complete  – xem kết quả trắc nghiệm (params.course, params.target_jlpt)
 export function trackEvent(name: string, params: Dict = {}) {
   try {
     window.gtag?.("event", name, params);
@@ -96,10 +114,15 @@ export function trackEvent(name: string, params: Dict = {}) {
     // ignore
   }
   try {
-    if (name === "generate_lead") {
-      window.fbq?.("track", "Lead", params);
+    if (META_STANDARD[name]) {
+      window.fbq?.("track", META_STANDARD[name], params);
+    } else if (META_CUSTOM[name]) {
+      window.fbq?.("trackCustom", META_CUSTOM[name], params);
     }
   } catch {
     // ignore
   }
 }
+
+export const trackZalo = (location: string) => trackEvent("click_zalo", { location });
+export const trackCall = (location: string) => trackEvent("click_call", { location });

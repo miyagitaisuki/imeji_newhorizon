@@ -2,21 +2,14 @@
   "site_title": "Tiếng Nhật thầy Quang",
   "posts": [
     {
-      "slug": "bai-mau",
-      "title": "Bài viết mẫu",
-      "summary": "Đây là bài mẫu để kiểm tra quy trình đăng bài.",
-      "date": "2026-11-03",
-      "publish": false,
-      "fb_posted": false
-    },
-    {
       "slug": "ngu-phap-n5-te-kudasai",
       "title": "Ngữ pháp N5: Mẫu 〜てください (Hãy làm ... giúp tôi)",
       "summary": "Cách chia thể て và cách dùng mẫu 〜てください để nhờ ai đó làm gì một cách lịch sự, kèm ví dụ và dạng phủ định 〜ないでください.",
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "cach-nho-hiragana-theo-nhom",
@@ -25,7 +18,8 @@
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "katakana-de-nham",
@@ -34,7 +28,8 @@
       "date": "2026-11-03",
       "publish": false,
       "fb_posted": false,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "ba-loi-nguoi-moi-hay-mac",
@@ -43,7 +38,34 @@
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
+      "image": "assets/fb/hero.jpg",
+      "category": "phuong-phap"
+    },
+    {
+      "slug": "hoc-tieng-nhat-cho-nguoi-moi-bat-dau",
+      "title": "Học tiếng Nhật cho người mới bắt đầu: lộ trình 6 tháng từ con số 0 đến N5",
+      "summary": "Lộ trình 6 tháng cho người mới bắt đầu: học gì từng tháng, mỗi ngày học bao lâu để đạt trình độ N5.",
+      "date": "2026-11-09",
+      "category": "n5",
+      "publish": false,
+      "fb_posted": false,
+      "image": "assets/fb/hero.jpg"
+    },
+    {
+      "slug": "kinh-nghiem-thi-jlpt-n5",
+      "title": "Kinh nghiệm thi JLPT N5: cấu trúc đề, điểm đỗ và cách phân bổ thời gian",
+      "summary": "Cấu trúc đề JLPT N5, điểm đỗ, cách phân bổ thời gian từng phần và những gì cần chuẩn bị trước ngày thi.",
+      "date": "2026-11-16",
+      "category": "n5",
+      "publish": false,
+      "fb_posted": false,
       "image": "assets/fb/hero.jpg"
     }
-  ]
+  ],
+  "categories": {
+    "n5": "Tiếng Nhật N5",
+    "n4": "Tiếng Nhật N4",
+    "n3": "Tiếng Nhật N3",
+    "phuong-phap": "Phương pháp học"
+  }
 }
