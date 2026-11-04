@@ -12,17 +12,8 @@
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#2563eb" />
     <link rel="dns-prefetch" href="https://zalo.me" />
-    <script>
-      // Gắn chế độ tối trước khi trang hiển thị để không bị nháy màu
-      try {
-        var t = localStorage.getItem("thayquang_theme");
-        if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches))
-          document.documentElement.classList.add("dark");
-      } catch (e) {}
-    </script>
   </head>
   <body class="antialiased selection:bg-primary-500 selection:text-white">
     <div id="root"><!--app-html--></div>

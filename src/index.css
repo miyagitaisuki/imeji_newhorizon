@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 /*
  * Màu, font, bo góc, bóng, nền chấm và kính mờ lấy từ bộ quy chuẩn thương hiệu dùng chung với
  * trang luyện tập (imeji_dominion) và cổng học viên (eduscan): src/styles/imeji-brand.css.

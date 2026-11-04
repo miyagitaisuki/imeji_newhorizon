@@ -7,7 +7,7 @@ export interface Crumb {
 
 // Đường dẫn điều hướng hiển thị. Dữ liệu BreadcrumbList cho Google nằm trong src/seo.ts.
 export const Breadcrumbs: React.FC<{ items: Crumb[] }> = ({ items }) => (
-  <nav aria-label="Breadcrumb" className="text-xs text-slate-500 dark:text-slate-400">
+  <nav aria-label="Breadcrumb" className="text-xs text-slate-500">
     <ol className="flex flex-wrap items-center gap-1">
       {items.map((c, i) => (
         <li key={i} className="flex items-center gap-1">
@@ -17,7 +17,7 @@ export const Breadcrumbs: React.FC<{ items: Crumb[] }> = ({ items }) => (
               {c.name}
             </a>
           ) : (
-            <span aria-current="page" className="text-slate-700 dark:text-slate-200 font-medium">
+            <span aria-current="page" className="text-slate-700 font-medium">
               {c.name}
             </span>
           )}

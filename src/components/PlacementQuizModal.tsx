@@ -114,11 +114,11 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 bg-white overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
           aria-label="Đóng"
         >
           <X size={20} />
@@ -126,20 +126,20 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
 
         {!result ? (
           <div>
-            <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <div className="flex items-center gap-2 text-primary-600 text-xs font-semibold uppercase tracking-wider mb-2">
               <Sparkles size={16} />
               <span>Trắc nghiệm nhanh (30 giây)</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
               Khám phá khóa học phù hợp với bạn
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
+            <p className="text-xs text-slate-500 mb-6">
               Câu {currentStep + 1} / {QUESTIONS.length}: Chọn phương án miêu tả chính xác nhất tình trạng của bạn
             </p>
 
             {/* Question Card */}
             <div className="space-y-4">
-              <p className="font-semibold text-sm sm:text-base text-slate-800 dark:text-slate-100">
+              <p className="font-semibold text-sm sm:text-base text-slate-800">
                 {QUESTIONS[currentStep].question}
               </p>
 
@@ -148,9 +148,9 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
                   <button
                     key={idx}
                     onClick={() => handleSelectOption(opt)}
-                    className="w-full text-left p-3.5 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 hover:border-primary-500 hover:bg-primary-50/50 dark:hover:bg-primary-950/30 transition-all flex items-center justify-between group active:scale-[0.98]"
+                    className="w-full text-left p-3.5 sm:p-4 rounded-2xl border border-slate-200 hover:border-primary-500 hover:bg-primary-50/50 transition-all flex items-center justify-between group active:scale-[0.98]"
                   >
-                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 group-hover:text-primary-600">
                       {opt.label}
                     </span>
                     <ArrowRight size={16} className="text-slate-400 group-hover:text-primary-500 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-2" />
@@ -169,7 +169,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
                       ? "w-8 bg-primary-600"
                       : idx < currentStep
                       ? "w-4 bg-success-500"
-                      : "w-4 bg-slate-200 dark:bg-slate-700"
+                      : "w-4 bg-slate-200"
                   }`}
                 />
               ))}
@@ -177,38 +177,38 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
           </div>
         ) : (
           <div className="text-center py-2 space-y-5 animate-fade-in">
-            <div className="w-14 h-14 rounded-2xl bg-success-500/10 text-success-600 dark:text-success-400 flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 rounded-2xl bg-success-500/10 text-success-600 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} />
             </div>
 
             <div>
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-300 mb-2">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-700 mb-2">
                 Đề xuất dành riêng cho bạn
               </span>
-              <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+              <h3 className="text-2xl font-extrabold text-slate-900">
                 {result.courseName}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 max-w-sm mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-sm mx-auto leading-relaxed">
                 {result.reason}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-left text-xs space-y-1.5">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left text-xs space-y-1.5">
               <div className="flex justify-between">
                 <span className="text-slate-500">Trình độ hiện tại:</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{result.level}</span>
+                <span className="font-semibold text-slate-800">{result.level}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Mục tiêu đề xuất:</span>
-                <span className="font-semibold text-primary-600 dark:text-primary-400">{result.target}</span>
+                <span className="font-semibold text-primary-600">{result.target}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Học phí:</span>
-                <span className="font-bold text-slate-900 dark:text-white">900.000 VNĐ / tháng</span>
+                <span className="font-bold text-slate-900">900.000 VNĐ / tháng</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Ưu đãi:</span>
-                <span className="font-semibold text-success-600 dark:text-success-400">{FREE_TRIAL}</span>
+                <span className="font-semibold text-success-600">{FREE_TRIAL}</span>
               </div>
             </div>
 
@@ -223,7 +223,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
 
               <button
                 onClick={handleReset}
-                className="py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center gap-1.5"
+                className="py-3 px-4 rounded-xl border border-slate-200 text-slate-600 text-xs font-medium hover:bg-slate-100 flex items-center justify-center gap-1.5"
               >
                 <RotateCcw size={14} />
                 <span>Làm lại</span>

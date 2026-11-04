@@ -9,7 +9,7 @@ const dist = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
 const ssrEntry = fs.readdirSync(ssrDir).find((f) => /^entry-server\.(m?js)$/.test(f));
-const { render, PAGES, SITE_URL } = await import(pathToFileURL(path.join(ssrDir, ssrEntry)).href);
+const { render, renderPostChrome, PAGES, SITE_URL } = await import(pathToFileURL(path.join(ssrDir, ssrEntry)).href);
 
 const template = fs.readFileSync(path.join(dist, "index.html"), "utf-8");
 const HEAD_RE = /<!--head:start-->[\s\S]*?<!--head:end-->/;
@@ -37,13 +37,18 @@ const COURSE_LINKS = {
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const ld = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>`;
 
-const RELATED_CSS = `
-    .breadcrumb { font-size: 0.85rem; color: #64748b; margin: 0.5rem 0 1rem; }
-    .breadcrumb a { text-decoration: none; }
-    .related { border-top: 1px solid #cbd5e1; margin-top: 2rem; padding-top: 1rem; }
-    .related h2 { margin-top: 0.5rem; }
-    .related li { margin: 0.35rem 0; }
-  </style>`;
+// Bộ quy chuẩn thương hiệu cho các bài viết (post.css dùng các biến trong đó)
+fs.mkdirSync(path.join(dist, "assets", "brand"), { recursive: true });
+fs.copyFileSync(path.join(root, "src", "styles", "imeji-brand.css"), path.join(dist, "assets", "brand", "imeji-brand.css"));
+
+// Header (logo + thanh chuyển 3 app) và chân trang chung, bọc nội dung bài trong <main class="post-main">
+const chrome = renderPostChrome();
+function wrapPost(html) {
+  if (html.includes('class="post-main"')) return html;
+  return html
+    .replace(/<body>\s*/, `<body>\n  ${chrome.header}\n  <main class="post-main">\n  `)
+    .replace("</body>", `  </main>\n  ${chrome.footer}\n</body>`);
+}
 
 function relatedFor(post) {
   const others = published.filter((p) => p.slug !== post.slug);
@@ -63,7 +68,7 @@ for (const post of index.posts) {
   if (!post.publish) {
     // Bài nháp: không cho Google lập chỉ mục
     html = html.replace("<head>", '<head>\n  <meta name="robots" content="noindex">');
-    fs.writeFileSync(file, html);
+    fs.writeFileSync(file, wrapPost(html));
     continue;
   }
 
@@ -108,7 +113,6 @@ for (const post of index.posts) {
     .map((l) => `  ${l}`)
     .join("\n");
   html = html.replace("</head>", `${headExtra}\n</head>`);
-  html = html.replace(/\n  <\/style>/, RELATED_CSS);
 
   // Đường dẫn điều hướng hiển thị, thay cho liên kết "← Trang chủ"
   const crumbs = `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Trang chủ</a> › <a href="/posts/">Bài viết</a> › ${esc(catLabel)}</nav>`;
@@ -131,7 +135,7 @@ for (const post of index.posts) {
     ? html.replace('  <div class="cta">', `${block}  <div class="cta">`)
     : html.replace("</body>", `${block}</body>`);
 
-  fs.writeFileSync(file, html);
+  fs.writeFileSync(file, wrapPost(html));
   console.log(`Đã bổ sung SEO cho bài: ${post.slug}`);
 }
 

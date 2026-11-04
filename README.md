@@ -36,6 +36,8 @@ Màu, font, bo góc, bóng, nền chấm và thẻ kính mờ nằm trong `src/s
 
 Khi build, bước copy luyện tập cảnh báo nếu bản trong dominion khác bản gốc.
 
+Chỉ có giao diện sáng (đã bỏ chế độ tối) để 3 trang giống nhau. Header của website, trang luyện tập và cổng học viên đều có **thanh chuyển 3 app** (`.imeji-switch`, component `src/components/EcosystemSwitch.tsx`). Bài viết dùng `public/assets/brand/post.css`; header và chân trang của bài (`src/components/PostChrome.tsx`) được gắn lúc build.
+
 ## Thêm một bài mới
 
 1. Tạo file `public/posts/ten-bai.html`.

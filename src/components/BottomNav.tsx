@@ -11,11 +11,11 @@ interface Props {
 export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-1 pointer-events-none">
-      <div className="max-w-md mx-auto glass-panel rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 p-1.5 flex items-center justify-around pointer-events-auto backdrop-blur-xl">
+      <div className="max-w-md mx-auto glass-panel rounded-2xl shadow-2xl border border-slate-200/90 p-1.5 flex items-center justify-around pointer-events-auto backdrop-blur-xl">
         <a
           href={PRACTICE_URL}
           onClick={() => trackEcosystem("practice", "bottom_nav")}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 dark:text-primary-400 active:scale-90 transition"
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 active:scale-90 transition"
         >
           <Gamepad2 size={18} />
           <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Luyện tập</span>
@@ -24,7 +24,7 @@ export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
         {/* Level Quiz Button */}
         <button
           onClick={onOpenQuiz}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-warning-600 dark:text-warning-400 active:scale-90 transition relative"
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-warning-600 active:scale-90 transition relative"
         >
           <span className="absolute -top-1 right-1 w-2 h-2 rounded-full bg-warning-500 animate-ping" />
           <Sparkles size={18} />
@@ -35,7 +35,7 @@ export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
         <a
           href={PORTAL_URL}
           onClick={() => trackEcosystem("portal", "bottom_nav")}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 dark:text-primary-400 active:scale-90 transition"
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-primary-600 active:scale-90 transition"
         >
           <LogIn size={18} />
           <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Học viên</span>
