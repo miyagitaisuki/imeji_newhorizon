@@ -37,6 +37,14 @@ try {
       filter: (p) => !p.endsWith("tailwind.input.css"),
     });
   }
+  // Thêm /luyen-tap/ vào sitemap.xml (prerender.mjs đã sinh file này trước đó).
+  const sitemap = path.join(root, "dist", "sitemap.xml");
+  const siteUrl = process.env.SITE_URL ?? "https://imejiquynhon.com";
+  if (fs.existsSync(sitemap)) {
+    const xml = fs.readFileSync(sitemap, "utf-8");
+    const entry = `  <url><loc>${siteUrl}/luyen-tap/</loc></url>`;
+    if (!xml.includes("/luyen-tap/")) fs.writeFileSync(sitemap, xml.replace("</urlset>", `${entry}\n</urlset>`));
+  }
   console.log(`Đã copy luyện tập vào ${path.relative(root, out)}/`);
 } catch (err) {
   if (process.env.LUYEN_TAP_REQUIRED === "1") throw err;
