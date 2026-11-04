@@ -45,6 +45,16 @@ const RELATED_CSS = `
     .related li { margin: 0.35rem 0; }
   </style>`;
 
+const TITLE_MAX = 60;
+const TITLE_SUFFIX = " | Thầy Quang";
+function shortTitle(raw) {
+  const t = raw
+    .replace(/&amp;/g, "&")
+    .replace(/\s*[-–|]\s*Tiếng Nhật [Tt]hầy Quang\s*$/, "")
+    .trim();
+  return [...t].length + [...TITLE_SUFFIX].length <= TITLE_MAX ? t + TITLE_SUFFIX : t;
+}
+
 function relatedFor(post) {
   const others = published.filter((p) => p.slug !== post.slug);
   const same = others.filter((p) => p.category === post.category);
@@ -56,6 +66,10 @@ for (const post of index.posts) {
   const file = path.join(dist, "posts", `${post.slug}.html`);
   if (!fs.existsSync(file)) continue;
   let html = fs.readFileSync(file, "utf-8");
+
+  // Tiêu đề: bỏ đuôi " - Tiếng Nhật thầy Quang" (làm tiêu đề quá dài, Google cắt bớt).
+  // Chỉ thêm đuôi ngắn " | Thầy Quang" khi tổng độ dài vẫn trong 60 ký tự.
+  html = html.replace(/<title>([\s\S]*?)<\/title>/, (_, t) => `<title>${esc(shortTitle(t))}</title>`);
 
   // Đổi mọi link tuyệt đối sang tên miền chính thức
   html = html.replace(/https:\/\/imeji-newhorizon-1\.onrender\.com/g, SITE_URL);
@@ -81,7 +95,7 @@ for (const post of index.posts) {
     dateModified: post.updated ?? post.date,
     inLanguage: "vi",
     mainEntityOfPage: url,
-    author: { "@type": "Person", name: "ThS. Nguyễn Thanh Quang", url: `${SITE_URL}/#about` },
+    author: { "@type": "Person", "@id": `${SITE_URL}/giang-vien/#person`, name: "ThS. Nguyễn Thanh Quang", url: `${SITE_URL}/giang-vien/` },
     publisher: {
       "@type": "EducationalOrganization",
       name: "Tiếng Nhật Thầy Quang Quy Nhơn",
@@ -136,8 +150,10 @@ for (const post of index.posts) {
 }
 
 // ---------- 3. sitemap.xml ----------
+// Các trang React lấy ngày build làm ngày cập nhật (lastmod)
+const buildDate = new Date().toISOString().slice(0, 10);
 const urls = [
-  ...PAGES.map((p) => `  <url><loc>${SITE_URL}${p.path}</loc></url>`),
+  ...PAGES.map((p) => `  <url><loc>${SITE_URL}${p.path}</loc><lastmod>${buildDate}</lastmod></url>`),
   ...published.map(
     (p) => `  <url><loc>${SITE_URL}/posts/${p.slug}.html</loc><lastmod>${p.updated ?? p.date}</lastmod></url>`,
   ),

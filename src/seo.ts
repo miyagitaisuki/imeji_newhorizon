@@ -1,7 +1,8 @@
 // Thông tin SEO cho từng trang: tiêu đề, mô tả, canonical, ảnh chia sẻ và dữ liệu có cấu trúc (JSON-LD).
 // Dùng khi dựng sẵn HTML lúc build (scripts/prerender.mjs).
-import { COURSES } from "./data/courseData";
-import { COURSE_DETAILS } from "./data/courseDetails";
+import { COURSES, FAQS } from "./data/courseData";
+import { COURSE_DETAILS, courseFaqs } from "./data/courseDetails";
+import { TEACHER } from "./data/teacher";
 import {
   ADDRESS_STREET,
   ADDRESS_WARD,
@@ -22,6 +23,46 @@ export interface PageMeta {
 
 const OG_IMAGE = `${SITE_URL}/assets/brand/og-image.jpg`;
 const ORG_ID = `${SITE_URL}/#organization`;
+const TEACHER_URL = `${SITE_URL}/giang-vien/`;
+export const PERSON_ID = `${TEACHER_URL}#person`;
+
+// Thông tin giảng viên (schema.org/Person) – dùng làm tác giả bài viết, người sáng lập, giảng viên khóa học
+const person = {
+  "@type": "Person",
+  "@id": PERSON_ID,
+  name: TEACHER.name,
+  honorificPrefix: TEACHER.honorific,
+  jobTitle: TEACHER.jobTitle,
+  url: TEACHER_URL,
+  image: `${SITE_URL}${TEACHER.photo}`,
+  description: `${TEACHER.degree}, chứng chỉ ${TEACHER.jlpt}, giảng viên tiếng Nhật ${TEACHER.university.name}. ${TEACHER.yearsTeaching} kinh nghiệm giảng dạy.`,
+  worksFor: { "@type": "CollegeOrUniversity", name: TEACHER.university.name, url: TEACHER.university.url },
+  knowsLanguage: ["vi", "ja"],
+  knowsAbout: ["Tiếng Nhật", "JLPT", "Ngôn ngữ học", "Kanji", "Ngữ pháp tiếng Nhật"],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: TEACHER.jlpt,
+      credentialCategory: "certificate",
+      recognizedBy: { "@type": "Organization", name: "Japan Foundation" },
+    },
+    { "@type": "EducationalOccupationalCredential", name: TEACHER.degree, credentialCategory: "degree" },
+  ],
+  ...(TEACHER.sameAs.length ? { sameAs: TEACHER.sameAs } : {}),
+};
+
+// Câu hỏi thường gặp (FAQPage). Nội dung phải trùng với phần hiển thị trên trang.
+function faqLd(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
 
 const address = {
   "@type": "PostalAddress",
@@ -43,7 +84,7 @@ const organization = {
   address,
   telephone: "+84" + PHONE.slice(1),
   email: EMAIL,
-  founder: { "@type": "Person", name: "ThS. Nguyễn Thanh Quang", jobTitle: "Giảng viên tiếng Nhật" },
+  founder: { "@type": "Person", "@id": PERSON_ID, name: TEACHER.fullTitle, url: TEACHER_URL },
 };
 
 export function breadcrumbLd(items: { name: string; path: string }[]) {
@@ -92,7 +133,7 @@ function courseLd(id: (typeof COURSES)[number]["id"]) {
           byDay: ["https://schema.org/Monday", "https://schema.org/Wednesday", "https://schema.org/Friday"],
         },
         courseWorkload: `P${d.months}M`,
-        instructor: [{ "@type": "Person", name: "ThS. Nguyễn Thanh Quang" }],
+        instructor: [{ "@id": PERSON_ID, "@type": "Person", name: TEACHER.fullTitle }],
       },
     ],
   };
@@ -101,12 +142,13 @@ function courseLd(id: (typeof COURSES)[number]["id"]) {
 export const PAGES: PageMeta[] = [
   {
     path: "/",
-    title: "Tiếng Nhật Thầy Quang Quy Nhơn – Lớp JLPT N5, N4, N3",
+    title: "Học tiếng Nhật tại Quy Nhơn – Lớp N5, N4, N3 | Thầy Quang (JLPT N1)",
     description:
       "Lớp học tiếng Nhật thực chiến từ N5 đến N3 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang (JLPT N1). Sĩ số dưới 6 bạn, học thử miễn phí 2 buổi.",
     jsonLd: [
       organization,
       { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: `${SITE_URL}/`, inLanguage: "vi" },
+      faqLd(FAQS),
     ],
   },
   ...COURSES.map((c) => ({
@@ -115,6 +157,7 @@ export const PAGES: PageMeta[] = [
     description: COURSE_DETAILS[c.id].metaDescription,
     jsonLd: [
       courseLd(c.id),
+      faqLd(courseFaqs(c.id)),
       breadcrumbLd([
         { name: "Trang chủ", path: "/" },
         { name: "Khóa học", path: "/#courses" },
@@ -122,6 +165,24 @@ export const PAGES: PageMeta[] = [
       ]),
     ],
   })),
+  {
+    path: "/giang-vien/",
+    title: `${TEACHER.fullTitle} – Giảng viên tiếng Nhật JLPT N1`,
+    description: `${TEACHER.fullTitle}: ${TEACHER.degree.toLowerCase()}, ${TEACHER.jlpt}, giảng viên tiếng Nhật ${TEACHER.university.name}, ${TEACHER.yearsTeaching.toLowerCase()} kinh nghiệm. Trực tiếp dạy các lớp N5, N4, N3 tại Quy Nhơn.`,
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        url: TEACHER_URL,
+        inLanguage: "vi",
+        mainEntity: person,
+      },
+      breadcrumbLd([
+        { name: "Trang chủ", path: "/" },
+        { name: "Giảng viên", path: "/giang-vien/" },
+      ]),
+    ],
+  },
   {
     path: "/posts/",
     title: "Bài viết học tiếng Nhật N5, N4, N3 | Tiếng Nhật Thầy Quang",

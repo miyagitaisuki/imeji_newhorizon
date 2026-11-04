@@ -70,7 +70,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
 
       {/* Desktop Nav Items */}
       <nav className={`hidden lg:flex items-center gap-6 text-sm font-medium ${scrolled ? "text-slate-600 dark:text-slate-300" : "text-white/90"}`}>
-        <a href={`${base}#about`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        <a href="/giang-vien/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
           Giảng viên
         </a>
         <a href={`${base}#features`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -137,7 +137,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         >
           <a
             onClick={() => setMobileMenuOpen(false)}
-            href={`${base}#about`}
+            href="/giang-vien/"
             className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
           >
             Giảng viên phụ trách

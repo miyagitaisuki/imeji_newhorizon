@@ -9,7 +9,24 @@ export interface CourseData {
   features: string[];
 }
 
-import { COMMITMENT_DETAIL, ADDRESS_FULL, SCHEDULE_DAYS, FREE_TRIAL } from "./siteInfo";
+import {
+  COMMITMENT_DETAIL,
+  ADDRESS_FULL,
+  SCHEDULE_DAYS,
+  FREE_TRIAL,
+  MONTHLY_FEE,
+  MAP_DIRECTIONS_URL,
+  formatVnd,
+} from "./siteInfo";
+
+// Một câu hỏi thường gặp. `a` là câu trả lời đầy đủ (cũng dùng cho dữ liệu FAQPage của Google);
+// `link` / `action` là nút bấm thêm hiển thị dưới câu trả lời.
+export interface Faq {
+  q: string;
+  a: string;
+  link?: { href: string; label: string };
+  action?: "quiz";
+}
 
 export const COURSES: CourseData[] = [
   {
@@ -92,7 +109,7 @@ export const ROADMAP_STEPS = [
   },
 ];
 
-export const FAQS = [
+export const FAQS: Faq[] = [
   {
     q: "Người chưa biết gì về tiếng Nhật có học được không?",
     a: "Hoàn toàn có thể. Khóa N5 được thiết kế chuyên biệt cho người bắt đầu từ con số 0. Thầy sẽ hướng dẫn bạn từ cách cầm bút viết chữ cái Hiragana, Katakana đến quy tắc ghép âm chuẩn xác.",
@@ -116,5 +133,20 @@ export const FAQS = [
   {
     q: "Học liệu của lớp gồm những gì?",
     a: "Tài liệu tự biên soạn, bộ flashcard Anki, đề thi JLPT thử có đáp án chi tiết và bài luyện nghe theo từng giai đoạn của khóa học.",
+  },
+  {
+    q: "Học phí học tiếng Nhật ở lớp thầy Quang bao nhiêu?",
+    a: `Học phí là ${formatVnd(MONTHLY_FEE)} VNĐ/tháng, áp dụng chung cho cả 3 khóa N5, N4, N3, đã gồm tài liệu, flashcard Anki và đề thi thử. Bạn được ${FREE_TRIAL.toLowerCase()} trước khi quyết định đóng học phí.`,
+    link: { href: "#pricing", label: "Xem chi tiết học phí" },
+  },
+  {
+    q: "Lớp học tiếng Nhật của thầy Quang ở đâu tại Quy Nhơn?",
+    a: `Lớp học trực tiếp tại ${ADDRESS_FULL}. Bạn có thể mở bản đồ để xem đường đi hoặc nhắn Zalo để được hướng dẫn.`,
+    link: { href: MAP_DIRECTIONS_URL, label: "Mở Google Maps chỉ đường" },
+  },
+  {
+    q: "Nên bắt đầu từ khóa N5, N4 hay N3?",
+    a: "Chưa biết tiếng Nhật hoặc mới học bảng chữ cái: bắt đầu từ khóa N5. Đã học xong 25 bài Minna no Nihongo hoặc có N5: học khóa N4. Đã có N4 và muốn đi làm, du học: học khóa N3. Nếu chưa chắc, hãy làm bài trắc nghiệm chọn lớp 30 giây hoặc đăng ký học thử để thầy kiểm tra trình độ.",
+    action: "quiz",
   },
 ];

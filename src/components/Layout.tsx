@@ -33,7 +33,9 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="space-y-1.5">
               <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</p>
-              <p>ThS. Nguyễn Thanh Quang</p>
+              <p>
+                <a href="/giang-vien/" className="hover:text-primary-600">ThS. Nguyễn Thanh Quang</a>
+              </p>
               <p>{ADDRESS_FULL}</p>
               <p>
                 <a href={`tel:${PHONE}`} className="hover:text-primary-600">{PHONE_DISPLAY}</a> ・{" "}

@@ -30,6 +30,10 @@ export const SCHEDULE_SHORT = "2–3 buổi/tuần ・ 90 phút/buổi";
 export const SCHEDULE_DAYS = "Thứ 2, Thứ 4 hoặc Thứ 6";
 export const FREE_TRIAL = "Học thử miễn phí 2 buổi";
 
+// Học phí mỗi tháng (VNĐ), dùng chung cho mọi khóa
+export const MONTHLY_FEE = 900000;
+export const formatVnd = (n: number) => n.toLocaleString("vi-VN");
+
 // Ngày khai giảng lớp tiếp theo (YYYY-MM-DD). Sau ngày này trang tự chuyển sang
 // "Liên hệ để biết lịch khai giảng", nên nhớ cập nhật khi mở lớp mới.
 export const NEXT_START_DATE = "2026-11-16";

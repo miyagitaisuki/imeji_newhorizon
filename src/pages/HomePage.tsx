@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Award,
   BookOpen,
   CalendarDays,
   Check,
-  ChevronDown,
   Flame,
   GraduationCap,
   Layers,
@@ -18,6 +15,7 @@ import {
 
 import { ROADMAP_STEPS, FAQS } from "../data/courseData";
 import { CourseSection } from "../components/CourseSection";
+import { FaqList } from "../components/FaqList";
 import { InteractiveMap } from "../components/InteractiveMap";
 import { ContactFormSection } from "../components/ContactFormSection";
 import { PostsSection } from "../components/PostsSection";
@@ -29,6 +27,9 @@ import {
   SCHEDULE_DAYS,
   COMMITMENT_TITLE,
   COMMITMENT_DETAIL,
+  ADDRESS_FULL,
+  MONTHLY_FEE,
+  formatVnd,
   useNextStartLabel,
 } from "../data/siteInfo";
 
@@ -45,7 +46,6 @@ export default function HomePage() {
 
 function HomeContent({ form }: { form: Form }) {
   const openQuiz = useOpenQuiz();
-  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const startLabel = useNextStartLabel();
 
   return (
@@ -256,6 +256,54 @@ function HomeContent({ form }: { form: Form }) {
       </div>
     </section>
 
+
+    {/* =========================================================================
+        GIỚI THIỆU NGẮN: học tiếng Nhật tại Quy Nhơn (nội dung chính cho từ khóa địa phương)
+    ========================================================================= */}
+    <section id="gioi-thieu" className="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white text-center">
+        Học tiếng Nhật tại Quy Nhơn cùng Thầy Quang
+      </h2>
+      <div className="w-12 h-1 bg-primary-600 rounded-full mx-auto mt-4 mb-8" />
+      <div className="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        <p>
+          Lớp tiếng Nhật Thầy Quang là lớp học trực tiếp tại <strong>{ADDRESS_FULL}</strong>, do{" "}
+          <a href="/giang-vien/" className="font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+            ThS. Nguyễn Thanh Quang
+          </a>{" "}
+          – giảng viên Trường Đại học Quy Nhơn, thạc sĩ Ngôn ngữ học, chứng chỉ JLPT N1 – trực tiếp giảng dạy. Lớp
+          phù hợp với học sinh, sinh viên và người đi làm ở Quy Nhơn muốn học tiếng Nhật bài bản để thi JLPT, du học
+          hoặc làm việc với doanh nghiệp Nhật.
+        </p>
+        <p>Chương trình gồm 3 cấp độ nối tiếp nhau:</p>
+        <ul className="list-disc pl-5 space-y-1.5">
+          <li>
+            <a href="/khoa-hoc/n5/" className="font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+              Khóa N5 cho người mới bắt đầu
+            </a>{" "}
+            (6 tháng): bảng chữ cái Hiragana, Katakana, 25 bài Minna no Nihongo đầu tiên và luyện thi JLPT N5.
+          </li>
+          <li>
+            <a href="/khoa-hoc/n4/" className="font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+              Khóa N4 luyện thi JLPT N4
+            </a>{" "}
+            (6 tháng): 25 bài sơ cấp tiếp theo, khoảng 300 chữ Kanji, luyện nghe và đọc hiểu.
+          </li>
+          <li>
+            <a href="/khoa-hoc/n3/" className="font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+              Khóa luyện thi JLPT N3
+            </a>{" "}
+            (9 tháng): ngữ pháp, Kanji trung cấp và kỹ năng làm bài để đi làm hoặc du học Nhật Bản.
+          </li>
+        </ul>
+        <p>
+          Mỗi lớp dưới 6 học viên, học {SCHEDULE_SHORT} vào {SCHEDULE_DAYS}. Học phí {formatVnd(MONTHLY_FEE)}{" "}
+          VNĐ/tháng, đã gồm tài liệu, flashcard Anki và đề thi thử. Bạn được {FREE_TRIAL.toLowerCase()} để làm quen
+          với lớp trước khi quyết định.
+        </p>
+      </div>
+    </section>
+
     {/* =========================================================================
         SECTION 3: GIỚI THIỆU GIẢNG VIÊN
     ========================================================================= */}
@@ -307,6 +355,12 @@ function HomeContent({ form }: { form: Form }) {
               # Thạc sĩ Ngôn ngữ học
             </span>
           </div>
+          <a
+            href="/giang-vien/"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline"
+          >
+            Xem hồ sơ đầy đủ của giảng viên →
+          </a>
         </div>
 
         <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
@@ -532,7 +586,7 @@ function HomeContent({ form }: { form: Form }) {
         <div className="absolute inset-0 -z-10 opacity-10 dark:opacity-15 pointer-events-none overflow-hidden">
           <img
             src="/assets/aistudio/hero.webp" loading="lazy"
-            alt="Cloud background"
+            alt=""
             className="w-full h-full object-cover object-center filter blur-[1px]"
           />
         </div>
@@ -599,39 +653,7 @@ function HomeContent({ form }: { form: Form }) {
           </h2>
         </div>
 
-        <div className="space-y-3.5">
-          {FAQS.map((faq, idx) => (
-            <div
-              key={idx}
-              className="glass-panel rounded-2xl overflow-hidden transition-colors border border-slate-200 dark:border-slate-800"
-            >
-              <button
-                onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                className="w-full px-5 sm:px-6 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 dark:text-white min-h-[48px]"
-              >
-                <span>{faq.q}</span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform duration-200 text-slate-400 flex-shrink-0 ${
-                    activeFaq === idx ? "rotate-180 text-primary-500" : ""
-                  }`}
-                />
-              </button>
-              <AnimatePresence>
-                {activeFaq === idx && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="px-5 sm:px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3"
-                  >
-                    {faq.a}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
+        <FaqList items={FAQS} />
       </div>
     </section>
 

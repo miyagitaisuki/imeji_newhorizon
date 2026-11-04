@@ -1,6 +1,6 @@
 # Tiếng Nhật thầy Quang
 
-Website lớp tiếng Nhật tại Quy Nhơn: trang chủ, 3 trang khóa học (N5, N4, N3), trang danh sách bài viết và các bài viết. Tên miền chính thức: **https://imejiquynhon.com**. Hosted miễn phí trên Render dạng Static Site.
+Website lớp tiếng Nhật tại Quy Nhơn: trang chủ, 3 trang khóa học (N5, N4, N3), trang giảng viên (`/giang-vien/`), trang danh sách bài viết và các bài viết. Tên miền chính thức: **https://imejiquynhon.com**. Hosted miễn phí trên Render dạng Static Site.
 
 Tài liệu vận hành trong thư mục `docs/`:
 - `docs/cau-hinh-ten-mien.md`: DNS cho website và email, Search Console
@@ -17,7 +17,8 @@ Tài liệu vận hành trong thư mục `docs/`:
 ## Cấu trúc
 
 - `src/data/siteInfo.ts`: **thông tin hay thay đổi** — số điện thoại, Zalo, email, địa chỉ, bản đồ, lịch học, ngày khai giảng, nội dung cam kết đầu ra. Sửa ở đây là cập nhật toàn trang.
-- `src/data/courseData.ts`: các khóa học, lộ trình, câu hỏi thường gặp.
+- `src/data/courseData.ts`: các khóa học, lộ trình, câu hỏi thường gặp của trang chủ (`FAQS`).
+- `src/data/teacher.ts`: thông tin giảng viên cho trang `/giang-vien/` và dữ liệu Person. Thêm link hồ sơ (trang trường, Facebook…) vào `sameAs`.
 - `src/`: landing page (React + Vite + Tailwind).
 - `src/data/courseDetails.ts`: nội dung chi tiết từng trang khóa học (`/khoa-hoc/n5/`, `/n4/`, `/n3/`).
 - `src/seo.ts`: tiêu đề, mô tả, dữ liệu có cấu trúc (JSON-LD) cho từng trang.
@@ -43,8 +44,10 @@ Sửa `NEXT_START_DATE` trong `src/data/siteInfo.ts` (dạng `YYYY-MM-DD`). Sau 
 ## SEO
 
 - Favicon (`public/favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png`) và ảnh chia sẻ `public/assets/brand/og-image.jpg` (1200×630).
-- Mỗi trang có canonical, Open Graph và JSON-LD (EducationalOrganization, Course, BreadcrumbList, CollectionPage). Bài viết được thêm Article + BreadcrumbList, đường dẫn điều hướng và mục "Đọc tiếp" khi build. Bài `publish: false` được gắn `noindex`.
-- `sitemap.xml` và `robots.txt` được sinh tự động khi build.
+- Mỗi trang có canonical, Open Graph và JSON-LD (EducationalOrganization, Course, FAQPage, ProfilePage/Person, BreadcrumbList, CollectionPage). Bài viết được thêm Article (tác giả trỏ tới `/giang-vien/`) + BreadcrumbList, đường dẫn điều hướng và mục "Đọc tiếp" khi build. Bài `publish: false` được gắn `noindex`.
+- FAQPage lấy đúng nội dung câu hỏi hiển thị trên trang (`FAQS` và `courseFaqs()` trong `src/data/courseDetails.ts`, gồm 2 câu học phí và lịch học tự sinh). Câu trả lời luôn có sẵn trong HTML, chỉ ẩn bằng CSS khi đóng.
+- Tiêu đề bài viết: khi build, đuôi " - Tiếng Nhật thầy Quang" được bỏ; đuôi ngắn " | Thầy Quang" chỉ được thêm khi tiêu đề vẫn ≤ 60 ký tự.
+- `sitemap.xml` (có `lastmod`: ngày build cho các trang, ngày `updated`/`date` cho bài viết) và `robots.txt` được sinh tự động khi build.
 - Đổi tên miền: sửa `SITE_URL` trong `src/data/siteInfo.ts`.
 
 ## Cấu hình Render

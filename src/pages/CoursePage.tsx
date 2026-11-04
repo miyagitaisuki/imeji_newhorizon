@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
   CalendarDays,
   Check,
-  ChevronDown,
   Clock,
   Gift,
   ShieldCheck,
@@ -20,20 +17,21 @@ import { ContactFormSection } from "../components/ContactFormSection";
 import { InteractiveMap } from "../components/InteractiveMap";
 import { useRegistrationForm } from "../hooks/useRegistrationForm";
 import { COURSES, type CourseData } from "../data/courseData";
-import { COURSE_DETAILS } from "../data/courseDetails";
+import { COURSE_DETAILS, courseFaqs } from "../data/courseDetails";
+import { FaqList } from "../components/FaqList";
 import { PUBLISHED_POSTS, postUrl } from "../data/posts";
 import {
   ADDRESS_FULL,
   COMMITMENT_DETAIL,
   COMMITMENT_TITLE,
   FREE_TRIAL,
+  MONTHLY_FEE,
+  formatVnd,
   SCHEDULE_DAYS,
   SCHEDULE_SHORT,
   useNextStartLabel,
 } from "../data/siteInfo";
 
-const formatVnd = (n: number) => n.toLocaleString("vi-VN");
-const MONTHLY_FEE = 900000;
 
 export default function CoursePage({ courseId }: { courseId: CourseData["id"] }) {
   const course = COURSES.find((c) => c.id === courseId)!;
@@ -49,7 +47,6 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
   const d = COURSE_DETAILS[course.id];
   const openQuiz = useOpenQuiz();
   const startLabel = useNextStartLabel();
-  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const otherCourses = COURSES.filter((c) => c.id !== course.id);
   const relatedPosts = PUBLISHED_POSTS.filter((p) => p.category === course.id).slice(0, 3);
 
@@ -211,31 +208,8 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
         {/* FAQ riêng của khóa */}
         <section>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Câu hỏi thường gặp về {course.title}</h2>
-          <div className="mt-5 space-y-3">
-            {d.faqs.map((faq, idx) => (
-              <div key={faq.q} className="glass-panel rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
-                <button
-                  onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  aria-expanded={activeFaq === idx}
-                  className="w-full px-5 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 dark:text-white"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown size={18} className={`transition-transform text-slate-400 flex-shrink-0 ${activeFaq === idx ? "rotate-180" : ""}`} />
-                </button>
-                <AnimatePresence initial={false}>
-                  {activeFaq === idx && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="px-5 pb-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed"
-                    >
-                      {faq.a}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+          <div className="mt-5">
+            <FaqList items={courseFaqs(course.id)} compact />
           </div>
         </section>
 

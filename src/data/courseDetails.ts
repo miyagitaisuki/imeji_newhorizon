@@ -3,6 +3,7 @@
 // Khi thay đổi chương trình học, sửa nội dung ở đây.
 
 import type { CourseData } from "./courseData";
+import { ADDRESS_FULL, FREE_TRIAL, MONTHLY_FEE, SCHEDULE_DAYS, SCHEDULE_SHORT, formatVnd } from "./siteInfo";
 
 export interface CoursePhase {
   period: string;
@@ -300,3 +301,21 @@ export const COURSE_DETAILS: Record<CourseData["id"], CourseDetail> = {
     ],
   },
 };
+
+// Câu hỏi thường gặp đầy đủ của một khóa: các câu viết riêng ở trên + 2 câu về học phí và lịch học
+// (sinh từ dữ liệu chung nên luôn khớp khi đổi học phí hoặc lịch). Dùng cho cả trang và dữ liệu FAQPage.
+export function courseFaqs(id: CourseData["id"]): { q: string; a: string }[] {
+  const d = COURSE_DETAILS[id];
+  const level = d.jlpt.level;
+  return [
+    ...d.faqs,
+    {
+      q: `Học phí khóa ${level} tổng cộng bao nhiêu?`,
+      a: `Học phí là ${formatVnd(MONTHLY_FEE)} VNĐ/tháng. Khóa ${level} kéo dài ${d.months} tháng nên tổng học phí cả khóa là ${formatVnd(MONTHLY_FEE * d.months)} VNĐ, đã gồm tài liệu, flashcard Anki và đề thi thử, không phát sinh chi phí giáo trình. Bạn được ${FREE_TRIAL.toLowerCase()} trước khi đóng học phí.`,
+    },
+    {
+      q: `Lớp ${level} học vào những ngày nào?`,
+      a: `Lớp học ${SCHEDULE_SHORT}, vào ${SCHEDULE_DAYS}, học trực tiếp tại ${ADDRESS_FULL}. Giờ học cụ thể được xếp theo thời gian biểu của học viên khi tư vấn qua form đăng ký hoặc Zalo.`,
+    },
+  ];
+}
