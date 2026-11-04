@@ -71,7 +71,7 @@ function HomeContent({ form }: { form: Form }) {
         />
         {/* Subtle overlay that lets the sky and clouds shine through while providing a smooth transition */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-50/40 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

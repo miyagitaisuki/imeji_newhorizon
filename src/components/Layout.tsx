@@ -24,12 +24,14 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
 
   return (
     <QuizContext.Provider value={openQuiz}>
-      <div className="relative isolate min-h-screen bg-japanese-pattern text-slate-800 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
+      <div className="relative isolate min-h-screen text-slate-800 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
+        {/* Nền mây cố định phía sau toàn trang, giống màn hình đăng nhập và trang luyện tập */}
+        <div aria-hidden="true" className="site-cloud-bg" />
         <SiteHeader isHome={isHome} onOpenQuiz={openQuiz} />
 
         <main>{children}</main>
 
-        <footer className="py-10 bg-white border-t border-slate-200 text-xs text-slate-500">
+        <footer className="py-10 bg-white/70 backdrop-blur-md border-t border-slate-200/70 text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="space-y-1.5">
               <p className="font-semibold text-sm text-slate-800">IMEJI日本語教室</p>
