@@ -60,7 +60,7 @@ export const InteractiveMap: React.FC = () => {
               referrerPolicy="no-referrer-when-downgrade"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-slate-100 via-blue-50/40 to-slate-200 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-slate-100 via-primary-50/40 to-slate-200 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
               {/* Simulated Map vector background */}
               <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
 
@@ -102,7 +102,7 @@ export const InteractiveMap: React.FC = () => {
 
           {/* Floating badge */}
           <div className="absolute bottom-4 left-4 glass-panel px-3.5 py-2 rounded-xl shadow-md text-xs font-medium text-slate-800 dark:text-slate-100 pointer-events-none flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-success-500 animate-pulse" />
             <span>Phòng học trực tiếp máy lạnh tiêu chuẩn</span>
           </div>
         </div>

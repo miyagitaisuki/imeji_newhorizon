@@ -262,9 +262,9 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
                 setMobileMenuOpen(false);
                 onOpenQuiz();
               }}
-              className="py-2.5 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 font-semibold text-xs flex items-center justify-center gap-1.5"
+              className="py-2.5 rounded-xl border border-warning-300 dark:border-warning-700 bg-warning-50 dark:bg-warning-950/40 text-warning-800 dark:text-warning-200 font-semibold text-xs flex items-center justify-center gap-1.5"
             >
-              <Sparkles size={14} className="text-amber-500" />
+              <Sparkles size={14} className="text-warning-500" />
               <span>Trắc nghiệm kiểm tra trình độ (30 giây)</span>
             </button>
           </div>

@@ -79,12 +79,12 @@ function HomeContent({ form }: { form: Form }) {
           {/* Left Content (Glass Panel ensures 100% text contrast in both light & dark modes) */}
           <div className="lg:col-span-7 p-6 sm:p-9 rounded-3xl border border-white/25 shadow-2xl space-y-6 text-center lg:text-left backdrop-blur-xl bg-slate-900/25 text-white">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
-                <Sparkles size={14} className="text-amber-500" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary-50/95 dark:bg-primary-950/80 text-primary-700 dark:text-primary-300 border border-primary-200/90 dark:border-primary-900/60 shadow-sm">
+                <Sparkles size={14} className="text-warning-500" />
                 <span>IMEJI日本語教室 ・ Lớp học tiếng Nhật thầy Quang</span>
               </div>
               {startLabel && (
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-400 text-slate-900 shadow-sm">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-warning-400 text-slate-900 shadow-sm">
                   <CalendarDays size={14} />
                   <span>Khai giảng {startLabel}</span>
                 </div>
@@ -93,7 +93,7 @@ function HomeContent({ form }: { form: Form }) {
 
             <h1 className="text-balance text-3xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight leading-[1.18] text-white">
               Học tiếng Nhật thực chiến{" "}
-              <span className="whitespace-nowrap bg-gradient-to-r from-sky-300 via-primary-400 to-sky-300 bg-clip-text text-transparent">
+              <span className="whitespace-nowrap bg-gradient-to-r from-primary-300 via-primary-400 to-primary-300 bg-clip-text text-transparent">
                 từ N5 đến N3
               </span>{" "}
               tại Quy Nhơn
@@ -117,7 +117,7 @@ function HomeContent({ form }: { form: Form }) {
                 onClick={openQuiz}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/90 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm border border-slate-200/90 dark:border-slate-700 transition flex items-center justify-center gap-2 active:scale-95 shadow-sm"
               >
-                <Sparkles size={16} className="text-amber-500" />
+                <Sparkles size={16} className="text-warning-500" />
                 <span>Trắc nghiệm chọn lớp 30s</span>
               </button>
             </div>
@@ -125,16 +125,16 @@ function HomeContent({ form }: { form: Form }) {
             {/* Trust Indicators */}
             <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {FREE_TRIAL}
+                <Check size={15} className="text-success-600 dark:text-success-400 flex-shrink-0" /> {FREE_TRIAL}
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số dưới 6 bạn
+                <Check size={15} className="text-success-600 dark:text-success-400 flex-shrink-0" /> Sĩ số dưới 6 bạn
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
+                <Check size={15} className="text-success-600 dark:text-success-400 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {COMMITMENT_TITLE}
+                <Check size={15} className="text-success-600 dark:text-success-400 flex-shrink-0" /> {COMMITMENT_TITLE}
               </span>
             </div>
           </div>
@@ -168,8 +168,8 @@ function HomeContent({ form }: { form: Form }) {
                 </div>
 
                 <div className="w-full text-white text-left">
-                  <p className="text-[11px] font-semibold tracking-wider uppercase text-sky-300 flex items-center gap-1.5">
-                    <Sparkles size={12} className="text-amber-300" />
+                  <p className="text-[11px] font-semibold tracking-wider uppercase text-primary-300 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-warning-300" />
                     <span>Giảng viên phụ trách</span>
                   </p>
                   <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight mt-0.5 text-white">
@@ -178,7 +178,7 @@ function HomeContent({ form }: { form: Form }) {
                   <p className="text-xs text-slate-200 mt-0.5">
                     Giảng viên Trường Đại học Quy Nhơn (QNU)
                   </p>
-                  <p className="text-[11px] text-amber-200 mt-1 italic font-medium">
+                  <p className="text-[11px] text-warning-200 mt-1 italic font-medium">
                     “Thực chiến JLPT N5 - N3 ・ Tận tâm đồng hành”
                   </p>
                 </div>
@@ -187,7 +187,7 @@ function HomeContent({ form }: { form: Form }) {
 
             {/* Floating Badges (GPU CSS transformed, mobile safe) */}
             <div className="absolute -top-3 -left-2 sm:-left-6 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <div className="p-1.5 rounded-lg bg-success-500/10 text-success-600 dark:text-success-400">
                 <GraduationCap size={16} />
               </div>
               <div>
@@ -207,7 +207,7 @@ function HomeContent({ form }: { form: Form }) {
             </div>
 
             <div className="absolute -bottom-3 -left-2 sm:left-4 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90">
-              <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              <div className="p-1.5 rounded-lg bg-warning-500/10 text-warning-600 dark:text-warning-400">
                 <Flame size={16} />
               </div>
               <div>
@@ -303,13 +303,13 @@ function HomeContent({ form }: { form: Form }) {
           </p>
 
           <div className="pt-2 flex flex-wrap gap-2.5">
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
               # Trường Đại học Quy Nhơn (QNU)
             </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
               # JLPT N1 Holder
             </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
               # Thạc sĩ Ngôn ngữ học
             </span>
           </div>
@@ -542,7 +542,7 @@ function HomeContent({ form }: { form: Form }) {
                 "Tài liệu số hóa PDF bản quyền",
               ].map((feat, i) => (
                 <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-success-500/10 text-success-600 dark:text-success-400 flex items-center justify-center flex-shrink-0">
                     <Check size={13} />
                   </div>
                   <span>{feat}</span>
@@ -591,7 +591,7 @@ function HomeContent({ form }: { form: Form }) {
             FREE_TRIAL + " trước khi đóng học phí",
           ].map((perk, i) => (
             <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-              <Check size={16} className="text-emerald-500 flex-shrink-0" />
+              <Check size={16} className="text-success-500 flex-shrink-0" />
               <span>{perk}</span>
             </div>
           ))}

@@ -35,12 +35,12 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
             <CalendarDays size={13} className="text-primary-600 dark:text-primary-400" />
             {SCHEDULE_SHORT} ・ {scheduleDays}
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-success-50 dark:bg-success-950/40 border border-success-200 dark:border-success-800 text-success-800 dark:text-success-200">
             <Gift size={13} />
             {FREE_TRIAL}
           </span>
           {startLabel && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-warning-50 dark:bg-warning-950/40 border border-warning-200 dark:border-warning-800 text-warning-800 dark:text-warning-200">
               Khai giảng: {startLabel}
             </span>
           )}
@@ -109,7 +109,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
             key={course.id}
             className={`glass-panel rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative ${
               course.highlight
-                ? "border-2 border-primary-500 shadow-xl bg-gradient-to-b from-white to-blue-50/40 dark:from-slate-900 dark:to-blue-950/20 md:-translate-y-2"
+                ? "border-2 border-primary-500 shadow-xl bg-gradient-to-b from-white to-primary-50/40 dark:from-slate-900 dark:to-primary-950/20 md:-translate-y-2"
                 : "border-slate-200 dark:border-slate-800 hover:border-primary-400"
             }`}
           >
@@ -126,7 +126,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
                   className={`px-3 py-1 rounded-full text-xs font-semibold ${
                     course.highlight
                       ? "bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300"
-                      : "bg-blue-100 dark:bg-blue-900/50 text-primary-700 dark:text-primary-300"
+                      : "bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300"
                   }`}
                 >
                   {course.tag}

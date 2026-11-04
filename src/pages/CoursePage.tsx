@@ -66,7 +66,7 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
   return (
     <>
       {/* Phần mở đầu */}
-      <section className="pt-28 pb-12 bg-gradient-to-b from-blue-50/80 to-transparent dark:from-slate-900/80">
+      <section className="pt-28 pb-12 bg-gradient-to-b from-primary-50/80 to-transparent dark:from-slate-900/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[{ name: "Trang chủ", href: "/" }, { name: "Khóa học", href: "/#courses" }, { name: course.title }]}
@@ -108,7 +108,7 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
               onClick={openQuiz}
               className="px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold text-sm inline-flex items-center justify-center gap-2"
             >
-              <Sparkles size={16} className="text-amber-500" /> Chưa chắc trình độ? Làm trắc nghiệm 30s
+              <Sparkles size={16} className="text-warning-500" /> Chưa chắc trình độ? Làm trắc nghiệm 30s
             </button>
           </div>
         </div>
@@ -124,7 +124,7 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
             <ul className="mt-4 space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
               {d.forWhom.map((x) => (
                 <li key={x} className="flex gap-2.5">
-                  <Check size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                  <Check size={16} className="text-success-500 flex-shrink-0 mt-0.5" />
                   <span>{x}</span>
                 </li>
               ))}
@@ -137,7 +137,7 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
             <ul className="mt-4 space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
               {d.outcomes.map((x) => (
                 <li key={x} className="flex gap-2.5">
-                  <Check size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                  <Check size={16} className="text-success-500 flex-shrink-0 mt-0.5" />
                   <span>{x}</span>
                 </li>
               ))}
@@ -191,7 +191,7 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
             <ul className="mt-4 space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
               {d.materials.map((x) => (
                 <li key={x} className="flex gap-2.5">
-                  <Check size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                  <Check size={16} className="text-success-500 flex-shrink-0 mt-0.5" />
                   <span>{x}</span>
                 </li>
               ))}

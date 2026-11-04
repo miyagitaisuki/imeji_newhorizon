@@ -156,12 +156,12 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
           </p>
           <ul className="mb-6 space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             <li className="flex items-start gap-2">
-              <Check size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+              <Check size={15} className="text-success-500 flex-shrink-0 mt-0.5" />
               <span>Lịch học: {SCHEDULE_SHORT}, vào {scheduleDays}</span>
             </li>
             {startLabel && (
               <li className="flex items-start gap-2">
-                <Check size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                <Check size={15} className="text-success-500 flex-shrink-0 mt-0.5" />
                 <span>
                   Khai giảng lớp tiếp theo: <strong className="text-slate-900 dark:text-white">{startLabel}</strong>
                 </span>
@@ -170,14 +170,14 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
           </ul>
 
           {formSubmitted ? (
-            <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center space-y-3 animate-fade-in">
-              <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-md">
+            <div className="p-6 sm:p-8 rounded-2xl bg-success-50 dark:bg-success-950/40 border border-success-200 dark:border-success-800 text-center space-y-3 animate-fade-in">
+              <div className="w-12 h-12 rounded-full bg-success-500 text-white flex items-center justify-center mx-auto shadow-md">
                 <Check size={28} />
               </div>
-              <h4 className="font-bold text-emerald-900 dark:text-emerald-100 text-base sm:text-lg">
+              <h4 className="font-bold text-success-900 dark:text-success-100 text-base sm:text-lg">
                 Gửi thông tin thành công!
               </h4>
-              <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 max-w-sm mx-auto">
+              <p className="text-xs sm:text-sm text-success-700 dark:text-success-300 max-w-sm mx-auto">
                 Cảm ơn bạn {formData.fullName || "bạn"}! Thầy Quang sẽ chủ động liên hệ qua Zalo / số điện thoại{" "}
                 <span className="font-bold">{formData.phone}</span> để tư vấn lớp trong vòng 24 giờ.
               </p>
@@ -187,14 +187,14 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackZalo("form_success")}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-success-600 text-white text-xs font-semibold hover:bg-success-700 transition"
                 >
                   <MessageCircle size={14} /> Nhắn tin Zalo trực tiếp ngay
                 </a>
                 <button
                   type="button"
                   onClick={handleNewSubmission}
-                  className="block mx-auto mt-3 text-xs text-emerald-800 dark:text-emerald-200 underline underline-offset-2"
+                  className="block mx-auto mt-3 text-xs text-success-800 dark:text-success-200 underline underline-offset-2"
                 >
                   Đăng ký cho người khác
                 </button>
@@ -210,7 +210,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Họ và tên của bạn <span className="text-red-500">*</span>
+                  Họ và tên của bạn <span className="text-danger-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -225,7 +225,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Số điện thoại / Zalo nhận tư vấn <span className="text-red-500">*</span>
+                  Số điện thoại / Zalo nhận tư vấn <span className="text-danger-500">*</span>
                 </label>
                 <input
                   type="tel"
@@ -304,7 +304,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   >
                     chính sách bảo vệ dữ liệu cá nhân
                   </button>
-                  . <span className="text-red-500">*</span>
+                  . <span className="text-danger-500">*</span>
                 </label>
               </div>
 
@@ -318,7 +318,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               </button>
 
               {submitError && (
-                <p role="alert" className="text-xs text-red-600 dark:text-red-400 text-center">
+                <p role="alert" className="text-xs text-danger-600 dark:text-danger-400 text-center">
                   {submitError}
                 </p>
               )}
@@ -353,7 +353,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   onClick={() => trackCall("contact_card")}
                   className="flex items-center gap-3 group flex-1"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-success-500/10 text-success-600 dark:text-success-400 flex items-center justify-center flex-shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
@@ -368,7 +368,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition"
                   title="Sao chép số điện thoại"
                 >
-                  {copiedPhone ? <CheckCheck size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                  {copiedPhone ? <CheckCheck size={16} className="text-success-500" /> : <Copy size={16} />}
                 </button>
               </div>
 
@@ -390,7 +390,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
               {/* Address */}
               <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-warning-500/10 text-warning-600 dark:text-warning-400 flex items-center justify-center flex-shrink-0">
                   <MapPin size={18} />
                 </div>
                 <div>
@@ -407,7 +407,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               <a
                 href={`tel:${PHONE}`}
                 onClick={() => trackCall("contact_button")}
-                className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
+                className="py-3 px-4 rounded-xl bg-success-600 hover:bg-success-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
               >
                 <Phone size={15} /> Gọi điện ngay
               </a>
@@ -416,7 +416,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackZalo("contact_button")}
-                className="py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
+                className="py-3 px-4 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
               >
                 <MessageCircle size={15} /> Nhắn Zalo
               </a>

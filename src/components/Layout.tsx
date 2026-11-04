@@ -69,7 +69,7 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
             rel="noreferrer"
             onClick={() => trackZalo("floating_button")}
             aria-label="Nhắn tin Zalo với Thầy Quang"
-            className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
+            className="w-14 h-14 rounded-full bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
           >
             <MessageCircle size={24} />
           </a>

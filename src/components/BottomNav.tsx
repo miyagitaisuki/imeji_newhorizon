@@ -24,9 +24,9 @@ export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
         {/* Level Quiz Button */}
         <button
           onClick={onOpenQuiz}
-          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-amber-600 dark:text-amber-400 active:scale-90 transition relative"
+          className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-warning-600 dark:text-warning-400 active:scale-90 transition relative"
         >
-          <span className="absolute -top-1 right-1 w-2 h-2 rounded-full bg-amber-500 animate-ping" />
+          <span className="absolute -top-1 right-1 w-2 h-2 rounded-full bg-warning-500 animate-ping" />
           <Sparkles size={18} />
           <span className="text-[10px] font-bold mt-0.5 whitespace-nowrap">Test trình độ</span>
         </button>

@@ -168,7 +168,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
                     idx === currentStep
                       ? "w-8 bg-primary-600"
                       : idx < currentStep
-                      ? "w-4 bg-emerald-500"
+                      ? "w-4 bg-success-500"
                       : "w-4 bg-slate-200 dark:bg-slate-700"
                   }`}
                 />
@@ -177,7 +177,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
           </div>
         ) : (
           <div className="text-center py-2 space-y-5 animate-fade-in">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 rounded-2xl bg-success-500/10 text-success-600 dark:text-success-400 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} />
             </div>
 
@@ -208,7 +208,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Ưu đãi:</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400">{FREE_TRIAL}</span>
+                <span className="font-semibold text-success-600 dark:text-success-400">{FREE_TRIAL}</span>
               </div>
             </div>
 
