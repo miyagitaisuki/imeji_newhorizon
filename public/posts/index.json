@@ -60,6 +60,14 @@
       "publish": false,
       "fb_posted": false,
       "image": "assets/fb/hero.jpg"
+    },
+    {
+      "slug": "van-hoa-coi-giay-o-genkan",
+      "title": "Văn hóa Nhật: Vì sao người Nhật cởi giày ở lối vào?",
+      "summary": "Lối vào genkan, cách dùng dép khi vào nhà và hai câu chào quen thuộc: お邪魔します khi vào, お邪魔しました khi ra về.",
+      "date": "2026-11-04",
+      "publish": true,
+      "fb_posted": false
     }
   ],
   "categories": {
