@@ -34,7 +34,7 @@ Tài liệu vận hành trong thư mục `docs/`:
 
 ## Form đăng ký -> Google Sheet
 
-Xem [google-apps-script/README.md](google-apps-script/README.md). Cần biến môi trường `VITE_SHEET_ENDPOINT` (URL web app Apps Script) khi build.
+Form gửi đăng ký vào **eduscan** (`VITE_LEADS_ENDPOINT`, VD `https://app.imejiquynhon.com/api/leads/public`; eduscan cần `CORS_ORIGIN=https://imejiquynhon.com`). Nếu eduscan lỗi mạng/máy chủ hoặc chưa cấu hình, form ghi vào **Google Sheet** (`VITE_SHEET_ENDPOINT`) để không mất đăng ký; xem [google-apps-script/README.md](google-apps-script/README.md). Lỗi dữ liệu (số điện thoại sai…) thì hiện thông báo của eduscan, không ghi sang Sheet. Cần ít nhất một trong hai biến khi build.
 
 ## Cập nhật ngày khai giảng
 

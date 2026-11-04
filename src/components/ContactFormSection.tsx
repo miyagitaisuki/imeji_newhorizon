@@ -4,8 +4,46 @@ import { getSource, trackEvent, trackCall, trackZalo } from "../lib/analytics";
 import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, SCHEDULE_DAYS, useNextStartLabel } from "../data/siteInfo";
 import { PrivacyNotice } from "./PrivacyNotice";
 
-// URL web app của Google Apps Script (xem google-apps-script/README.md)
+// Nơi nhận đăng ký chính: API của eduscan (VD https://app.imejiquynhon.com/api/leads/public)
+const LEADS_ENDPOINT = import.meta.env.VITE_LEADS_ENDPOINT as string | undefined;
+// Dự phòng: URL web app của Google Apps Script (xem google-apps-script/README.md)
 const SHEET_ENDPOINT = import.meta.env.VITE_SHEET_ENDPOINT as string | undefined;
+
+type SendResult = "ok" | "retry" | { error: string };
+
+// Gửi lên eduscan. Lỗi mạng hoặc máy chủ (5xx) thì "retry" để dùng đường dự phòng;
+// lỗi do dữ liệu (4xx) thì trả thông báo của máy chủ, không ghi sang đường dự phòng.
+async function sendToEduscan(url: string, payload: Record<string, unknown>): Promise<SendResult> {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+    if (res.ok && result?.ok) return "ok";
+    if (res.status >= 400 && res.status < 500 && result?.error) return { error: result.error };
+    return "retry";
+  } catch {
+    return "retry";
+  }
+}
+
+// Gửi text/plain để là "simple request" (không cần preflight). Apps Script trả JSON
+// {ok: true} khi ghi Sheet thành công, nên ta đọc phản hồi để biết chắc đã lưu.
+async function sendToSheet(url: string, payload: Record<string, unknown>): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+    });
+    const result = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+    return res.ok && !!result?.ok;
+  } catch {
+    return false;
+  }
+}
 
 interface Props {
   formData: {
@@ -33,12 +71,14 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
   const [submitError, setSubmitError] = useState("");
 
   const [consent, setConsent] = useState(false);
+  // Ô bẫy bot: người thật không thấy nên để trống
+  const [website, setWebsite] = useState("");
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const startLabel = useNextStartLabel();
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!SHEET_ENDPOINT) {
+    if (!LEADS_ENDPOINT && !SHEET_ENDPOINT) {
       setSubmitError(`Chưa cấu hình nơi nhận thông tin. Vui lòng gọi trực tiếp ${PHONE}.`);
       return;
     }
@@ -49,22 +89,26 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
     setSending(true);
     setSubmitError("");
-    try {
-      // Gửi text/plain để là "simple request" (không cần preflight). Apps Script trả JSON
-      // {ok: true} khi ghi Sheet thành công, nên ta đọc phản hồi để biết chắc đã lưu.
-      const res = await fetch(SHEET_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          ...formData,
-          consent: true,
-          source: getSource(),
-          submittedAt: new Date().toISOString(),
-        }),
-      });
-      const result = (await res.json().catch(() => null)) as { ok?: boolean } | null;
-      if (!res.ok || !result?.ok) throw new Error("save_failed");
-    } catch {
+    const payload = {
+      ...formData,
+      consent: true,
+      source: getSource(),
+      submittedAt: new Date().toISOString(),
+    };
+
+    let saved = false;
+    if (LEADS_ENDPOINT) {
+      const r = await sendToEduscan(LEADS_ENDPOINT, { ...payload, website });
+      if (r === "ok") saved = true;
+      else if (r !== "retry") {
+        setSubmitError(r.error);
+        setSending(false);
+        return;
+      }
+    }
+    // Chưa lưu được vào eduscan (hoặc chưa cấu hình): ghi vào Google Sheet để không mất đăng ký
+    if (!saved && SHEET_ENDPOINT) saved = await sendToSheet(SHEET_ENDPOINT, payload);
+    if (!saved) {
       setSubmitError(
         `Chưa gửi được thông tin. Vui lòng thử lại, hoặc gọi/nhắn Zalo ${PHONE_DISPLAY} để được tư vấn ngay.`
       );
@@ -157,6 +201,12 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
             </div>
           ) : (
             <form onSubmit={handleFormSubmit} className="space-y-4">
+              <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                <label>
+                  Website
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+                </label>
+              </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   Họ và tên của bạn <span className="text-red-500">*</span>
