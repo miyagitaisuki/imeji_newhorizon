@@ -270,6 +270,11 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="/luyen-tap/" className="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:underline">
+                  Luyện tập miễn phí theo bài Minna no Nihongo →
+                </a>
+              </li>
             </ul>
             <p className="mt-3 text-xs text-slate-500">Địa điểm học: {ADDRESS_FULL}</p>
           </div>
