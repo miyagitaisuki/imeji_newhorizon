@@ -63,7 +63,8 @@ jobs:
                 --data-urlencode "access_token=${FB_PAGE_TOKEN}")
             fi
             if ! echo "$resp" | jq -e '.id' >/dev/null 2>&1; then
-              echo "Lỗi khi đăng bài ${slug}: $(echo "$resp" | jq -r '.error.message // "không rõ"')"
+              echo "Lỗi khi đăng bài ${slug}: $(echo "$resp" | jq -r '.error.message // "không rõ"' 2>/dev/null || echo "không rõ")"
+              echo "Phản hồi thô từ Facebook: ${resp:-<rỗng>}"
               exit 1
             fi
             jq --arg s "$slug" '(.posts[] | select(.slug==$s) | .fb_posted) = true' public/posts/index.json > tmp.json
