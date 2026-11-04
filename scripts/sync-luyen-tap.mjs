@@ -40,7 +40,7 @@ try {
   fs.mkdirSync(out, { recursive: true });
   // Danh sách thư mục cần chép. Thêm thư mục mới của dominion vào đây, nếu không site sẽ 404.
   // "slides" và "flashcards" có thể chưa tồn tại: bỏ qua nếu thiếu, kiểm tra tham chiếu ở bước dưới.
-  const items = ["index.html", "minna", "nhap-mon", "n2", "data", "assets", "slides", "flashcards"];
+  const items = ["index.html", "minna", "nhap-mon", "n2", "data", "assets", "slides", "flashcards", "games"];
   for (const item of items) {
     const from = path.join(src, item);
     if (!fs.existsSync(from)) {
