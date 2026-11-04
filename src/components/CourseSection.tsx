@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Clock, Check, Sparkles, ArrowRight, BookOpen, CalendarDays, Gift } from "lucide-react";
 import { COURSES, CourseData } from "../data/courseData";
-import { SCHEDULE_SHORT, SCHEDULE_DAYS, FREE_TRIAL, nextStartLabel } from "../data/siteInfo";
+import { SCHEDULE_SHORT, SCHEDULE_DAYS, FREE_TRIAL, useNextStartLabel } from "../data/siteInfo";
 
 interface Props {
   onSelectCourse: (course: CourseData) => void;
@@ -11,7 +11,7 @@ interface Props {
 export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) => {
   const [activeTab, setActiveTab] = useState<"all" | "n5" | "n4" | "n3">("all");
 
-  const startLabel = nextStartLabel();
+  const startLabel = useNextStartLabel();
 
   const displayedCourses =
     activeTab === "all" ? COURSES : COURSES.filter((c) => c.id === activeTab);
@@ -136,7 +136,9 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
               </div>
 
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                {course.title}
+                <a href={`/khoa-hoc/${course.id}/`} className="hover:text-primary-600 dark:hover:text-primary-400">
+                  {course.title}
+                </a>
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-5">
                 {course.targetAudience}
@@ -168,9 +170,15 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
               </ul>
             </div>
 
+            <a
+              href={`/khoa-hoc/${course.id}/`}
+              className="mt-6 text-center text-xs sm:text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline"
+            >
+              Xem chi tiết lộ trình {course.title.replace("Khóa ", "")} →
+            </a>
             <button
               onClick={() => onSelectCourse(course)}
-              className={`mt-8 w-full py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-center transition flex items-center justify-center gap-2 active:scale-95 ${
+              className={`mt-3 w-full py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-center transition flex items-center justify-center gap-2 active:scale-95 ${
                 course.highlight
                   ? "bg-primary-600 hover:bg-primary-700 text-white shadow-md shadow-primary-500/25"
                   : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white"

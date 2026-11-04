@@ -1,26 +1,35 @@
 # Tiếng Nhật thầy Quang
 
-Trang landing page và danh sách bài viết học tiếng Nhật. Hosted miễn phí trên Render dạng Static Site.
+Website lớp tiếng Nhật tại Quy Nhơn: trang chủ, 3 trang khóa học (N5, N4, N3), trang danh sách bài viết và các bài viết. Tên miền chính thức: **https://imejiquynhon.com**. Hosted miễn phí trên Render dạng Static Site.
+
+Tài liệu vận hành trong thư mục `docs/`:
+- `docs/cau-hinh-ten-mien.md`: DNS cho website và email, Search Console
+- `docs/google-business-profile.md`: nội dung soạn sẵn cho Google Maps
+- `docs/lich-blog-12-tuan.md`: lịch bài viết theo từ khóa và quy trình đăng
+- `docs/quy-trinh-xin-danh-gia.md`: xin đánh giá Google từ học viên
 
 ## Phát triển
 
 - Cài đặt: `npm install`.
 - Chạy local: `npm run dev`.
-- Build: `npm run build` ra thư mục `dist/`.
+- Build: `npm run build` ra thư mục `dist/`. Build gồm 3 bước: bản cho trình duyệt, bản dựng HTML trên máy build, và `scripts/prerender.mjs` tạo **HTML dựng sẵn** cho từng trang (Google, Zalo, Facebook đọc được nội dung ngay, không cần chạy JavaScript), bổ sung SEO cho bài viết và sinh `sitemap.xml`, `robots.txt`.
 
 ## Cấu trúc
 
 - `src/data/siteInfo.ts`: **thông tin hay thay đổi** — số điện thoại, Zalo, email, địa chỉ, bản đồ, lịch học, ngày khai giảng, nội dung cam kết đầu ra. Sửa ở đây là cập nhật toàn trang.
 - `src/data/courseData.ts`: các khóa học, lộ trình, câu hỏi thường gặp.
 - `src/`: landing page (React + Vite + Tailwind).
-- `src/components/PostsSection.tsx`: đọc `public/posts/index.json` và liệt kê các bài có `publish: true`.
+- `src/data/courseDetails.ts`: nội dung chi tiết từng trang khóa học (`/khoa-hoc/n5/`, `/n4/`, `/n3/`).
+- `src/seo.ts`: tiêu đề, mô tả, dữ liệu có cấu trúc (JSON-LD) cho từng trang.
+- `src/router.tsx` và `src/pages/`: các trang. Thêm trang mới thì thêm vào cả `router.tsx` và `PAGES` trong `seo.ts`.
+- `src/data/posts.ts`: đọc `public/posts/index.json` lúc build, liệt kê các bài có `publish: true` (trang chủ hiện 4 bài mới nhất, `/posts/` hiện tất cả theo nhóm).
 - `public/posts/`: các bài viết dạng HTML và file `index.json` làm danh mục. Vite copy nguyên thư mục này vào `dist/`.
 - `.github/workflows/facebook-post.yml`: khi `public/posts/index.json` thay đổi, workflow đăng các bài có `publish: true` và `fb_posted: false` lên Facebook Page, rồi đánh dấu `fb_posted: true`.
 
 ## Thêm một bài mới
 
 1. Tạo file `public/posts/ten-bai.html`.
-2. Thêm mục vào `public/posts/index.json` với `publish: true` và `fb_posted: false`.
+2. Thêm mục vào `public/posts/index.json` với `category` (`n5`, `n4`, `n3` hoặc `phuong-phap`), `publish: true` và `fb_posted: false`. Chi tiết và khung bài viết: `docs/lich-blog-12-tuan.md`.
 3. Commit và push lên `main`.
 
 ## Form đăng ký -> Google Sheet
@@ -33,9 +42,10 @@ Sửa `NEXT_START_DATE` trong `src/data/siteInfo.ts` (dạng `YYYY-MM-DD`). Sau 
 
 ## SEO
 
-- `public/robots.txt`, favicon (`public/favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png`) và ảnh chia sẻ `public/assets/brand/og-image.jpg` (1200×630).
-- `sitemap.xml` được sinh tự động khi build, gồm trang chủ và các bài `publish: true`.
-- Khi có tên miền riêng: đặt biến `SITE_URL` trên Render, sửa địa chỉ trong `index.html` (canonical, og:url, og:image, JSON-LD) và `public/robots.txt`, rồi khai báo sitemap trong Google Search Console.
+- Favicon (`public/favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png`) và ảnh chia sẻ `public/assets/brand/og-image.jpg` (1200×630).
+- Mỗi trang có canonical, Open Graph và JSON-LD (EducationalOrganization, Course, BreadcrumbList, CollectionPage). Bài viết được thêm Article + BreadcrumbList, đường dẫn điều hướng và mục "Đọc tiếp" khi build. Bài `publish: false` được gắn `noindex`.
+- `sitemap.xml` và `robots.txt` được sinh tự động khi build.
+- Đổi tên miền: sửa `SITE_URL` trong `src/data/siteInfo.ts`.
 
 ## Cấu hình Render
 
@@ -45,7 +55,7 @@ Sửa `NEXT_START_DATE` trong `src/data/siteInfo.ts` (dạng `YYYY-MM-DD`). Sau 
 ## Cấu hình cần có
 
 - Secrets: `FB_PAGE_ID`, `FB_PAGE_TOKEN`.
-- Variables: `SITE_URL` là địa chỉ Render của trang, ví dụ `https://ten-trang.onrender.com`.
+- Variables: `SITE_URL` là địa chỉ chính thức của trang: `https://imejiquynhon.com`.
 
 
 ## Đo lường (tùy chọn)
@@ -67,7 +77,7 @@ Các sự kiện được gửi (GA4 / Meta Pixel):
 
 Trong GA4, đánh dấu `generate_lead`, `click_zalo`, `click_call` là **sự kiện chính (key event)** để theo dõi chuyển đổi.
 
-Form đăng ký gửi kèm nguồn truy cập (UTM và trang giới thiệu) về cột **Nguồn** trong Sheet. Khi chia sẻ link, hãy thêm UTM, ví dụ `https://imeji-newhorizon-1.onrender.com/?utm_source=facebook&utm_medium=post&utm_campaign=hiragana`.
+Form đăng ký gửi kèm nguồn truy cập (UTM và trang giới thiệu) về cột **Nguồn** trong Sheet. Khi chia sẻ link, hãy thêm UTM, ví dụ `https://imejiquynhon.com/?utm_source=facebook&utm_medium=post&utm_campaign=hiragana`.
 
 ## Bài viết Facebook
 

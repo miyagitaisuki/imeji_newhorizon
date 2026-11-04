@@ -8,7 +8,8 @@
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "cach-nho-hiragana-theo-nhom",
@@ -17,7 +18,8 @@
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "katakana-de-nham",
@@ -26,7 +28,8 @@
       "date": "2026-11-03",
       "publish": false,
       "fb_posted": false,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "n5"
     },
     {
       "slug": "ba-loi-nguoi-moi-hay-mac",
@@ -35,7 +38,14 @@
       "date": "2026-11-03",
       "publish": true,
       "fb_posted": true,
-      "image": "assets/fb/hero.jpg"
+      "image": "assets/fb/hero.jpg",
+      "category": "phuong-phap"
     }
-  ]
+  ],
+  "categories": {
+    "n5": "Tiếng Nhật N5",
+    "n4": "Tiếng Nhật N4",
+    "n3": "Tiếng Nhật N3",
+    "phuong-phap": "Phương pháp học"
+  }
 }

@@ -4,15 +4,16 @@ import { ZALO_URL } from "../data/siteInfo";
 import { trackZalo } from "../lib/analytics";
 
 interface Props {
+  base: string; // "" trên trang chủ, "/" trên trang con
   onOpenQuiz: () => void;
 }
 
-export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
+export const BottomNav: React.FC<Props> = ({ base, onOpenQuiz }) => {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-1 pointer-events-none">
       <div className="max-w-md mx-auto glass-panel rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800/90 p-1.5 flex items-center justify-around pointer-events-auto backdrop-blur-xl">
         <a
-          href="#courses"
+          href={`${base}#courses`}
           className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:text-primary-600 active:scale-90 transition"
         >
           <BookOpen size={18} />
@@ -20,7 +21,7 @@ export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
         </a>
 
         <a
-          href="#roadmap"
+          href={`${base}#roadmap`}
           className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:text-primary-600 active:scale-90 transition"
         >
           <Map size={18} />
@@ -51,7 +52,7 @@ export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
 
         {/* Primary CTA button */}
         <a
-          href="#register"
+          href={`${base}#register`}
           className="flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs shadow-md shadow-primary-500/30 active:scale-95 transition"
         >
           <Send size={13} />

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://imeji-newhorizon-1.onrender.com/sitemap.xml

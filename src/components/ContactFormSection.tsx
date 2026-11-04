@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Send, Check, Phone, Mail, MapPin, MessageCircle, Copy, CheckCheck } from "lucide-react";
-import confetti from "canvas-confetti";
 import { getSource, trackEvent, trackCall, trackZalo } from "../lib/analytics";
-import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, SCHEDULE_DAYS, nextStartLabel } from "../data/siteInfo";
+import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, SCHEDULE_DAYS, useNextStartLabel } from "../data/siteInfo";
 import { PrivacyNotice } from "./PrivacyNotice";
 
 // URL web app của Google Apps Script (xem google-apps-script/README.md)
@@ -35,7 +34,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
   const [consent, setConsent] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
-  const startLabel = nextStartLabel();
+  const startLabel = useNextStartLabel();
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,16 +75,12 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
     setFormSubmitted(true);
     trackEvent("generate_lead", { target_jlpt: formData.targetJlpt });
 
-    // Trigger celebratory confetti
-    try {
-      confetti({
-        particleCount: 70,
-        spread: 60,
-        origin: { y: 0.8 },
+    // Pháo giấy chúc mừng (nạp khi cần để trang ban đầu nhẹ hơn)
+    import("canvas-confetti")
+      .then(({ default: confetti }) => confetti({ particleCount: 70, spread: 60, origin: { y: 0.8 } }))
+      .catch(() => {
+        // trình duyệt không hỗ trợ canvas thì bỏ qua
       });
-    } catch {
-      // Ignore if canvas not supported
-    }
   };
 
   const handleNewSubmission = () => {

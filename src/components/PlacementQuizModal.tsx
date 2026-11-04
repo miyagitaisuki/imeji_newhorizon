@@ -99,8 +99,10 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
       onSelectLevel(result.level, result.target);
       onClose();
       // Scroll smoothly to register form
+      // Trang nào cũng có form #register; nếu không có thì về form ở trang chủ
       const el = document.getElementById("register");
       if (el) el.scrollIntoView({ behavior: "smooth" });
+      else window.location.href = "/#register";
     }
   };
 
