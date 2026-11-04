@@ -1,5 +1,7 @@
 import React from "react";
-import { BookOpen, Map, Sparkles, Send, Phone, MessageCircle } from "lucide-react";
+import { BookOpen, Map, Sparkles, Send, MessageCircle } from "lucide-react";
+import { ZALO_URL } from "../data/siteInfo";
+import { trackZalo } from "../lib/analytics";
 
 interface Props {
   onOpenQuiz: () => void;
@@ -37,9 +39,10 @@ export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
 
         {/* Quick Zalo */}
         <a
-          href="https://zalo.me/0868608647"
+          href={ZALO_URL}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackZalo("bottom_nav")}
           className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-blue-600 dark:text-blue-400 active:scale-90 transition"
         >
           <MessageCircle size={18} />
@@ -52,7 +55,7 @@ export const BottomNav: React.FC<Props> = ({ onOpenQuiz }) => {
           className="flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs shadow-md shadow-primary-500/30 active:scale-95 transition"
         >
           <Send size={13} />
-          <span>Tư vấn</span>
+          <span>Học thử</span>
         </a>
       </div>
     </div>

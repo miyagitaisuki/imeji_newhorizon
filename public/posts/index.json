@@ -2,14 +2,6 @@
   "site_title": "Tiếng Nhật thầy Quang",
   "posts": [
     {
-      "slug": "bai-mau",
-      "title": "Bài viết mẫu",
-      "summary": "Đây là bài mẫu để kiểm tra quy trình đăng bài.",
-      "date": "2026-11-03",
-      "publish": false,
-      "fb_posted": false
-    },
-    {
       "slug": "ngu-phap-n5-te-kudasai",
       "title": "Ngữ pháp N5: Mẫu 〜てください (Hãy làm ... giúp tôi)",
       "summary": "Cách chia thể て và cách dùng mẫu 〜てください để nhờ ai đó làm gì một cách lịch sự, kèm ví dụ và dạng phủ định 〜ないでください.",

@@ -1,15 +1,17 @@
-﻿# Tiếng Nhật thầy Quang
+# Tiếng Nhật thầy Quang
 
 Trang landing page và danh sách bài viết học tiếng Nhật. Hosted miễn phí trên Render dạng Static Site.
 
 ## Phát triển
 
-- Cài đặt: `npm install` (đã có `.npmrc` với `legacy-peer-deps=true`).
+- Cài đặt: `npm install`.
 - Chạy local: `npm run dev`.
 - Build: `npm run build` ra thư mục `dist/`.
 
 ## Cấu trúc
 
+- `src/data/siteInfo.ts`: **thông tin hay thay đổi** — số điện thoại, Zalo, email, địa chỉ, bản đồ, lịch học, ngày khai giảng, nội dung cam kết đầu ra. Sửa ở đây là cập nhật toàn trang.
+- `src/data/courseData.ts`: các khóa học, lộ trình, câu hỏi thường gặp.
 - `src/`: landing page (React + Vite + Tailwind).
 - `src/components/PostsSection.tsx`: đọc `public/posts/index.json` và liệt kê các bài có `publish: true`.
 - `public/posts/`: các bài viết dạng HTML và file `index.json` làm danh mục. Vite copy nguyên thư mục này vào `dist/`.
@@ -24,6 +26,16 @@ Trang landing page và danh sách bài viết học tiếng Nhật. Hosted miễ
 ## Form đăng ký -> Google Sheet
 
 Xem [google-apps-script/README.md](google-apps-script/README.md). Cần biến môi trường `VITE_SHEET_ENDPOINT` (URL web app Apps Script) khi build.
+
+## Cập nhật ngày khai giảng
+
+Sửa `NEXT_START_DATE` trong `src/data/siteInfo.ts` (dạng `YYYY-MM-DD`). Sau ngày đó, trang tự ẩn dòng "Khai giảng …" cho đến khi bạn đặt ngày mới.
+
+## SEO
+
+- `public/robots.txt`, favicon (`public/favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png`) và ảnh chia sẻ `public/assets/brand/og-image.jpg` (1200×630).
+- `sitemap.xml` được sinh tự động khi build, gồm trang chủ và các bài `publish: true`.
+- Khi có tên miền riêng: đặt biến `SITE_URL` trên Render, sửa địa chỉ trong `index.html` (canonical, og:url, og:image, JSON-LD) và `public/robots.txt`, rồi khai báo sitemap trong Google Search Console.
 
 ## Cấu hình Render
 
@@ -42,6 +54,18 @@ Xem [google-apps-script/README.md](google-apps-script/README.md). Cần biến m
 
 - `VITE_GA_ID`: ID Google Analytics 4 (dạng `G-XXXXXXX`).
 - `VITE_META_PIXEL_ID`: ID Meta Pixel.
+
+Các sự kiện được gửi (GA4 / Meta Pixel):
+
+| Sự kiện GA4 | Meta Pixel | Khi nào |
+|---|---|---|
+| `generate_lead` | Lead | Gửi form đăng ký thành công |
+| `click_zalo` | Contact | Bấm Zalo (tham số `location` cho biết nút nào) |
+| `click_call` | Contact | Bấm gọi điện |
+| `quiz_start` | QuizStart (custom) | Mở trắc nghiệm chọn lớp |
+| `quiz_complete` | QuizComplete (custom) | Xem kết quả trắc nghiệm |
+
+Trong GA4, đánh dấu `generate_lead`, `click_zalo`, `click_call` là **sự kiện chính (key event)** để theo dõi chuyển đổi.
 
 Form đăng ký gửi kèm nguồn truy cập (UTM và trang giới thiệu) về cột **Nguồn** trong Sheet. Khi chia sẻ link, hãy thêm UTM, ví dụ `https://imeji-newhorizon-1.onrender.com/?utm_source=facebook&utm_medium=post&utm_campaign=hiragana`.
 

@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Award,
   BookOpen,
+  CalendarDays,
   Check,
   ChevronDown,
-  Clock,
-  ExternalLink,
   Flame,
-  Globe,
   GraduationCap,
   Layers,
-  Mail,
-  MapPin,
   Menu,
   MessageCircle,
   Moon,
-  Phone,
   Send,
   Sparkles,
   Sun,
@@ -24,9 +19,6 @@ import {
   UserCheck,
   Users,
   X,
-  Zap,
-  ShieldCheck,
-  RotateCcw,
 } from "lucide-react";
 
 import { ROADMAP_STEPS, FAQS, CourseData } from "./data/courseData";
@@ -36,7 +28,16 @@ import { ContactFormSection } from "./components/ContactFormSection";
 import { PostsSection } from "./components/PostsSection";
 import { BottomNav } from "./components/BottomNav";
 import { PlacementQuizModal } from "./components/PlacementQuizModal";
-import { initAnalytics } from "./lib/analytics";
+import { initAnalytics, trackZalo } from "./lib/analytics";
+import {
+  ZALO_URL,
+  FREE_TRIAL,
+  SCHEDULE_SHORT,
+  SCHEDULE_DAYS,
+  COMMITMENT_TITLE,
+  COMMITMENT_DETAIL,
+  nextStartLabel,
+} from "./data/siteInfo";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -46,6 +47,7 @@ export default function App() {
 
   // Modals
   const [quizOpen, setQuizOpen] = useState(false);
+  const startLabel = nextStartLabel();
 
   // Form State
   const [formData, setFormData] = useState({
@@ -108,7 +110,7 @@ export default function App() {
       ...prev,
       currentLevel: curLevel,
       targetJlpt: target,
-      notes: `Đăng ký khóa học: ${course.title}`,
+      notes: `Đăng ký học thử: ${course.title}`,
     }));
 
     const el = document.getElementById("register");
@@ -151,7 +153,7 @@ export default function App() {
               <p className="text-[11px] text-primary-600 dark:text-primary-400 font-medium flex items-center gap-1">
                 <span>Quy Nhơn</span>
                 <span>・</span>
-                <span>Thực chiến N5 - N2</span>
+                <span>Thực chiến N5 - N3</span>
               </p>
             </div>
           </a>
@@ -197,7 +199,7 @@ export default function App() {
               href="#register"
               className="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition shadow-sm"
             >
-              Đăng ký tư vấn
+              Học thử miễn phí
             </a>
 
             {/* Mobile Menu Hamburger */}
@@ -309,21 +311,29 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content (Glass Panel ensures 100% text contrast in both light & dark modes) */}
             <div className="lg:col-span-7 p-6 sm:p-9 rounded-3xl border border-white/25 shadow-2xl space-y-6 text-center lg:text-left backdrop-blur-xl bg-slate-900/25 text-white">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
-                <Sparkles size={14} className="text-amber-500" />
-                <span>Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</span>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
+                  <Sparkles size={14} className="text-amber-500" />
+                  <span>Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</span>
+                </div>
+                {startLabel && (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-400 text-slate-900 shadow-sm">
+                    <CalendarDays size={14} />
+                    <span>Khai giảng {startLabel}</span>
+                  </div>
+                )}
               </div>
 
               <h1 className="text-balance text-3xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight leading-[1.18] text-white">
                 Học tiếng Nhật thực chiến{" "}
                 <span className="whitespace-nowrap bg-gradient-to-r from-sky-300 via-primary-400 to-sky-300 bg-clip-text text-transparent">
-                  từ N5 đến N2
+                  từ N5 đến N3
                 </span>{" "}
                 tại Quy Nhơn
               </h1>
 
               <p className="text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-                Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, thạc sĩ Ngôn ngữ học. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và học liệu đa dạng.
+                Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, thạc sĩ Ngôn ngữ học. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và học liệu đa dạng. Lịch học {SCHEDULE_SHORT}, vào {SCHEDULE_DAYS}.
               </p>
 
               {/* Action Buttons */}
@@ -332,7 +342,7 @@ export default function App() {
                   href="#register"
                   className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm transition shadow-lg shadow-primary-500/30 flex items-center justify-center gap-2 group active:scale-95"
                 >
-                  <span>Đăng ký tư vấn miễn phí</span>
+                  <span>Đăng ký học thử 2 buổi miễn phí</span>
                   <Send size={15} className="group-hover:translate-x-1 transition-transform" />
                 </a>
 
@@ -348,13 +358,16 @@ export default function App() {
               {/* Trust Indicators */}
               <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
                 <span className="flex items-center gap-1.5">
+                  <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {FREE_TRIAL}
+                </span>
+                <span className="flex items-center gap-1.5">
                   <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số dưới 6 bạn
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Cam kết chuẩn đầu ra JLPT
+                  <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {COMMITMENT_TITLE}
                 </span>
               </div>
             </div>
@@ -364,7 +377,8 @@ export default function App() {
               <div className="relative w-68 sm:w-80 md:w-88 aspect-[3.8/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/95 dark:border-slate-800/95 group bg-slate-900">
                 {/* Teacher Photo Uploaded by User */}
                 <img
-                  src="/assets/aistudio/teacher.webp" loading="lazy"
+                  src="/assets/aistudio/teacher.webp"
+                  loading="eager"
                   alt="ThS. Nguyễn Thanh Quang - Giảng viên Tiếng Nhật Trường Đại học Quy Nhơn"
                   className="w-full h-full object-cover object-[50%_18%] scale-125 group-hover:scale-[1.35] transition-transform duration-700"
                 />
@@ -398,7 +412,7 @@ export default function App() {
                       Giảng viên Trường Đại học Quy Nhơn (QNU)
                     </p>
                     <p className="text-[11px] text-amber-200 mt-1 italic font-medium">
-                      “Thực chiến JLPT N5 - N2 ・ Tận tâm đồng hành”
+                      “Thực chiến JLPT N5 - N3 ・ Tận tâm đồng hành”
                     </p>
                   </div>
                 </div>
@@ -541,7 +555,7 @@ export default function App() {
               { title: "Giảng viên Đại học", desc: "Kinh nghiệm sư phạm chuẩn mực, phương pháp truyền cảm hứng.", icon: Users },
               { title: "Tài liệu tự biên soạn", desc: "Hệ thống hóa kiến thức súc tích, lược bỏ lan man không cần thiết.", icon: BookOpen },
               { title: "Học liệu đa dạng", desc: "Tài liệu, flashcard, đề thi thử và bài luyện nghe cho từng giai đoạn học.", icon: Layers },
-              { title: "Cam kết đầu ra", desc: "Đảm bảo học viên đạt mục tiêu JLPT khi theo đúng lộ trình.", icon: UserCheck },
+              { title: COMMITMENT_TITLE, desc: COMMITMENT_DETAIL, icon: UserCheck },
             ].map((card, idx) => (
               <div
                 key={idx}
@@ -697,7 +711,7 @@ export default function App() {
 
           <div className="mt-10 p-5 rounded-2xl glass-panel max-w-2xl mx-auto text-center border-primary-300 dark:border-primary-800">
             <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
-              💡 Cam kết hỗ trợ học viên đạt mục tiêu JLPT nếu học đúng và hoàn thành đầy đủ lộ trình bài tập.
+              💡 {COMMITMENT_TITLE}: {COMMITMENT_DETAIL}
             </p>
           </div>
         </div>
@@ -784,7 +798,8 @@ export default function App() {
               "Kho từ vựng thông minh Flashcard Anki",
               "Bộ đề thi JLPT thử có đáp án chi tiết",
               "Học liệu đa dạng: tài liệu, flashcard và đề thi thử",
-              "Cam kết hỗ trợ học lại nếu chưa thi đỗ",
+              "Học lại miễn phí 1 khóa nếu chưa thi đỗ (*)",
+              FREE_TRIAL + " trước khi đóng học phí",
             ].map((perk, i) => (
               <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                 <Check size={16} className="text-emerald-500 flex-shrink-0" />
@@ -798,11 +813,16 @@ export default function App() {
               href="#register"
               className="inline-flex items-center justify-center px-8 py-3.5 sm:py-4 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm transition shadow-lg shadow-primary-500/25 active:scale-95"
             >
-              Đăng ký ngay hôm nay
+              Đăng ký học thử miễn phí
             </a>
-            <p className="text-[11px] text-slate-400 mt-3">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
+              Lịch học: {SCHEDULE_SHORT} ・ {SCHEDULE_DAYS}
+              {startLabel && <> ・ Khai giảng {startLabel}</>}
+            </p>
+            <p className="text-[11px] text-slate-400 mt-1">
               Lớp học giới hạn dưới 6 học viên mỗi khóa để đảm bảo chất lượng.
             </p>
+            <p className="text-[11px] text-slate-400 mt-1 max-w-md mx-auto">(*) {COMMITMENT_DETAIL}</p>
           </div>
         </div>
       </section>
@@ -893,9 +913,10 @@ export default function App() {
       <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-40 flex flex-col items-end gap-3">
         {/* Floating Zalo */}
         <a
-          href="https://zalo.me/0868608647"
+          href={ZALO_URL}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackZalo("floating_button")}
           aria-label="Nhắn tin Zalo với Thầy Quang"
           className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
         >

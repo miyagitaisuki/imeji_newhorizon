@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Clock, Check, Sparkles, ArrowRight, BookOpen } from "lucide-react";
+import { Clock, Check, Sparkles, ArrowRight, BookOpen, CalendarDays, Gift } from "lucide-react";
 import { COURSES, CourseData } from "../data/courseData";
+import { SCHEDULE_SHORT, SCHEDULE_DAYS, FREE_TRIAL, nextStartLabel } from "../data/siteInfo";
 
 interface Props {
   onSelectCourse: (course: CourseData) => void;
@@ -9,6 +10,8 @@ interface Props {
 
 export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) => {
   const [activeTab, setActiveTab] = useState<"all" | "n5" | "n4" | "n3">("all");
+
+  const startLabel = nextStartLabel();
 
   const displayedCourses =
     activeTab === "all" ? COURSES : COURSES.filter((c) => c.id === activeTab);
@@ -24,8 +27,23 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
           Các khóa học tiếng Nhật tuyển sinh
         </h2>
         <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3 max-w-lg mx-auto">
-          Học phí minh bạch 900.000 VNĐ/tháng, đào tạo chuẩn JLPT ngay tại trung tâm TP. Quy Nhơn.
+          Học phí minh bạch 900.000 VNĐ/tháng, đào tạo chuẩn JLPT ngay tại Quy Nhơn.
         </p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+            <CalendarDays size={13} className="text-primary-600 dark:text-primary-400" />
+            {SCHEDULE_SHORT} ・ {SCHEDULE_DAYS}
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200">
+            <Gift size={13} />
+            {FREE_TRIAL}
+          </span>
+          {startLabel && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200">
+              Khai giảng: {startLabel}
+            </span>
+          )}
+        </div>
 
         {/* Mobile Tab Switcher (Thumb-friendly on phones) */}
         <div className="md:hidden mt-6 flex items-center justify-center p-1 rounded-2xl bg-slate-200/80 dark:bg-slate-800/80 max-w-sm mx-auto">
@@ -158,7 +176,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
                   : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white"
               }`}
             >
-              <span>Chọn {course.title}</span>
+              <span>Đăng ký học thử miễn phí</span>
               <ArrowRight size={15} />
             </button>
           </div>

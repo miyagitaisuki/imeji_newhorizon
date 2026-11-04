@@ -24,6 +24,13 @@ Lưu ý: nếu sửa `Code.gs` sau này, phải **Triển khai → Quản lý tr
 2. Tên: `NOTIFY_EMAIL`, giá trị: địa chỉ email nhận thông báo.
 3. Sau khi sửa `Code.gs`, phải **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới**.
 
-## Cột "Nguồn"
+## Cột "Nguồn" và "Đồng ý xử lý dữ liệu"
 
-Từ bản này, mỗi dòng có thêm cột **Nguồn** (UTM và trang giới thiệu). Với sheet đã có sẵn, hãy thêm tiêu đề `Nguồn` vào ô G1 để cột hiển thị đúng.
+- **Nguồn**: UTM và trang giới thiệu của lượt đăng ký.
+- **Đồng ý xử lý dữ liệu**: ghi "Đồng ý" khi người đăng ký đã tick ô đồng ý chính sách bảo vệ dữ liệu cá nhân (bắt buộc trên form). Giữ cột này làm bằng chứng đã có sự đồng ý.
+
+Với sheet đã có sẵn, script tự bổ sung tiêu đề các cột mới ở dòng 1 trong lần ghi tiếp theo.
+
+## Form biết chắc đã lưu thành công
+
+Trang đọc phản hồi `{"ok": true}` từ script. Nếu script lỗi hoặc chưa triển khai bản mới, form báo lỗi và hướng người dùng gọi/nhắn Zalo thay vì báo "thành công" giả. **Sau khi cập nhật `Code.gs`, nhớ triển khai Phiên bản mới**, rồi gửi thử một đăng ký trên trang thật để kiểm tra.

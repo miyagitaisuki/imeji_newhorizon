@@ -9,6 +9,8 @@ export interface CourseData {
   features: string[];
 }
 
+import { COMMITMENT_DETAIL, ADDRESS_FULL, SCHEDULE_DAYS, FREE_TRIAL } from "./siteInfo";
+
 export const COURSES: CourseData[] = [
   {
     id: "n5",
@@ -86,7 +88,7 @@ export const ROADMAP_STEPS = [
     step: "Đích đến",
     title: "JLPT Success",
     time: "Bền vững",
-    desc: "Sẵn sàng thi đỗ JLPT N3/N2 và ứng tuyển công ty Nhật hoặc du học.",
+    desc: "Sẵn sàng thi đỗ JLPT N3, ứng tuyển công ty Nhật hoặc chuẩn bị du học.",
   },
 ];
 
@@ -96,12 +98,20 @@ export const FAQS = [
     a: "Hoàn toàn có thể. Khóa N5 được thiết kế chuyên biệt cho người bắt đầu từ con số 0. Thầy sẽ hướng dẫn bạn từ cách cầm bút viết chữ cái Hiragana, Katakana đến quy tắc ghép âm chuẩn xác.",
   },
   {
+    q: "Có được học thử trước khi đóng học phí không?",
+    a: `Có. Bạn được ${FREE_TRIAL.toLowerCase()} để làm quen với lớp và cách dạy của thầy trước khi quyết định. Chỉ cần điền form đăng ký hoặc nhắn Zalo để được xếp buổi học thử.`,
+  },
+  {
+    q: "Lịch học như thế nào?",
+    a: `Mỗi tuần học 2–3 buổi, mỗi buổi 90 phút, vào ${SCHEDULE_DAYS}. Thầy sẽ xếp lớp phù hợp với thời gian biểu của bạn khi tư vấn.`,
+  },
+  {
     q: "Lớp học tổ chức online hay offline?",
-    a: "Hiện tại các lớp học được tổ chức trực tiếp (offline) tại địa chỉ 80 Võ Mười, Quy Nhơn nhằm đảm bảo tính tương tác cao nhất và sửa lỗi phát âm trực tiếp. Học viên có thể xem lại tài liệu và làm bài trên hệ thống số hóa.",
+    a: `Hiện tại các lớp học được tổ chức trực tiếp (offline) tại ${ADDRESS_FULL} nhằm đảm bảo tính tương tác cao nhất và sửa lỗi phát âm trực tiếp. Học viên có thể xem lại tài liệu và làm bài trên hệ thống số hóa.`,
   },
   {
     q: "Lớp có cam kết đầu ra chứng chỉ JLPT không?",
-    a: "Có. Học viên tham gia tối thiểu 90% số buổi học và hoàn thành các bài tập, bài thi thử theo quy định sẽ được hỗ trợ tối đa để đạt mục tiêu kỳ thi JLPT gần nhất.",
+    a: `Có. ${COMMITMENT_DETAIL}`,
   },
   {
     q: "Học liệu của lớp gồm những gì?",
