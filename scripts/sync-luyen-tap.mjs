@@ -38,12 +38,34 @@ try {
 
   fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true });
-  for (const item of ["index.html", "minna", "nhap-mon", "n2", "data", "assets"]) {
-    fs.cpSync(path.join(src, item), path.join(out, item), {
+  // Danh sách thư mục cần chép. Thêm thư mục mới của dominion vào đây, nếu không site sẽ 404.
+  // "slides" và "flashcards" có thể chưa tồn tại: bỏ qua nếu thiếu, kiểm tra tham chiếu ở bước dưới.
+  const items = ["index.html", "minna", "nhap-mon", "n2", "data", "assets", "slides", "flashcards"];
+  for (const item of items) {
+    const from = path.join(src, item);
+    if (!fs.existsSync(from)) {
+      if (["slides", "flashcards"].includes(item)) continue;
+      throw new Error(`thiếu ${item} trong dominion`);
+    }
+    fs.cpSync(from, path.join(out, item), {
       recursive: true,
       filter: (p) => !p.endsWith("tailwind.input.css"),
     });
   }
+
+  // Mọi slide/flashcard được bật trong data/resources.json phải có file trong bản build, nếu không báo lỗi ngay.
+  const resources = JSON.parse(fs.readFileSync(path.join(src, "data", "resources.json"), "utf-8"));
+  const missing = [];
+  for (const kind of ["slide", "flashcard"]) {
+    const dir = kind === "slide" ? "slides" : "flashcards";
+    for (const [group, ids] of Object.entries(resources[kind] ?? {})) {
+      for (const id of ids) {
+        const rel = path.join(dir, group, `${id}.html`);
+        if (!fs.existsSync(path.join(out, rel))) missing.push(rel);
+      }
+    }
+  }
+  if (missing.length) throw new Error(`thiếu file trong /luyen-tap/: ${missing.join(", ")}`);
   // Thêm /luyen-tap/ vào sitemap.xml (prerender.mjs đã sinh file này trước đó).
   const sitemap = path.join(root, "dist", "sitemap.xml");
   const siteUrl = process.env.SITE_URL ?? "https://imejiquynhon.com";
