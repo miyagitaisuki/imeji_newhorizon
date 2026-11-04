@@ -4,7 +4,7 @@ import { SiteHeader } from "./SiteHeader";
 import { BottomNav } from "./BottomNav";
 import { PlacementQuizModal } from "./PlacementQuizModal";
 import { trackZalo } from "../lib/analytics";
-import { ADDRESS_FULL, EMAIL, PHONE, PHONE_DISPLAY, ZALO_URL, BUILD_YEAR } from "../data/siteInfo";
+import { PORTAL_URL, PRACTICE_URL, ADDRESS_FULL, EMAIL, PHONE, PHONE_DISPLAY, ZALO_URL, BUILD_YEAR } from "../data/siteInfo";
 import { COURSES } from "../data/courseData";
 
 const QuizContext = createContext<() => void>(() => {});
@@ -50,6 +50,8 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
             </nav>
             <nav aria-label="Tài nguyên" className="space-y-1.5">
               <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Tài nguyên</p>
+              <a href={PRACTICE_URL} className="block hover:text-primary-600">Luyện tập Minna no Nihongo (miễn phí)</a>
+              <a href={PORTAL_URL} className="block hover:text-primary-600">Cổng học viên (điểm danh, học phí, bài tập)</a>
               <a href="/posts/" className="block hover:text-primary-600">Bài viết học tiếng Nhật</a>
               <a href={`${base}#faq`} className="block hover:text-primary-600">Câu hỏi thường gặp</a>
               <a href={`${base}#register`} className="block hover:text-primary-600">Đăng ký học thử miễn phí</a>

@@ -125,4 +125,6 @@ export function trackEvent(name: string, params: Dict = {}) {
 }
 
 export const trackZalo = (location: string) => trackEvent("click_zalo", { location });
+export const trackEcosystem = (target: "practice" | "portal", location: string) =>
+  trackEvent("click_ecosystem", { target, location });
 export const trackCall = (location: string) => trackEvent("click_call", { location });

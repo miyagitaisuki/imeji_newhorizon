@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import { Gamepad2, LogIn, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import { PORTAL_URL, PRACTICE_URL } from "../data/siteInfo";
+import { trackEcosystem } from "../lib/analytics";
 
 interface Props {
   // Trang chủ có ảnh nền tối ở đầu trang nên header trong suốt chữ trắng;
@@ -69,7 +71,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
       </a>
 
       {/* Desktop Nav Items */}
-      <nav className={`hidden lg:flex items-center gap-6 text-sm font-medium ${scrolled ? "text-slate-600 dark:text-slate-300" : "text-white/90"}`}>
+      <nav className={`hidden 2xl:flex items-center gap-6 text-sm font-medium ${scrolled ? "text-slate-600 dark:text-slate-300" : "text-white/90"}`}>
         <a href={`${base}#about`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
           Giảng viên
         </a>
@@ -98,6 +100,24 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
 
       {/* Action buttons on Header */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Lối tắt tới Luyện tập (dominion) và Cổng học viên (eduscan) */}
+        <a
+          href={PRACTICE_URL}
+          onClick={() => trackEcosystem("practice", "header")}
+          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/40 text-white hover:bg-white/10"}`}
+        >
+          <Gamepad2 size={15} />
+          <span>Luyện tập</span>
+        </a>
+        <a
+          href={PORTAL_URL}
+          onClick={() => trackEcosystem("portal", "header")}
+          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/40 text-white hover:bg-white/10"}`}
+        >
+          <LogIn size={15} />
+          <span>Học viên</span>
+        </a>
+
         {/* Dark Mode Toggle */}
         <button
           onClick={toggleTheme}
@@ -118,7 +138,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         {/* Mobile Menu Hamburger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" : "text-white hover:bg-white/10"}`}
+          className={`2xl:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" : "text-white hover:bg-white/10"}`}
           aria-label="Mở menu điều hướng"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -133,8 +153,26 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="lg:hidden border-b border-slate-200 dark:border-slate-800 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm"
+          className="2xl:hidden border-b border-slate-200 dark:border-slate-800 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm"
         >
+          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+            <a
+              onClick={() => { setMobileMenuOpen(false); trackEcosystem("practice", "mobile_menu"); }}
+              href={PRACTICE_URL}
+              className="py-3 rounded-xl bg-primary-600 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm"
+            >
+              <Gamepad2 size={16} />
+              <span>Luyện tập</span>
+            </a>
+            <a
+              onClick={() => { setMobileMenuOpen(false); trackEcosystem("portal", "mobile_menu"); }}
+              href={PORTAL_URL}
+              className="py-3 rounded-xl border border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 font-semibold text-sm flex items-center justify-center gap-2"
+            >
+              <LogIn size={16} />
+              <span>Học viên</span>
+            </a>
+          </div>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#about`}
