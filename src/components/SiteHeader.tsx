@@ -4,6 +4,17 @@ import { Gamepad2, LogIn, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
 import { PORTAL_URL, PRACTICE_URL } from "../data/siteInfo";
 import { trackEcosystem } from "../lib/analytics";
 
+const NAV_ITEMS: { id?: string; label: string; href?: string }[] = [
+  { id: "about", label: "Giảng viên" },
+  { id: "features", label: "Điểm khác biệt" },
+  { id: "courses", label: "Khóa học" },
+  { id: "roadmap", label: "Lộ trình" },
+  { id: "ecosystem", label: "Hệ sinh thái" },
+  { id: "pricing", label: "Học phí" },
+  { id: "faq", label: "FAQ" },
+  { label: "Bài viết", href: "/posts/" },
+];
+
 interface Props {
   // Trang chủ có ảnh nền tối ở đầu trang nên header trong suốt chữ trắng;
   // các trang con luôn dùng header nền sáng.
@@ -15,6 +26,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolledDown, setScrolledDown] = useState(false);
+  const [activeId, setActiveId] = useState("");
   const scrolled = scrolledDown || !isHome;
   const base = isHome ? "" : "/";
 
@@ -26,6 +38,22 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Tô sáng mục menu của phần đang xem (chỉ trang chủ có các phần này).
+  useEffect(() => {
+    if (!isHome) return;
+    const ids = NAV_ITEMS.filter((i) => i.id).map((i) => i.id as string);
+    const els = ids.map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
+    if (!els.length || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActiveId(e.target.id);
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [isHome]);
 
   const toggleTheme = () => {
     const nextDark = !darkMode;
@@ -44,58 +72,56 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
       TOP NAVIGATION BAR (Optimized Glass Bar)
   ========================================================================= */}
   <header
-    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? "glass-panel py-2.5 shadow-sm" : "bg-transparent py-4"
-    }`}
+    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 sm:px-5 pt-3`}
   >
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <div
+      className={`max-w-7xl mx-auto px-4 sm:px-5 py-2 rounded-full border flex items-center justify-between gap-3 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 dark:bg-slate-900/95 border-slate-200 dark:border-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur"
+          : "bg-slate-900/45 border-white/25 shadow-lg shadow-black/10 backdrop-blur-md"
+      }`}
+    >
       {/* Logo & Teacher Branding */}
       <a href="/" className="flex items-center gap-3 group">
         <img
           src="/assets/brand/logo.png"
-          alt="Logo Tiếng Nhật Thầy Quang"
+          alt="Logo IMEJI日本語教室"
           width={40}
           height={40}
           className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
         />
         <div>
-          <p className={`font-bold text-sm sm:text-base leading-tight tracking-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
-            Tiếng Nhật Thầy Quang
+          <p className={`font-extrabold text-base sm:text-lg leading-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
+            IMEJI日本語教室
           </p>
-          <p className="text-[11px] text-primary-600 dark:text-primary-400 font-medium flex items-center gap-1">
-            <span>Quy Nhơn</span>
-            <span>・</span>
-            <span>Thực chiến N5 - N3</span>
+          <p className={`text-xs font-semibold ${scrolled ? "text-primary-700 dark:text-primary-300" : "text-white/95"}`}>
+            Lớp học tiếng Nhật thầy Quang
           </p>
         </div>
       </a>
 
       {/* Desktop Nav Items */}
-      <nav className={`hidden 2xl:flex items-center gap-6 text-sm font-medium ${scrolled ? "text-slate-600 dark:text-slate-300" : "text-white/90"}`}>
-        <a href={`${base}#about`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Giảng viên
-        </a>
-        <a href={`${base}#features`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Điểm khác biệt
-        </a>
-        <a href={`${base}#courses`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Khóa học
-        </a>
-        <a href={`${base}#roadmap`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Lộ trình
-        </a>
-        <a href={`${base}#ecosystem`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Hệ sinh thái
-        </a>
-        <a href={`${base}#pricing`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Học phí
-        </a>
-        <a href={`${base}#faq`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          FAQ
-        </a>
-        <a href="/posts/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-          Bài viết
-        </a>
+      <nav className="hidden 2xl:flex items-center gap-1 text-[15px] font-semibold">
+        {NAV_ITEMS.map((i) => {
+          const active = !!i.id && activeId === i.id;
+          const tone = active
+            ? scrolled
+              ? "bg-primary-100 text-primary-800 dark:bg-primary-900/60 dark:text-primary-200"
+              : "bg-white text-primary-800"
+            : scrolled
+              ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+              : "text-white hover:bg-white/20";
+          return (
+            <a
+              key={i.label}
+              href={i.href ?? `${base}#${i.id}`}
+              aria-current={active ? "true" : undefined}
+              className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors ${tone}`}
+            >
+              {i.label}
+            </a>
+          );
+        })}
       </nav>
 
       {/* Action buttons on Header */}
@@ -104,7 +130,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         <a
           href={PRACTICE_URL}
           onClick={() => trackEcosystem("practice", "header")}
-          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/40 text-white hover:bg-white/10"}`}
+          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/50 text-white hover:bg-white/20"}`}
         >
           <Gamepad2 size={15} />
           <span>Luyện tập</span>
@@ -112,7 +138,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         <a
           href={PORTAL_URL}
           onClick={() => trackEcosystem("portal", "header")}
-          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/40 text-white hover:bg-white/10"}`}
+          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/50 text-white hover:bg-white/20"}`}
         >
           <LogIn size={15} />
           <span>Học viên</span>
@@ -130,7 +156,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         {/* Desktop Register CTA */}
         <a
           href={`${base}#register`}
-          className="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition shadow-sm"
+          className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition shadow-sm"
         >
           Học thử miễn phí
         </a>

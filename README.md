@@ -1,4 +1,4 @@
-# Tiếng Nhật thầy Quang
+# IMEJI日本語教室 (Lớp học tiếng Nhật thầy Quang)
 
 Website lớp tiếng Nhật tại Quy Nhơn: trang chủ, 3 trang khóa học (N5, N4, N3), trang danh sách bài viết và các bài viết. Tên miền chính thức: **https://imejiquynhon.com**. Hosted miễn phí trên Render dạng Static Site.
 

@@ -51,7 +51,7 @@ export const InteractiveMap: React.FC = () => {
         <div className="relative w-full h-72 sm:h-96 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-lg bg-slate-200 dark:bg-slate-950">
           {loadIframe ? (
             <iframe
-              title="Địa chỉ Lớp học Tiếng Nhật Thầy Quang Quy Nhơn"
+              title="Địa chỉ IMEJI日本語教室"
               src={embedSrc}
               className="w-full h-full filter contrast-100 opacity-95 dark:opacity-85"
               style={{ border: 0 }}
@@ -70,7 +70,7 @@ export const InteractiveMap: React.FC = () => {
                 </div>
                 <div>
                   <p className="font-bold text-base sm:text-lg text-slate-900 dark:text-white">
-                    Lớp Học Tiếng Nhật Thầy Quang
+                    IMEJI日本語教室
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
                     {ADDRESS_FULL}

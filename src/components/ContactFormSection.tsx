@@ -296,7 +296,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   className="mt-0.5 w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 flex-shrink-0"
                 />
                 <label htmlFor="consent" className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Tôi đồng ý cho Lớp Tiếng Nhật Thầy Quang sử dụng thông tin trên để liên hệ tư vấn và xếp lớp, theo{" "}
+                  Tôi đồng ý cho IMEJI日本語教室 sử dụng thông tin trên để liên hệ tư vấn và xếp lớp, theo{" "}
                   <button
                     type="button"
                     onClick={() => setPrivacyOpen(true)}

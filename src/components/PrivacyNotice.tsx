@@ -50,7 +50,7 @@ export const PrivacyNotice: React.FC<Props> = ({ isOpen, onClose }) => {
           <section>
             <h4 className="font-semibold text-slate-900 dark:text-white">1. Bên xử lý dữ liệu</h4>
             <p>
-              Lớp Tiếng Nhật Thầy Quang (ThS. Nguyễn Thanh Quang), {ADDRESS_FULL}. Liên hệ: {EMAIL} ・ {PHONE_DISPLAY}.
+              IMEJI日本語教室 (Lớp học tiếng Nhật thầy Quang, ThS. Nguyễn Thanh Quang), {ADDRESS_FULL}. Liên hệ: {EMAIL} ・ {PHONE_DISPLAY}.
             </p>
           </section>
 

@@ -13,7 +13,7 @@ Google Business Profile (hồ sơ doanh nghiệp trên Google Maps) là kênh qu
 
 | Mục | Nội dung |
 |---|---|
-| Tên doanh nghiệp | `Tiếng Nhật Thầy Quang` |
+| Tên doanh nghiệp | `IMEJI日本語教室` |
 | Danh mục chính | `Trường dạy ngôn ngữ` (Language school) |
 | Danh mục phụ | `Trung tâm luyện thi` (nếu có trong danh sách), `Gia sư` |
 | Địa chỉ | `80 Võ Mười, P. Quy Nhơn Nam, Gia Lai` |
