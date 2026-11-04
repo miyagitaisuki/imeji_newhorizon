@@ -31,17 +31,25 @@ jobs:
             link="${SITE_URL}/posts/${slug}.html"
             image=$(jq -r --arg s "$slug" '.posts[] | select(.slug==$s) | .image // empty' public/posts/index.json)
             if [ -n "$image" ]; then
-              # Render cần vài phút để deploy commit mới. Chờ đến khi ảnh công khai trả về 200.
+              # Render cần vài phút để deploy commit mới. Chờ đến khi ảnh công khai trả về 200
+              # và Content-Type là image/* (tránh trường hợp site trả về trang HTML thay vì ảnh).
               img_url="${SITE_URL}/${image}"
               code=000
+              ctype=""
+              ok=0
               for i in $(seq 1 20); do
-                code=$(curl -sS -o /dev/null -w "%{http_code}" -L "$img_url" || echo 000)
-                [ "$code" = "200" ] && break
-                echo "Ảnh chưa sẵn sàng ($code), thử lại sau 30s (${i}/20): ${img_url}"
+                info=$(curl -sS -o /dev/null -w "%{http_code} %{content_type}" -L "$img_url" || echo "000 ")
+                code=${info%% *}
+                ctype=${info#* }
+                if [ "$code" = "200" ] && [[ "$ctype" == image/* ]]; then
+                  ok=1
+                  break
+                fi
+                echo "Ảnh chưa sẵn sàng (HTTP $code, Content-Type: ${ctype:-<trống>}), thử lại sau 30s (${i}/20): ${img_url}"
                 sleep 30
               done
-              if [ "$code" != "200" ]; then
-                echo "Ảnh không truy cập được sau 10 phút: ${img_url}"
+              if [ "$ok" -ne 1 ]; then
+                echo "Ảnh không hợp lệ sau 10 phút (HTTP $code, Content-Type: ${ctype:-<trống>}): ${img_url}"
                 exit 1
               fi
               # Có ảnh: đăng ảnh kèm caption (ảnh phải là JPG/PNG, truy cập công khai qua SITE_URL)
