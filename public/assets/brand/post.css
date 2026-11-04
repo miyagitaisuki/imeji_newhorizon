@@ -5,7 +5,11 @@
  */
 body {
   margin: 0;
-  background: #f8fafc;
+  background-color: #e2e8f0;
+  background-image: linear-gradient(rgb(248 250 252 / 0.55), rgb(248 250 252 / 0.72)), url("/assets/aistudio/clouds.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: #0f172a;
   font-family: var(--imeji-font-sans, "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif);
   line-height: 1.75;
@@ -42,8 +46,10 @@ a { color: var(--imeji-primary-700, #1d4ed8); }
   max-width: 760px;
   margin: 24px auto;
   padding: 24px 20px 32px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: rgb(255 255 255 / 0.86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 0.7);
   border-radius: var(--imeji-radius-xl, 1.5rem);
   box-shadow: var(--imeji-shadow-card, 0 4px 20px -2px rgb(15 23 42 / 0.04));
 }
@@ -93,7 +99,7 @@ a { color: var(--imeji-primary-700, #1d4ed8); }
 .cta a:first-of-type { background: var(--imeji-primary-600, #2563eb); border-color: var(--imeji-primary-600, #2563eb); color: #fff; }
 
 /* ---- Chân trang ---- */
-.post-footer { border-top: 1px solid #e2e8f0; background: #fff; color: #64748b; font-size: 13px; line-height: 1.7; }
+.post-footer { border-top: 1px solid #e2e8f0; background: rgb(255 255 255 / 0.7); color: #64748b; font-size: 13px; line-height: 1.7; }
 .post-footer__inner { max-width: 1080px; margin: 0 auto; padding: 24px 16px 32px; }
 .post-footer strong { color: #1e293b; }
 .post-footer a { color: inherit; }

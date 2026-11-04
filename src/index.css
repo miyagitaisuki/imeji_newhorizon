@@ -7,6 +7,24 @@
  */
 @import "./styles/imeji-brand.css";
 
+/* Nền mây cố định phía sau toàn trang (nằm dưới ảnh hero), phủ lớp sáng để chữ dễ đọc */
+.site-cloud-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -30;
+  pointer-events: none;
+  background-color: #e2e8f0;
+  background-image: linear-gradient(rgb(248 250 252 / 0.55), rgb(248 250 252 / 0.72)), url("/assets/aistudio/clouds.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Thẻ kính trong hơn ở phần nội dung (trừ hero) để nền mây lộ ra */
+main > section:not(:first-child) .glass-panel {
+  background: rgb(255 255 255 / 0.62);
+  border-color: rgb(255 255 255 / 0.6);
+}
+
 /* Nối Tailwind với bộ quy chuẩn thương hiệu (imeji-brand.css). Không khai báo giá trị màu ở đây. */
 @theme inline {
   --color-primary-50: var(--imeji-primary-50); --color-primary-100: var(--imeji-primary-100); --color-primary-200: var(--imeji-primary-200); --color-primary-300: var(--imeji-primary-300); --color-primary-400: var(--imeji-primary-400); --color-primary-500: var(--imeji-primary-500);
