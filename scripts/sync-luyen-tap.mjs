@@ -38,7 +38,7 @@ try {
 
   fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true });
-  for (const item of ["index.html", "minna", "nhap-mon", "data", "assets"]) {
+  for (const item of ["index.html", "minna", "nhap-mon", "n2", "data", "assets"]) {
     fs.cpSync(path.join(src, item), path.join(out, item), {
       recursive: true,
       filter: (p) => !p.endsWith("tailwind.input.css"),
