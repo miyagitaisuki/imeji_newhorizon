@@ -63,7 +63,7 @@ function HomeContent({ form }: { form: Form }) {
       {/* Sky Sunrise Background Image (Prominently visible behind the entire hero) */}
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <img
-          src="/assets/aistudio/clouds-blue.jpg"
+          src="/assets/aistudio/clouds.jpg"
           alt="Biển mây bình minh rực sáng - IMEJI日本語教室"
           className="w-full h-full object-cover object-top sm:object-center filter brightness-100 contrast-[1.05]"
           loading="eager"
