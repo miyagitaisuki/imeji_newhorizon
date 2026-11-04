@@ -101,7 +101,7 @@ function courseLd(id: (typeof COURSES)[number]["id"]) {
 export const PAGES: PageMeta[] = [
   {
     path: "/",
-    title: "Tiếng Nhật Thầy Quang Quy Nhơn – Lớp JLPT N5, N4, N3",
+    title: "IMEJI日本語教室 – Lớp học tiếng Nhật thầy Quang | JLPT N5, N4, N3",
     description:
       "Lớp học tiếng Nhật thực chiến từ N5 đến N3 tại Quy Nhơn cùng ThS. Nguyễn Thanh Quang (JLPT N1). Sĩ số dưới 6 bạn, học thử miễn phí 2 buổi.",
     jsonLd: [
@@ -124,7 +124,7 @@ export const PAGES: PageMeta[] = [
   })),
   {
     path: "/posts/",
-    title: "Bài viết học tiếng Nhật N5, N4, N3 | Tiếng Nhật Thầy Quang",
+    title: "Bài viết học tiếng Nhật N5, N4, N3 | IMEJI日本語教室",
     description:
       "Ngữ pháp, chữ viết và phương pháp tự học tiếng Nhật từ N5 đến N3 do ThS. Nguyễn Thanh Quang biên soạn. Mẹo nhớ Hiragana, Katakana, ngữ pháp JLPT.",
     jsonLd: [

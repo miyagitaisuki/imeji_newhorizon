@@ -84,7 +84,7 @@ for (const post of index.posts) {
     author: { "@type": "Person", name: "ThS. Nguyễn Thanh Quang", url: `${SITE_URL}/#about` },
     publisher: {
       "@type": "EducationalOrganization",
-      name: "Tiếng Nhật Thầy Quang Quy Nhơn",
+      name: "IMEJI日本語教室",
       logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/brand/logo.png` },
     },
   };

@@ -53,19 +53,17 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
       <a href="/" className="flex items-center gap-3 group">
         <img
           src="/assets/brand/logo.png"
-          alt="Logo Tiếng Nhật Thầy Quang"
+          alt="Logo IMEJI日本語教室"
           width={40}
           height={40}
           className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
         />
         <div>
           <p className={`font-bold text-sm sm:text-base leading-tight tracking-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
-            Tiếng Nhật Thầy Quang
+            IMEJI日本語教室
           </p>
-          <p className="text-[11px] text-primary-600 dark:text-primary-400 font-medium flex items-center gap-1">
-            <span>Quy Nhơn</span>
-            <span>・</span>
-            <span>Thực chiến N5 - N3</span>
+          <p className="text-[11px] text-primary-600 dark:text-primary-400 font-medium">
+            Lớp học tiếng Nhật thầy Quang
           </p>
         </div>
       </a>

@@ -32,7 +32,8 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
         <footer className="py-10 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="space-y-1.5">
-              <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</p>
+              <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">IMEJI日本語教室</p>
+              <p>Lớp học tiếng Nhật thầy Quang</p>
               <p>ThS. Nguyễn Thanh Quang</p>
               <p>{ADDRESS_FULL}</p>
               <p>
@@ -57,7 +58,7 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
               <a href={`${base}#register`} className="block hover:text-primary-600">Đăng ký học thử miễn phí</a>
             </nav>
           </div>
-          <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">© {BUILD_YEAR} Tiếng Nhật Thầy Quang. All rights reserved.</p>
+          <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">© {BUILD_YEAR} IMEJI日本語教室. All rights reserved.</p>
         </footer>
 
         {/* Nút Zalo nổi */}

@@ -64,7 +64,7 @@ function HomeContent({ form }: { form: Form }) {
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <img
           src="/assets/aistudio/clouds-blue.jpg"
-          alt="Biển mây bình minh rực sáng - Tiếng Nhật Thầy Quang Quy Nhơn"
+          alt="Biển mây bình minh rực sáng - IMEJI日本語教室"
           className="w-full h-full object-cover object-top sm:object-center filter brightness-100 contrast-[1.05]"
           loading="eager"
           fetchPriority="high"
@@ -81,7 +81,7 @@ function HomeContent({ form }: { form: Form }) {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
                 <Sparkles size={14} className="text-amber-500" />
-                <span>Lớp học Tiếng Nhật Thầy Quang Quy Nhơn</span>
+                <span>IMEJI日本語教室 ・ Lớp học tiếng Nhật thầy Quang</span>
               </div>
               {startLabel && (
                 <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-400 text-slate-900 shadow-sm">
@@ -528,7 +528,7 @@ function HomeContent({ form }: { form: Form }) {
               >
                 <span className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0"><LogIn size={20} /></span>
                 <span>
-                  <span className="block font-bold text-sm text-slate-900 dark:text-white">Cổng học viên EduScan</span>
+                  <span className="block font-bold text-sm text-slate-900 dark:text-white">Cổng học viên IMEJI日本語教室</span>
                   <span className="block text-xs text-slate-500 dark:text-slate-400">Điểm danh, học phí, bài tập, kết quả</span>
                 </span>
               </a>

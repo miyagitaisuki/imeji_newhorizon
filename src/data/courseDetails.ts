@@ -35,7 +35,7 @@ export const COURSE_DETAILS: Record<CourseData["id"], CourseDetail> = {
   n5: {
     id: "n5",
     months: 6,
-    metaTitle: "Học tiếng Nhật N5 tại Quy Nhơn – Khóa cho người mới bắt đầu | Thầy Quang",
+    metaTitle: "Học tiếng Nhật N5 tại Quy Nhơn – Khóa cho người mới bắt đầu | IMEJI日本語教室",
     metaDescription:
       "Khóa tiếng Nhật N5 cho người mới bắt đầu tại Quy Nhơn: Hiragana, Katakana, 25 bài Minna no Nihongo, luyện thi JLPT N5. Lớp dưới 6 bạn, học thử miễn phí 2 buổi.",
     h1: "Khóa học tiếng Nhật N5 tại Quy Nhơn cho người mới bắt đầu",
@@ -124,7 +124,7 @@ export const COURSE_DETAILS: Record<CourseData["id"], CourseDetail> = {
   n4: {
     id: "n4",
     months: 6,
-    metaTitle: "Học tiếng Nhật N4 tại Quy Nhơn – Luyện thi JLPT N4 | Thầy Quang",
+    metaTitle: "Học tiếng Nhật N4 tại Quy Nhơn – Luyện thi JLPT N4 | IMEJI日本語教室",
     metaDescription:
       "Khóa tiếng Nhật N4 tại Quy Nhơn cho người đã học xong N5: Minna no Nihongo bài 26–50, 300 Kanji, luyện nghe đọc và thi thử JLPT N4. Lớp dưới 6 bạn, học thử miễn phí 2 buổi.",
     h1: "Khóa học tiếng Nhật N4 tại Quy Nhơn – Luyện thi JLPT N4",
@@ -213,7 +213,7 @@ export const COURSE_DETAILS: Record<CourseData["id"], CourseDetail> = {
   n3: {
     id: "n3",
     months: 9,
-    metaTitle: "Luyện thi JLPT N3 tại Quy Nhơn – Khóa tiếng Nhật N3 | Thầy Quang",
+    metaTitle: "Luyện thi JLPT N3 tại Quy Nhơn – Khóa tiếng Nhật N3 | IMEJI日本語教室",
     metaDescription:
       "Khóa tiếng Nhật N3 tại Quy Nhơn: 650 Kanji, ngữ pháp trung cấp, đọc hiểu văn bản dài, chiến thuật thi JLPT N3, hướng dẫn CV và phỏng vấn tiếng Nhật. Học thử miễn phí 2 buổi.",
     h1: "Khóa luyện thi JLPT N3 tại Quy Nhơn",

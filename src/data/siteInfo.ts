@@ -4,7 +4,8 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 
 // Địa chỉ chính thức của website (không có dấu / ở cuối)
 export const SITE_URL = "https://imejiquynhon.com";
-export const SITE_NAME = "Tiếng Nhật Thầy Quang Quy Nhơn";
+export const SITE_NAME = "IMEJI日本語教室";
+export const SITE_TAGLINE = "Lớp học tiếng Nhật thầy Quang";
 
 // Ngày build trang (vite.config.ts gán). Dùng để HTML dựng sẵn và lần hiển thị đầu trên trình duyệt khớp nhau.
 const BUILD_DATE = new Date(__BUILD_DATE__);
