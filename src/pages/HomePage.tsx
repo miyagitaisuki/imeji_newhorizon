@@ -28,7 +28,7 @@ import { useRegistrationForm } from "../hooks/useRegistrationForm";
 import {
   FREE_TRIAL,
   SCHEDULE_SHORT,
-  SCHEDULE_DAYS,
+  useScheduleDays,
   COMMITMENT_TITLE,
   COMMITMENT_DETAIL,
   useNextStartLabel,
@@ -52,6 +52,7 @@ function HomeContent({ form }: { form: Form }) {
   const openQuiz = useOpenQuiz();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const startLabel = useNextStartLabel();
+  const scheduleDays = useScheduleDays();
 
   return (
     <>
@@ -99,7 +100,7 @@ function HomeContent({ form }: { form: Form }) {
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-              Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, thạc sĩ Ngôn ngữ học. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và học liệu đa dạng. Lịch học {SCHEDULE_SHORT}, vào {SCHEDULE_DAYS}.
+              Học trực tiếp cùng giảng viên Đại học giàu kinh nghiệm, thạc sĩ Ngôn ngữ học. Lộ trình bài bản tinh gọn, kết hợp flashcard Anki thông minh và học liệu đa dạng. Lịch học {SCHEDULE_SHORT}, vào {scheduleDays}.
             </p>
 
             {/* Action Buttons */}
@@ -604,7 +605,7 @@ function HomeContent({ form }: { form: Form }) {
             Đăng ký học thử miễn phí
           </a>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
-            Lịch học: {SCHEDULE_SHORT} ・ {SCHEDULE_DAYS}
+            Lịch học: {SCHEDULE_SHORT} ・ {scheduleDays}
             {startLabel && <> ・ Khai giảng {startLabel}</>}
           </p>
           <p className="text-[11px] text-slate-400 mt-1">

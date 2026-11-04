@@ -36,9 +36,11 @@ Tài liệu vận hành trong thư mục `docs/`:
 
 Form gửi đăng ký vào **eduscan** (`VITE_LEADS_ENDPOINT`, VD `https://app.imejiquynhon.com/api/leads/public`; eduscan cần `CORS_ORIGIN=https://imejiquynhon.com`). Nếu eduscan lỗi mạng/máy chủ hoặc chưa cấu hình, form ghi vào **Google Sheet** (`VITE_SHEET_ENDPOINT`) để không mất đăng ký; xem [google-apps-script/README.md](google-apps-script/README.md). Lỗi dữ liệu (số điện thoại sai…) thì hiện thông báo của eduscan, không ghi sang Sheet. Cần ít nhất một trong hai biến khi build.
 
-## Cập nhật ngày khai giảng
+## Cập nhật ngày khai giảng và ngày học
 
-Sửa `NEXT_START_DATE` trong `src/data/siteInfo.ts` (dạng `YYYY-MM-DD`). Sau ngày đó, trang tự ẩn dòng "Khai giảng …" cho đến khi bạn đặt ngày mới.
+Nguồn chính là **eduscan**: khi mở trang, trình duyệt đọc `GET /api/public/classes` (địa chỉ suy ra từ `VITE_LEADS_ENDPOINT`, hoặc đặt riêng `VITE_SCHEDULE_ENDPOINT`) và hiển thị ngày khai giảng gần nhất cùng các thứ học của các lớp sắp khai giảng. Chỉ cần đặt **Ngày bắt đầu** và lịch lặp cho lớp trong eduscan. Kết quả được nhớ 10 phút trong trình duyệt; chờ quá 8 giây hoặc eduscan lỗi thì giữ giá trị mặc định.
+
+Giá trị mặc định (dùng cho HTML dựng sẵn cho Google, và khi eduscan không trả được dữ liệu): sửa `NEXT_START_DATE` (dạng `YYYY-MM-DD`) và `SCHEDULE_DAYS` trong `src/data/siteInfo.ts`. Sau ngày khai giảng, trang tự ẩn dòng "Khai giảng …" cho đến khi có ngày mới. Phần câu hỏi thường gặp và dữ liệu có cấu trúc cho Google luôn dùng giá trị mặc định.
 
 ## SEO
 

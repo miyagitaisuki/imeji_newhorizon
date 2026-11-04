@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Send, Check, Phone, Mail, MapPin, MessageCircle, Copy, CheckCheck } from "lucide-react";
 import { getSource, trackEvent, trackCall, trackZalo } from "../lib/analytics";
-import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, SCHEDULE_DAYS, useNextStartLabel } from "../data/siteInfo";
+import { PHONE, PHONE_DISPLAY, ZALO_URL, EMAIL, ADDRESS_FULL, FREE_TRIAL, SCHEDULE_SHORT, useScheduleDays, useNextStartLabel } from "../data/siteInfo";
 import { PrivacyNotice } from "./PrivacyNotice";
 
 // Nơi nhận đăng ký chính: API của eduscan (VD https://app.imejiquynhon.com/api/leads/public)
@@ -75,6 +75,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
   const [website, setWebsite] = useState("");
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const startLabel = useNextStartLabel();
+  const scheduleDays = useScheduleDays();
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,7 +157,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
           <ul className="mb-6 space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             <li className="flex items-start gap-2">
               <Check size={15} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-              <span>Lịch học: {SCHEDULE_SHORT}, vào {SCHEDULE_DAYS}</span>
+              <span>Lịch học: {SCHEDULE_SHORT}, vào {scheduleDays}</span>
             </li>
             {startLabel && (
               <li className="flex items-start gap-2">

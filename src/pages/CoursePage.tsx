@@ -27,7 +27,7 @@ import {
   COMMITMENT_DETAIL,
   COMMITMENT_TITLE,
   FREE_TRIAL,
-  SCHEDULE_DAYS,
+  useScheduleDays,
   SCHEDULE_SHORT,
   useNextStartLabel,
 } from "../data/siteInfo";
@@ -49,13 +49,14 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
   const d = COURSE_DETAILS[course.id];
   const openQuiz = useOpenQuiz();
   const startLabel = useNextStartLabel();
+  const scheduleDays = useScheduleDays();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const otherCourses = COURSES.filter((c) => c.id !== course.id);
   const relatedPosts = PUBLISHED_POSTS.filter((p) => p.category === course.id).slice(0, 3);
 
   const facts = [
     { icon: Clock, label: "Thời lượng", value: `${d.months} tháng` },
-    { icon: CalendarDays, label: "Lịch học", value: `${SCHEDULE_SHORT}, ${SCHEDULE_DAYS}` },
+    { icon: CalendarDays, label: "Lịch học", value: `${SCHEDULE_SHORT}, ${scheduleDays}` },
     { icon: Wallet, label: "Học phí", value: `${formatVnd(MONTHLY_FEE)} đ/tháng (cả khóa ${formatVnd(MONTHLY_FEE * d.months)} đ)` },
     { icon: Users, label: "Sĩ số", value: "Dưới 6 học viên/lớp" },
     { icon: Gift, label: "Ưu đãi", value: FREE_TRIAL },

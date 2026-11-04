@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Clock, Check, Sparkles, ArrowRight, BookOpen, CalendarDays, Gift } from "lucide-react";
 import { COURSES, CourseData } from "../data/courseData";
-import { SCHEDULE_SHORT, SCHEDULE_DAYS, FREE_TRIAL, useNextStartLabel } from "../data/siteInfo";
+import { SCHEDULE_SHORT, useScheduleDays, FREE_TRIAL, useNextStartLabel } from "../data/siteInfo";
 
 interface Props {
   onSelectCourse: (course: CourseData) => void;
@@ -12,6 +12,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
   const [activeTab, setActiveTab] = useState<"all" | "n5" | "n4" | "n3">("all");
 
   const startLabel = useNextStartLabel();
+  const scheduleDays = useScheduleDays();
 
   const displayedCourses =
     activeTab === "all" ? COURSES : COURSES.filter((c) => c.id === activeTab);
@@ -32,7 +33,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
             <CalendarDays size={13} className="text-primary-600 dark:text-primary-400" />
-            {SCHEDULE_SHORT} ・ {SCHEDULE_DAYS}
+            {SCHEDULE_SHORT} ・ {scheduleDays}
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200">
             <Gift size={13} />
