@@ -4,14 +4,14 @@ import { Gamepad2, LogIn, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
 import { PORTAL_URL, PRACTICE_URL } from "../data/siteInfo";
 import { trackEcosystem } from "../lib/analytics";
 
-const NAV_ITEMS: { id?: string; label: string; href?: string }[] = [
+const NAV_ITEMS: { id?: string; label: string; href?: string; mobileOnly?: boolean }[] = [
   { id: "about", label: "Giảng viên" },
   { id: "features", label: "Điểm khác biệt" },
   { id: "courses", label: "Khóa học" },
   { id: "roadmap", label: "Lộ trình" },
-  { id: "ecosystem", label: "Hệ sinh thái" },
+  { id: "ecosystem", label: "Hệ sinh thái", mobileOnly: true },
   { id: "pricing", label: "Học phí" },
-  { id: "faq", label: "FAQ" },
+  { id: "faq", label: "FAQ", mobileOnly: true },
   { label: "Bài viết", href: "/posts/" },
 ];
 
@@ -75,26 +75,26 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
     className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-3 sm:px-5 pt-3`}
   >
     <div
-      className={`max-w-7xl mx-auto px-4 sm:px-5 py-2 rounded-full border flex items-center justify-between gap-3 transition-all duration-300 ${
+      className={`max-w-[1480px] mx-auto px-4 sm:px-5 py-2 rounded-full border flex items-center justify-between gap-3 transition-all duration-300 ${
         scrolled
           ? "bg-white/95 dark:bg-slate-900/95 border-slate-200 dark:border-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur"
           : "bg-slate-900/45 border-white/25 shadow-lg shadow-black/10 backdrop-blur-md"
       }`}
     >
       {/* Logo & Teacher Branding */}
-      <a href="/" className="flex items-center gap-3 group">
+      <a href="/" className="flex items-center gap-3 group shrink-0">
         <img
           src="/assets/brand/logo.png"
           alt="Logo IMEJI日本語教室"
           width={40}
           height={40}
-          className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+          className="w-10 h-10 shrink-0 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
         />
         <div>
-          <p className={`font-extrabold text-base sm:text-lg leading-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
+          <p className={`whitespace-nowrap font-extrabold text-base sm:text-lg leading-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
             IMEJI日本語教室
           </p>
-          <p className={`text-xs font-semibold ${scrolled ? "text-primary-700 dark:text-primary-300" : "text-white/95"}`}>
+          <p className={`whitespace-nowrap text-xs font-semibold ${scrolled ? "text-primary-700 dark:text-primary-300" : "text-white/95"}`}>
             Lớp học tiếng Nhật thầy Quang
           </p>
         </div>
@@ -102,7 +102,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
 
       {/* Desktop Nav Items */}
       <nav className="hidden 2xl:flex items-center gap-1 text-[15px] font-semibold">
-        {NAV_ITEMS.map((i) => {
+        {NAV_ITEMS.filter((i) => !i.mobileOnly).map((i) => {
           const active = !!i.id && activeId === i.id;
           const tone = active
             ? scrolled
@@ -156,7 +156,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         {/* Desktop Register CTA */}
         <a
           href={`${base}#register`}
-          className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition shadow-sm"
+          className="hidden sm:inline-flex shrink-0 whitespace-nowrap items-center justify-center px-5 py-2 rounded-full text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition shadow-sm"
         >
           Học thử miễn phí
         </a>
