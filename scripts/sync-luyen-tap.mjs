@@ -29,6 +29,13 @@ try {
     console.warn("Cảnh báo: không build được CSS dominion, dùng assets/css/tailwind.css có sẵn.");
   }
 
+  // Bộ quy chuẩn thương hiệu phải giống hệt bản gốc ở repo này (src/styles/imeji-brand.css).
+  const brandHere = fs.readFileSync(path.join(root, "src", "styles", "imeji-brand.css"), "utf-8");
+  const brandDominion = path.join(src, "assets", "css", "imeji-brand.css");
+  if (!fs.existsSync(brandDominion) || fs.readFileSync(brandDominion, "utf-8") !== brandHere) {
+    console.warn("Cảnh báo: assets/css/imeji-brand.css của dominion khác src/styles/imeji-brand.css. Chép bản gốc sang dominion.");
+  }
+
   fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true });
   for (const item of ["index.html", "minna", "nhap-mon", "data", "assets"]) {

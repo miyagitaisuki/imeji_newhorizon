@@ -34,7 +34,9 @@ Ghi chú theo mùa:
 6. Khung **mời đăng ký** (`<div class="cta">`) ở cuối bài, chép từ bài hiện có.
 7. **Ảnh** (nếu có): JPG ngang, tỉ lệ khoảng 1200×630, để trong `public/assets/fb/`.
 
-Khi build, hệ thống **tự thêm**: canonical, dữ liệu Article và Breadcrumb cho Google, đường dẫn điều hướng, mục "Đọc tiếp" (bài liên quan cùng nhóm và trang khóa học), và đưa bài vào `sitemap.xml`.
+Phần `<head>` chép từ bài hiện có: bài không viết CSS riêng mà dùng `/assets/brand/imeji-brand.css` và `/assets/brand/post.css` (font, màu, khung `.cta`, `.note`, `.jp`, `.vi` theo bộ quy chuẩn thương hiệu).
+
+Khi build, hệ thống **tự thêm**: header có logo và thanh chuyển 3 app (Trang chủ · Luyện tập · Học viên), chân trang chung, canonical, dữ liệu Article và Breadcrumb cho Google, đường dẫn điều hướng, mục "Đọc tiếp" (bài liên quan cùng nhóm và trang khóa học), và đưa bài vào `sitemap.xml`.
 
 ## Quy trình đăng
 

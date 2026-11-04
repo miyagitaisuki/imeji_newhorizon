@@ -63,15 +63,15 @@ function HomeContent({ form }: { form: Form }) {
       {/* Sky Sunrise Background Image (Prominently visible behind the entire hero) */}
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <img
-          src="/assets/aistudio/clouds-blue.jpg"
+          src="/assets/aistudio/clouds.jpg"
           alt="Biển mây bình minh rực sáng - IMEJI日本語教室"
           className="w-full h-full object-cover object-top sm:object-center filter brightness-100 contrast-[1.05]"
           loading="eager"
           fetchPriority="high"
         />
         {/* Subtle overlay that lets the sky and clouds shine through while providing a smooth transition */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20 dark:from-black/85 dark:via-black/65 dark:to-black/35" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-50 dark:from-[#0b0f19] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-50 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -79,12 +79,12 @@ function HomeContent({ form }: { form: Form }) {
           {/* Left Content (Glass Panel ensures 100% text contrast in both light & dark modes) */}
           <div className="lg:col-span-7 p-6 sm:p-9 rounded-3xl border border-white/25 shadow-2xl space-y-6 text-center lg:text-left backdrop-blur-xl bg-slate-900/25 text-white">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-blue-50/95 dark:bg-blue-950/80 text-primary-700 dark:text-primary-300 border border-blue-200/90 dark:border-blue-900/60 shadow-sm">
-                <Sparkles size={14} className="text-amber-500" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary-50/95 text-primary-700 border border-primary-200/90 shadow-sm">
+                <Sparkles size={14} className="text-warning-500" />
                 <span>IMEJI日本語教室 ・ Lớp học tiếng Nhật thầy Quang</span>
               </div>
               {startLabel && (
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-400 text-slate-900 shadow-sm">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-warning-400 text-slate-900 shadow-sm">
                   <CalendarDays size={14} />
                   <span>Khai giảng {startLabel}</span>
                 </div>
@@ -93,7 +93,7 @@ function HomeContent({ form }: { form: Form }) {
 
             <h1 className="text-balance text-3xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight leading-[1.18] text-white">
               Học tiếng Nhật thực chiến{" "}
-              <span className="whitespace-nowrap bg-gradient-to-r from-sky-300 via-primary-400 to-sky-300 bg-clip-text text-transparent">
+              <span className="whitespace-nowrap bg-gradient-to-r from-primary-300 via-primary-400 to-primary-300 bg-clip-text text-transparent">
                 từ N5 đến N3
               </span>{" "}
               tại Quy Nhơn
@@ -115,9 +115,9 @@ function HomeContent({ form }: { form: Form }) {
 
               <button
                 onClick={openQuiz}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/90 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm border border-slate-200/90 dark:border-slate-700 transition flex items-center justify-center gap-2 active:scale-95 shadow-sm"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/90 hover:bg-white text-slate-900 font-bold text-sm border border-slate-200/90 transition flex items-center justify-center gap-2 active:scale-95 shadow-sm"
               >
-                <Sparkles size={16} className="text-amber-500" />
+                <Sparkles size={16} className="text-warning-500" />
                 <span>Trắc nghiệm chọn lớp 30s</span>
               </button>
             </div>
@@ -125,23 +125,23 @@ function HomeContent({ form }: { form: Form }) {
             {/* Trust Indicators */}
             <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {FREE_TRIAL}
+                <Check size={15} className="text-success-600 flex-shrink-0" /> {FREE_TRIAL}
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Sĩ số dưới 6 bạn
+                <Check size={15} className="text-success-600 flex-shrink-0" /> Sĩ số dưới 6 bạn
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
+                <Check size={15} className="text-success-600 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> {COMMITMENT_TITLE}
+                <Check size={15} className="text-success-600 flex-shrink-0" /> {COMMITMENT_TITLE}
               </span>
             </div>
           </div>
 
           {/* Right Side: Instructor Portrait Card with Teacher's Real Photo */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-68 sm:w-80 md:w-88 aspect-[3.8/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/95 dark:border-slate-800/95 group bg-slate-900">
+            <div className="relative w-68 sm:w-80 md:w-88 aspect-[3.8/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/95 group bg-slate-900">
               {/* Teacher Photo Uploaded by User */}
               <img
                 src="/assets/aistudio/teacher.webp"
@@ -168,8 +168,8 @@ function HomeContent({ form }: { form: Form }) {
                 </div>
 
                 <div className="w-full text-white text-left">
-                  <p className="text-[11px] font-semibold tracking-wider uppercase text-sky-300 flex items-center gap-1.5">
-                    <Sparkles size={12} className="text-amber-300" />
+                  <p className="text-[11px] font-semibold tracking-wider uppercase text-primary-300 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-warning-300" />
                     <span>Giảng viên phụ trách</span>
                   </p>
                   <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight mt-0.5 text-white">
@@ -178,7 +178,7 @@ function HomeContent({ form }: { form: Form }) {
                   <p className="text-xs text-slate-200 mt-0.5">
                     Giảng viên Trường Đại học Quy Nhơn (QNU)
                   </p>
-                  <p className="text-[11px] text-amber-200 mt-1 italic font-medium">
+                  <p className="text-[11px] text-warning-200 mt-1 italic font-medium">
                     “Thực chiến JLPT N5 - N3 ・ Tận tâm đồng hành”
                   </p>
                 </div>
@@ -186,32 +186,32 @@ function HomeContent({ form }: { form: Form }) {
             </div>
 
             {/* Floating Badges (GPU CSS transformed, mobile safe) */}
-            <div className="absolute -top-3 -left-2 sm:-left-6 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <div className="absolute -top-3 -left-2 sm:-left-6 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 bg-white/90">
+              <div className="p-1.5 rounded-lg bg-success-500/10 text-success-600">
                 <GraduationCap size={16} />
               </div>
               <div>
-                <p className="font-bold text-slate-900 dark:text-white">Thạc sĩ Ngôn ngữ học</p>
+                <p className="font-bold text-slate-900">Thạc sĩ Ngôn ngữ học</p>
                 <p className="text-[10px] text-slate-500">Chuyên ngành đào tạo</p>
               </div>
             </div>
 
-            <div className="absolute top-1/3 -right-2 sm:-right-6 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90">
-              <div className="p-1.5 rounded-lg bg-primary-500/10 text-primary-600 dark:text-primary-400">
+            <div className="absolute top-1/3 -right-2 sm:-right-6 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 bg-white/90">
+              <div className="p-1.5 rounded-lg bg-primary-500/10 text-primary-600">
                 <Award size={16} />
               </div>
               <div>
-                <p className="font-bold text-slate-900 dark:text-white">Chứng chỉ JLPT N1</p>
+                <p className="font-bold text-slate-900">Chứng chỉ JLPT N1</p>
                 <p className="text-[10px] text-slate-500">Cấp độ cao nhất</p>
               </div>
             </div>
 
-            <div className="absolute -bottom-3 -left-2 sm:left-4 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90">
-              <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <div className="absolute -bottom-3 -left-2 sm:left-4 glass-panel px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-medium border border-slate-200/90 bg-white/90">
+              <div className="p-1.5 rounded-lg bg-warning-500/10 text-warning-600">
                 <Flame size={16} />
               </div>
               <div>
-                <p className="font-bold text-slate-900 dark:text-white">10+ Năm Giảng Dạy</p>
+                <p className="font-bold text-slate-900">10+ Năm Giảng Dạy</p>
                 <p className="text-[10px] text-slate-500">Kinh nghiệm thực tế</p>
               </div>
             </div>
@@ -223,38 +223,38 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 2: TRUST STATS
     ========================================================================= */}
-    <section className="py-10 border-y border-slate-200/70 dark:border-slate-800/80 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
+    <section className="py-10 border-y border-slate-200/70 bg-white/40 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
           <div className="pt-2 md:pt-0">
-            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
+            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 tracking-tight">
               10+
             </p>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600">
               Năm kinh nghiệm giảng dạy
             </p>
           </div>
           <div className="pt-2 md:pt-0">
-            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
+            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 tracking-tight">
               JLPT N1
             </p>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600">
               Trình độ tiếng Nhật chuẩn mực
             </p>
           </div>
           <div className="pt-2 md:pt-0">
-            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
+            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 tracking-tight">
               3
             </p>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600">
               Lộ trình đào tạo (N5 - N4 - N3)
             </p>
           </div>
           <div className="pt-2 md:pt-0">
-            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
+            <p className="text-3xl sm:text-4xl font-extrabold text-primary-600 tracking-tight">
               Đa dạng
             </p>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-600">
               Học liệu đa dạng
             </p>
           </div>
@@ -267,10 +267,10 @@ function HomeContent({ form }: { form: Form }) {
     ========================================================================= */}
     <section id="about" className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-        <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
           Đội ngũ chuyên môn
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
           Gặp gỡ người đồng hành cùng bạn
         </h2>
         <div className="w-12 h-1 bg-primary-600 rounded-full mx-auto mt-4" />
@@ -287,29 +287,29 @@ function HomeContent({ form }: { form: Form }) {
               />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+              <h3 className="text-2xl font-bold text-slate-900">
                 ThS. Nguyễn Thanh Quang
               </h3>
-              <p className="text-xs text-primary-600 dark:text-primary-400 font-semibold mt-0.5">
+              <p className="text-xs text-primary-600 font-semibold mt-0.5">
                 Giảng viên Trường Đại học Quy Nhơn (QNU) ・ JLPT N1 Holder
               </p>
             </div>
           </div>
-          <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+          <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
             ThS. Nguyễn Thanh Quang hiện là giảng viên đại học với hơn 10 năm kinh nghiệm giảng dạy tiếng Nhật chuyên nghiệp. Với trình độ JLPT N1 cùng bằng thạc sĩ Ngôn ngữ học, thầy xây dựng phương pháp học tập thực chiến, loại bỏ rào cản sợ Hán tự (Kanji) và ngữ pháp phức tạp.
           </p>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+          <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
             Lớp học không chỉ tập trung vào việc thi đỗ chứng chỉ JLPT điểm cao, mà còn chú trọng khả năng ứng dụng phản xạ ngôn ngữ thực tế trong môi trường học bổng, du học và làm việc tại các doanh nghiệp Nhật Bản.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-2.5">
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs font-medium">
               # Trường Đại học Quy Nhơn (QNU)
             </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs font-medium">
               # JLPT N1 Holder
             </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium">
+            <span className="px-3.5 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs font-medium">
               # Thạc sĩ Ngôn ngữ học
             </span>
           </div>
@@ -326,15 +326,15 @@ function HomeContent({ form }: { form: Form }) {
           ].map((card, idx) => (
             <div
               key={idx}
-              className="glass-panel p-4 sm:p-5 rounded-2xl hover:border-primary-400 dark:hover:border-primary-500 transition-all group"
+              className="glass-panel p-4 sm:p-5 rounded-2xl hover:border-primary-400 transition-all group"
             >
-              <div className="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-950/60 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-primary-100 text-primary-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <card.icon size={18} />
               </div>
-              <h4 className="font-semibold text-slate-900 dark:text-white text-sm mb-1">
+              <h4 className="font-semibold text-slate-900 text-sm mb-1">
                 {card.title}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal">
+              <p className="text-xs text-slate-500 leading-normal">
                 {card.desc}
               </p>
             </div>
@@ -346,16 +346,16 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 4: ĐIỂM KHÁC BIỆT
     ========================================================================= */}
-    <section id="features" className="py-20 bg-slate-100/50 dark:bg-slate-900/50">
+    <section id="features" className="py-20 bg-slate-100/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
             Giá trị cốt lõi
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Tại sao học viên chọn lớp của thầy Quang?
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Tại sao học viên chọn lớp của Quang Sensei?
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3">
+          <p className="text-slate-500 text-xs sm:text-sm mt-3">
             Mô hình học kết hợp giữa sự tận tụy của lớp học nhỏ và công nghệ ghi nhớ hiện đại.
           </p>
         </div>
@@ -403,16 +403,16 @@ function HomeContent({ form }: { form: Form }) {
               key={idx}
               className="glass-panel p-5 sm:p-7 rounded-3xl relative overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg"
             >
-              <span className="absolute top-4 right-5 text-4xl font-extrabold text-slate-200/50 dark:text-slate-800/60 select-none">
+              <span className="absolute top-4 right-5 text-4xl font-extrabold text-slate-200/50 select-none">
                 {item.num}
               </span>
-              <div className="w-10 h-10 rounded-xl bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-xl bg-primary-500/10 text-primary-600 flex items-center justify-center mb-4">
                 <item.icon size={20} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
                 {item.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -429,23 +429,23 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 6: LỘ TRÌNH HỌC (TIMELINE)
     ========================================================================= */}
-    <section id="roadmap" className="py-20 bg-slate-100/60 dark:bg-slate-900/60">
+    <section id="roadmap" className="py-20 bg-slate-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
             Lộ trình rõ ràng
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
             Hành trình từng bước chinh phục JLPT
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3">
+          <p className="text-slate-500 text-xs sm:text-sm mt-3">
             Không vội vã, không học dồn – Xây chắc móng để bứt phá thần tốc.
           </p>
         </div>
 
         <div className="relative">
           {/* Horizontal Timeline bar for desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-800 -translate-y-1/2 z-0" />
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 z-0" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 relative z-10">
             {ROADMAP_STEPS.map((item, idx) => (
@@ -456,16 +456,16 @@ function HomeContent({ form }: { form: Form }) {
                 <span className="w-8 h-8 rounded-full bg-primary-600 text-white font-bold text-xs flex items-center justify-center mb-3 shadow-md">
                   {idx + 1}
                 </span>
-                <p className="text-[11px] font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
+                <p className="text-[11px] font-semibold text-primary-600 uppercase tracking-wider">
                   {item.step}
                 </p>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white my-1">
+                <h3 className="font-bold text-base text-slate-900 my-1">
                   {item.title}
                 </h3>
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-slate-200/60 dark:bg-slate-800 text-[10px] text-slate-600 dark:text-slate-400 mb-2 font-medium">
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-slate-200/60 text-[10px] text-slate-600 mb-2 font-medium">
                   {item.time}
                 </span>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal">
+                <p className="text-xs text-slate-500 leading-normal">
                   {item.desc}
                 </p>
               </div>
@@ -473,8 +473,8 @@ function HomeContent({ form }: { form: Form }) {
           </div>
         </div>
 
-        <div className="mt-10 p-5 rounded-2xl glass-panel max-w-2xl mx-auto text-center border-primary-300 dark:border-primary-800">
-          <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+        <div className="mt-10 p-5 rounded-2xl glass-panel max-w-2xl mx-auto text-center border-primary-300">
+          <p className="text-xs sm:text-sm font-semibold text-slate-800">
             💡 {COMMITMENT_TITLE}: {COMMITMENT_DETAIL}
           </p>
         </div>
@@ -486,26 +486,26 @@ function HomeContent({ form }: { form: Form }) {
     ========================================================================= */}
     <section id="ecosystem" className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-        <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
           Công nghệ giáo dục
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
           Hệ sinh thái học tập số hóa
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3">
+        <p className="text-slate-500 text-xs sm:text-sm mt-3">
           Học tập không giới hạn không gian với nền tảng hỗ trợ độc quyền của lớp.
         </p>
       </div>
 
       {/* Dashboard Showcase Frame */}
-      <div className="rounded-3xl p-5 sm:p-10 glass-panel border border-slate-200 dark:border-slate-800 shadow-xl">
+      <div className="rounded-3xl p-5 sm:p-10 glass-panel border border-slate-200 shadow-xl">
         <div className="grid grid-cols-1 gap-8 items-center">
           {/* Checklist of Features */}
           <div className="lg:col-span-12 space-y-4">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            <h3 className="text-xl font-bold text-slate-900">
               Mọi công cụ bạn cần để giỏi tiếng Nhật
             </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-500">
               Không cần mang vác sách vở cồng kềnh. Học viên tại lớp được cấp quyền truy cập toàn bộ tài nguyên số hóa:
             </p>
 
@@ -524,12 +524,12 @@ function HomeContent({ form }: { form: Form }) {
               <a
                 href={PORTAL_URL}
                 onClick={() => trackEcosystem("portal", "ecosystem")}
-                className="group flex items-center gap-3 p-4 rounded-2xl border border-primary-300 dark:border-primary-700 bg-white/70 dark:bg-slate-900/60 hover:bg-primary-50 dark:hover:bg-primary-950/40 active:scale-[0.98] transition"
+                className="group flex items-center gap-3 p-4 rounded-2xl border border-primary-300 bg-white/70 hover:bg-primary-50 active:scale-[0.98] transition"
               >
-                <span className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950 text-primary-600 dark:text-primary-400 flex items-center justify-center shrink-0"><LogIn size={20} /></span>
+                <span className="w-10 h-10 rounded-xl bg-primary-100 text-primary-600 flex items-center justify-center shrink-0"><LogIn size={20} /></span>
                 <span>
-                  <span className="block font-bold text-sm text-slate-900 dark:text-white">Cổng học viên IMEJI日本語教室</span>
-                  <span className="block text-xs text-slate-500 dark:text-slate-400">Điểm danh, học phí, bài tập, kết quả</span>
+                  <span className="block font-bold text-sm text-slate-900">Cổng học viên IMEJI日本語教室</span>
+                  <span className="block text-xs text-slate-500">Điểm danh, học phí, bài tập, kết quả</span>
                 </span>
               </a>
             </div>
@@ -541,8 +541,8 @@ function HomeContent({ form }: { form: Form }) {
                 "Thống kê chi tiết kết quả thi",
                 "Tài liệu số hóa PDF bản quyền",
               ].map((feat, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700">
+                  <div className="w-5 h-5 rounded-full bg-success-500/10 text-success-600 flex items-center justify-center flex-shrink-0">
                     <Check size={13} />
                   </div>
                   <span>{feat}</span>
@@ -560,7 +560,7 @@ function HomeContent({ form }: { form: Form }) {
     <section id="pricing" className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto glass-panel p-6 sm:p-12 rounded-3xl border-2 border-primary-500/40 relative overflow-hidden shadow-2xl">
         {/* Subtle cloud ambient texture */}
-        <div className="absolute inset-0 -z-10 opacity-10 dark:opacity-15 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 -z-10 opacity-10 pointer-events-none overflow-hidden">
           <img
             src="/assets/aistudio/hero.webp" loading="lazy"
             alt="Cloud background"
@@ -570,18 +570,18 @@ function HomeContent({ form }: { form: Form }) {
         <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/10 rounded-full blur-2xl -z-10" />
 
         <div className="text-center space-y-3">
-          <span className="px-3.5 py-1 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-300 font-semibold text-xs uppercase tracking-wider">
+          <span className="px-3.5 py-1 rounded-full bg-primary-100 text-primary-700 font-semibold text-xs uppercase tracking-wider">
             Chi phí hợp lý cho sinh viên
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
             900.000 VNĐ <span className="text-base font-normal text-slate-500">/ tháng</span>
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
             Chính sách học phí đồng nhất, không phát sinh chi phí tài liệu hay giáo trình phụ trợ.
           </p>
         </div>
 
-        <div className="my-6 sm:my-8 py-6 border-y border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+        <div className="my-6 sm:my-8 py-6 border-y border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
           {[
             "Toàn bộ tài liệu biên soạn độc quyền",
             "Kho từ vựng thông minh Flashcard Anki",
@@ -590,8 +590,8 @@ function HomeContent({ form }: { form: Form }) {
             "Học lại miễn phí 1 khóa nếu chưa thi đỗ (*)",
             FREE_TRIAL + " trước khi đóng học phí",
           ].map((perk, i) => (
-            <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-              <Check size={16} className="text-emerald-500 flex-shrink-0" />
+            <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+              <Check size={16} className="text-success-500 flex-shrink-0" />
               <span>{perk}</span>
             </div>
           ))}
@@ -604,7 +604,7 @@ function HomeContent({ form }: { form: Form }) {
           >
             Đăng ký học thử miễn phí
           </a>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
+          <p className="text-xs text-slate-500 mt-3">
             Lịch học: {SCHEDULE_SHORT} ・ {scheduleDays}
             {startLabel && <> ・ Khai giảng {startLabel}</>}
           </p>
@@ -619,13 +619,13 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 10: FAQ (ACCORDION)
     ========================================================================= */}
-    <section id="faq" className="py-20 bg-slate-100/50 dark:bg-slate-900/50">
+    <section id="faq" className="py-20 bg-slate-100/50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-12">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
             Giải đáp thắc mắc
           </p>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
             Câu hỏi thường gặp
           </h2>
         </div>
@@ -634,11 +634,11 @@ function HomeContent({ form }: { form: Form }) {
           {FAQS.map((faq, idx) => (
             <div
               key={idx}
-              className="glass-panel rounded-2xl overflow-hidden transition-colors border border-slate-200 dark:border-slate-800"
+              className="glass-panel rounded-2xl overflow-hidden transition-colors border border-slate-200"
             >
               <button
                 onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                className="w-full px-5 sm:px-6 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 dark:text-white min-h-[48px]"
+                className="w-full px-5 sm:px-6 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 min-h-[48px]"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -654,7 +654,7 @@ function HomeContent({ form }: { form: Form }) {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="px-5 sm:px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3"
+                    className="px-5 sm:px-6 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3"
                   >
                     {faq.a}
                   </motion.div>

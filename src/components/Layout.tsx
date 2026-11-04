@@ -24,25 +24,26 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
 
   return (
     <QuizContext.Provider value={openQuiz}>
-      <div className="relative isolate min-h-screen bg-japanese-pattern text-slate-800 dark:text-slate-100 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
+      <div className="relative isolate min-h-screen bg-japanese-pattern text-slate-800 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
         <SiteHeader isHome={isHome} onOpenQuiz={openQuiz} />
 
         <main>{children}</main>
 
-        <footer className="py-10 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 text-xs text-slate-500">
+        <footer className="py-10 bg-white border-t border-slate-200 text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="space-y-1.5">
-              <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">IMEJI日本語教室</p>
+              <p className="font-semibold text-sm text-slate-800">IMEJI日本語教室</p>
               <p>Lớp học tiếng Nhật thầy Quang</p>
               <p>ThS. Nguyễn Thanh Quang</p>
               <p>{ADDRESS_FULL}</p>
               <p>
                 <a href={`tel:${PHONE}`} className="hover:text-primary-600">{PHONE_DISPLAY}</a> ・{" "}
+                <a href={ZALO_URL} target="_blank" rel="noreferrer" onClick={() => trackZalo("footer")} className="hover:text-primary-600">Zalo</a> ・{" "}
                 <a href={`mailto:${EMAIL}`} className="hover:text-primary-600">{EMAIL}</a>
               </p>
             </div>
             <nav aria-label="Khóa học" className="space-y-1.5">
-              <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Khóa học</p>
+              <p className="font-semibold text-sm text-slate-800">Khóa học</p>
               {COURSES.map((c) => (
                 <a key={c.id} href={`/khoa-hoc/${c.id}/`} className="block hover:text-primary-600">
                   {c.title}
@@ -50,7 +51,7 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
               ))}
             </nav>
             <nav aria-label="Tài nguyên" className="space-y-1.5">
-              <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Tài nguyên</p>
+              <p className="font-semibold text-sm text-slate-800">Tài nguyên</p>
               <a href={PRACTICE_URL} className="block hover:text-primary-600">Luyện tập Minna no Nihongo (miễn phí)</a>
               <a href={PORTAL_URL} className="block hover:text-primary-600">Cổng học viên (điểm danh, học phí, bài tập)</a>
               <a href="/posts/" className="block hover:text-primary-600">Bài viết học tiếng Nhật</a>
@@ -68,8 +69,8 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
             target="_blank"
             rel="noreferrer"
             onClick={() => trackZalo("floating_button")}
-            aria-label="Nhắn tin Zalo với Thầy Quang"
-            className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
+            aria-label="Nhắn tin Zalo với Quang Sensei"
+            className="w-14 h-14 rounded-full bg-primary-600 hover:bg-primary-700 text-white flex items-center justify-center shadow-xl ring-2 ring-white/80 hover:scale-110 active:scale-95 transition-transform"
           >
             <MessageCircle size={24} />
           </a>

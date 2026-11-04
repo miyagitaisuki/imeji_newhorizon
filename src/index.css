@@ -1,19 +1,37 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/*
+ * Màu, font, bo góc, bóng, nền chấm và kính mờ lấy từ bộ quy chuẩn thương hiệu dùng chung với
+ * trang luyện tập (imeji_dominion) và cổng học viên (eduscan): src/styles/imeji-brand.css.
+ * Repo này giữ BẢN GỐC; sửa xong chép y nguyên sang 2 repo kia.
+ */
+@import "./styles/imeji-brand.css";
 
-@theme {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-  --color-primary-950: #172554;
+/* Nối Tailwind với bộ quy chuẩn thương hiệu (imeji-brand.css). Không khai báo giá trị màu ở đây. */
+@theme inline {
+  --color-primary-50: var(--imeji-primary-50); --color-primary-100: var(--imeji-primary-100); --color-primary-200: var(--imeji-primary-200); --color-primary-300: var(--imeji-primary-300); --color-primary-400: var(--imeji-primary-400); --color-primary-500: var(--imeji-primary-500);
+  --color-primary-600: var(--imeji-primary-600); --color-primary-700: var(--imeji-primary-700); --color-primary-800: var(--imeji-primary-800); --color-primary-900: var(--imeji-primary-900); --color-primary-950: var(--imeji-primary-950);
+  --color-success-50: var(--imeji-success-50); --color-success-100: var(--imeji-success-100); --color-success-200: var(--imeji-success-200); --color-success-300: var(--imeji-success-300); --color-success-400: var(--imeji-success-400); --color-success-500: var(--imeji-success-500);
+  --color-success-600: var(--imeji-success-600); --color-success-700: var(--imeji-success-700); --color-success-800: var(--imeji-success-800); --color-success-900: var(--imeji-success-900); --color-success-950: var(--imeji-success-950);
+  --color-warning-50: var(--imeji-warning-50); --color-warning-100: var(--imeji-warning-100); --color-warning-200: var(--imeji-warning-200); --color-warning-300: var(--imeji-warning-300); --color-warning-400: var(--imeji-warning-400); --color-warning-500: var(--imeji-warning-500);
+  --color-warning-600: var(--imeji-warning-600); --color-warning-700: var(--imeji-warning-700); --color-warning-800: var(--imeji-warning-800); --color-warning-900: var(--imeji-warning-900); --color-warning-950: var(--imeji-warning-950);
+  --color-danger-50: var(--imeji-danger-50); --color-danger-100: var(--imeji-danger-100); --color-danger-200: var(--imeji-danger-200); --color-danger-300: var(--imeji-danger-300); --color-danger-400: var(--imeji-danger-400); --color-danger-500: var(--imeji-danger-500);
+  --color-danger-600: var(--imeji-danger-600); --color-danger-700: var(--imeji-danger-700); --color-danger-800: var(--imeji-danger-800); --color-danger-900: var(--imeji-danger-900); --color-danger-950: var(--imeji-danger-950);
+  --color-accent-50: var(--imeji-accent-50); --color-accent-100: var(--imeji-accent-100); --color-accent-200: var(--imeji-accent-200); --color-accent-300: var(--imeji-accent-300); --color-accent-400: var(--imeji-accent-400); --color-accent-500: var(--imeji-accent-500);
+  --color-accent-600: var(--imeji-accent-600); --color-accent-700: var(--imeji-accent-700); --color-accent-800: var(--imeji-accent-800); --color-accent-900: var(--imeji-accent-900); --color-accent-950: var(--imeji-accent-950);
+  --color-slate-500: var(--imeji-slate-500);
+
+  --font-sans: var(--imeji-font-sans);
+  --font-jp: var(--imeji-font-jp);
+
+  --radius-lg: var(--imeji-radius-sm);
+  --radius-xl: var(--imeji-radius-md);
+  --radius-2xl: var(--imeji-radius-lg);
+  --radius-3xl: var(--imeji-radius-xl);
+
+  --shadow-card: var(--imeji-shadow-card);
+  --shadow-lift: var(--imeji-shadow-lift);
+  --shadow-pop: var(--imeji-shadow-pop);
 }
 
 /* Base styles & Smooth scrolling */
@@ -23,42 +41,7 @@ html {
 }
 
 body {
-  font-family: "Be Vietnam Pro", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
-}
-
-/* Ultra-lightweight Japanese geometric pattern SVG (0 network requests, instantaneous load) */
-.bg-japanese-pattern {
-  background-color: #f8fafc;
-  background-image: radial-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
-    radial-gradient(rgba(37, 99, 235, 0.04) 1px, #f8fafc 1px);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
-}
-
-.dark .bg-japanese-pattern {
-  background-color: #0b0f19;
-  background-image: radial-gradient(rgba(96, 165, 250, 0.08) 1px, transparent 1px),
-    radial-gradient(rgba(96, 165, 250, 0.05) 1px, #0b0f19 1px);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
-}
-
-/* High-performance Glassmorphism (GPU accelerated, zero frame drop) */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
-}
-
-.dark .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.65);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
 }
 
 /* Touch friendly active feedback for mobile */

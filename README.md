@@ -26,6 +26,18 @@ Tài liệu vận hành trong thư mục `docs/`:
 - `public/posts/`: các bài viết dạng HTML và file `index.json` làm danh mục. Vite copy nguyên thư mục này vào `dist/`.
 - `.github/workflows/facebook-post.yml`: khi `public/posts/index.json` thay đổi, workflow đăng các bài có `publish: true` và `fb_posted: false` lên Facebook Page, rồi đánh dấu `fb_posted: true`.
 
+## Bộ quy chuẩn thương hiệu
+
+Màu, font, bo góc, bóng, nền chấm và thẻ kính mờ nằm trong `src/styles/imeji-brand.css`, **giống hệt nhau** ở 3 repo: imeji_newhorizon (website, giữ bản gốc), imeji_dominion (luyện tập) và eduscan (cổng học viên). Quy ước dùng ghi ở đầu file đó.
+
+- Màu theo ý nghĩa: `primary` (thương hiệu, #2563eb), `success`, `warning`, `danger`, `accent`, cùng `slate` cho trung tính. Không dùng tên màu thô như `blue-600`, `emerald-500`, `bg-[#...]`.
+- Font: Be Vietnam Pro, chữ Nhật dùng Noto Sans JP (`font-jp`).
+- Muốn đổi: sửa bản gốc ở imeji_newhorizon, chép y nguyên sang 2 repo kia, rồi chạy `npm run brand:check` để so với bản gốc trên GitHub.
+
+Khi build, bước copy luyện tập cảnh báo nếu bản trong dominion khác bản gốc.
+
+Chỉ có giao diện sáng (đã bỏ chế độ tối) để 3 trang giống nhau. Header của website, trang luyện tập và cổng học viên đều có **thanh chuyển 3 app** (`.imeji-switch`, component `src/components/EcosystemSwitch.tsx`). Bài viết dùng `public/assets/brand/post.css`; header và chân trang của bài (`src/components/PostChrome.tsx`) được gắn lúc build.
+
 ## Thêm một bài mới
 
 1. Tạo file `public/posts/ten-bai.html`.

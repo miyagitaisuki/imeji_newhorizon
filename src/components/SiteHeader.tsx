@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gamepad2, LogIn, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import { Gamepad2, LogIn, Menu, Sparkles, X } from "lucide-react";
+import { EcosystemSwitch } from "./EcosystemSwitch";
 import { PORTAL_URL, PRACTICE_URL } from "../data/siteInfo";
 import { trackEcosystem } from "../lib/analytics";
 
@@ -23,7 +24,6 @@ interface Props {
 }
 
 export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
-  const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolledDown, setScrolledDown] = useState(false);
   const [activeId, setActiveId] = useState("");
@@ -31,8 +31,6 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
   const base = isHome ? "" : "/";
 
   useEffect(() => {
-    // Lớp "dark" đã được gắn sớm bằng script trong index.html; ở đây chỉ đồng bộ trạng thái nút.
-    setDarkMode(document.documentElement.classList.contains("dark"));
     const handleScroll = () => setScrolledDown(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -55,17 +53,6 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
     return () => io.disconnect();
   }, [isHome]);
 
-  const toggleTheme = () => {
-    const nextDark = !darkMode;
-    setDarkMode(nextDark);
-    document.documentElement.classList.toggle("dark", nextDark);
-    try {
-      localStorage.setItem("thayquang_theme", nextDark ? "dark" : "light");
-    } catch {
-      // trình duyệt chặn lưu trữ thì bỏ qua
-    }
-  };
-
   return (
     <>
   {/* =========================================================================
@@ -77,7 +64,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
     <div
       className={`max-w-[1480px] mx-auto px-4 sm:px-5 py-2 rounded-full border flex items-center justify-between gap-3 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 dark:bg-slate-900/95 border-slate-200 dark:border-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur"
+          ? "bg-white/95 border-slate-200 shadow-lg shadow-slate-900/10 backdrop-blur"
           : "bg-slate-900/45 border-white/25 shadow-lg shadow-black/10 backdrop-blur-md"
       }`}
     >
@@ -91,10 +78,10 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           className="w-10 h-10 shrink-0 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
         />
         <div>
-          <p className={`whitespace-nowrap font-extrabold text-base sm:text-lg leading-tight ${scrolled ? "text-slate-900 dark:text-white" : "text-white"}`}>
+          <p className={`whitespace-nowrap font-extrabold text-base sm:text-lg leading-tight ${scrolled ? "text-slate-900" : "text-white"}`}>
             IMEJI日本語教室
           </p>
-          <p className={`whitespace-nowrap text-xs font-semibold ${scrolled ? "text-primary-700 dark:text-primary-300" : "text-white/95"}`}>
+          <p className={`whitespace-nowrap text-xs font-semibold ${scrolled ? "text-primary-700" : "text-white/95"}`}>
             Lớp học tiếng Nhật thầy Quang
           </p>
         </div>
@@ -106,10 +93,10 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           const active = !!i.id && activeId === i.id;
           const tone = active
             ? scrolled
-              ? "bg-primary-100 text-primary-800 dark:bg-primary-900/60 dark:text-primary-200"
+              ? "bg-primary-100 text-primary-800"
               : "bg-white text-primary-800"
             : scrolled
-              ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+              ? "text-slate-700 hover:bg-slate-100"
               : "text-white hover:bg-white/20";
           return (
             <a
@@ -126,32 +113,10 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
 
       {/* Action buttons on Header */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Lối tắt tới Luyện tập (dominion) và Cổng học viên (eduscan) */}
-        <a
-          href={PRACTICE_URL}
-          onClick={() => trackEcosystem("practice", "header")}
-          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/50 text-white hover:bg-white/20"}`}
-        >
-          <Gamepad2 size={15} />
-          <span>Luyện tập</span>
-        </a>
-        <a
-          href={PORTAL_URL}
-          onClick={() => trackEcosystem("portal", "header")}
-          className={`hidden md:inline-flex whitespace-nowrap items-center gap-1.5 px-3 py-2 rounded-full text-sm font-semibold border transition active:scale-95 ${scrolled ? "border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-950/40" : "border-white/50 text-white hover:bg-white/20"}`}
-        >
-          <LogIn size={15} />
-          <span>Học viên</span>
-        </a>
-
-        {/* Dark Mode Toggle */}
-        <button
-          onClick={toggleTheme}
-          aria-label="Chuyển chế độ sáng tối"
-          className={`p-2.5 rounded-xl border transition active:scale-95 ${scrolled ? "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" : "border-white/30 text-white hover:bg-white/10"}`}
-        >
-          {darkMode ? <Sun size={17} /> : <Moon size={17} />}
-        </button>
+        {/* Thanh chuyển 3 app dùng chung: Trang chủ · Luyện tập · Học viên */}
+        <div className="hidden md:block">
+          <EcosystemSwitch onDark={!scrolled} location="header" />
+        </div>
 
         {/* Desktop Register CTA */}
         <a
@@ -164,7 +129,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         {/* Mobile Menu Hamburger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`2xl:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" : "text-white hover:bg-white/10"}`}
+          className={`2xl:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10"}`}
           aria-label="Mở menu điều hướng"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -179,9 +144,9 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="2xl:hidden border-b border-slate-200 dark:border-slate-800 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm"
+          className="2xl:hidden border-b border-slate-200 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm"
         >
-          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200">
             <a
               onClick={() => { setMobileMenuOpen(false); trackEcosystem("practice", "mobile_menu"); }}
               href={PRACTICE_URL}
@@ -193,7 +158,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
             <a
               onClick={() => { setMobileMenuOpen(false); trackEcosystem("portal", "mobile_menu"); }}
               href={PORTAL_URL}
-              className="py-3 rounded-xl border border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 font-semibold text-sm flex items-center justify-center gap-2"
+              className="py-3 rounded-xl border border-primary-300 text-primary-700 font-semibold text-sm flex items-center justify-center gap-2"
             >
               <LogIn size={16} />
               <span>Học viên</span>
@@ -202,56 +167,56 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#about`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Giảng viên phụ trách
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#features`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Điểm khác biệt lớp học
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#courses`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Các khóa học (N5 - N4 - N3)
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#roadmap`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Lộ trình chinh phục JLPT
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#ecosystem`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Hệ sinh thái học tập số hóa
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#pricing`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Chính sách học phí
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href={`${base}#faq`}
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Câu hỏi thường gặp
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
             href="/posts/"
-            className="py-2 text-slate-800 dark:text-slate-200 font-medium hover:text-primary-600"
+            className="py-2 text-slate-800 font-medium hover:text-primary-600"
           >
             Bài viết học tiếng Nhật
           </a>
@@ -262,9 +227,9 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
                 setMobileMenuOpen(false);
                 onOpenQuiz();
               }}
-              className="py-2.5 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 font-semibold text-xs flex items-center justify-center gap-1.5"
+              className="py-2.5 rounded-xl border border-warning-300 bg-warning-50 text-warning-800 font-semibold text-xs flex items-center justify-center gap-1.5"
             >
-              <Sparkles size={14} className="text-amber-500" />
+              <Sparkles size={14} className="text-warning-500" />
               <span>Trắc nghiệm kiểm tra trình độ (30 giây)</span>
             </button>
           </div>
