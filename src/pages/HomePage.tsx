@@ -353,7 +353,7 @@ function HomeContent({ form }: { form: Form }) {
             Giá trị cốt lõi
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Tại sao học viên chọn lớp của thầy Quang?
+            Tại sao học viên chọn lớp của Quang Sensei?
           </h2>
           <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-3">
             Mô hình học kết hợp giữa sự tận tụy của lớp học nhỏ và công nghệ ghi nhớ hiện đại.

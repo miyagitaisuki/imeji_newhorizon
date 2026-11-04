@@ -47,7 +47,7 @@ export default function PostsPage() {
         ))}
 
         <section className="mt-14 p-6 rounded-3xl glass-panel">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Học bài bản cùng thầy Quang</h2>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Học bài bản cùng Quang Sensei</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
             Lớp nhỏ dưới 6 bạn tại Quy Nhơn, {FREE_TRIAL.toLowerCase()}.
           </p>

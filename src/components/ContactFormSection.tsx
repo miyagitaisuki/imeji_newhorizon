@@ -178,7 +178,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 Gửi thông tin thành công!
               </h4>
               <p className="text-xs sm:text-sm text-success-700 dark:text-success-300 max-w-sm mx-auto">
-                Cảm ơn bạn {formData.fullName || "bạn"}! Thầy Quang sẽ chủ động liên hệ qua Zalo / số điện thoại{" "}
+                Cảm ơn bạn {formData.fullName || "bạn"}! Quang Sensei sẽ chủ động liên hệ qua Zalo / số điện thoại{" "}
                 <span className="font-bold">{formData.phone}</span> để tư vấn lớp trong vòng 24 giờ.
               </p>
               <div className="pt-2">

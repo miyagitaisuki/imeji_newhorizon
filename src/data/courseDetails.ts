@@ -41,7 +41,7 @@ export const COURSE_DETAILS: Record<CourseData["id"], CourseDetail> = {
     h1: "Khóa học tiếng Nhật N5 tại Quy Nhơn cho người mới bắt đầu",
     intro: [
       "Khóa N5 Cơ Bản dành cho người bắt đầu từ con số 0. Trong 6 tháng, bạn đi từ bảng chữ cái Hiragana, Katakana đến hết 25 bài Minna no Nihongo, đủ nền tảng để tự tin giao tiếp các câu đơn giản và thi chứng chỉ JLPT N5.",
-      "Lớp học trực tiếp tại 80 Võ Mười, Quy Nhơn, mỗi lớp dưới 6 học viên. Nhờ sĩ số nhỏ, thầy Quang sửa phát âm, cách viết chữ và lỗi ngữ pháp cho từng bạn ngay trong buổi học, điều mà lớp đông rất khó làm được.",
+      "Lớp học trực tiếp tại 80 Võ Mười, Quy Nhơn, mỗi lớp dưới 6 học viên. Nhờ sĩ số nhỏ, Quang Sensei sửa phát âm, cách viết chữ và lỗi ngữ pháp cho từng bạn ngay trong buổi học, điều mà lớp đông rất khó làm được.",
     ],
     forWhom: [
       "Người chưa từng học tiếng Nhật, hoặc mới thuộc một phần bảng chữ cái",
