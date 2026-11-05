@@ -209,10 +209,11 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 </label>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                <label htmlFor="fullName" className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Họ và tên của bạn <span className="text-danger-500">*</span>
                 </label>
                 <input
+                  id="fullName"
                   type="text"
                   required
                   autoComplete="name"
@@ -224,10 +225,11 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Số điện thoại / Zalo nhận tư vấn <span className="text-danger-500">*</span>
                 </label>
                 <input
+                  id="phone"
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
@@ -241,10 +243,11 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                  <label htmlFor="currentLevel" className="block text-xs font-semibold text-slate-700 mb-1.5">
                     Trình độ hiện tại
                   </label>
                   <select
+                    id="currentLevel"
                     value={formData.currentLevel}
                     onChange={(e) => setFormData({ ...formData, currentLevel: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition min-h-[44px]"
@@ -257,10 +260,11 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                  <label htmlFor="targetJlpt" className="block text-xs font-semibold text-slate-700 mb-1.5">
                     Mục tiêu mong muốn
                   </label>
                   <select
+                    id="targetJlpt"
                     value={formData.targetJlpt}
                     onChange={(e) => setFormData({ ...formData, targetJlpt: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition min-h-[44px]"
@@ -274,10 +278,11 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                <label htmlFor="notes" className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Ghi chú thêm (khung giờ rảnh, thắc mắc...)
                 </label>
                 <textarea
+                  id="notes"
                   rows={2}
                   placeholder="Ví dụ: Mình rảnh tối thứ 2-4-6, muốn hỏi lớp học có kèm tài liệu Anki không..."
                   value={formData.notes}

@@ -1,7 +1,8 @@
 // Lấy repo imeji_dominion (game luyện tập Minna no Nihongo), build CSS rồi copy vào dist/luyen-tap/.
 // Chạy sau `vite build`. Đổi nguồn bằng DOMINION_REPO / DOMINION_REF; DOMINION_DIR trỏ tới bản đã clone sẵn (bỏ qua clone).
 // Nếu không lấy được dominion thì build vẫn xong (cảnh báo), trừ khi đặt LUYEN_TAP_REQUIRED=1.
-import { execFileSync } from "node:child_process";
+// Riêng lỗi build CSS dominion là lỗi nghiêm trọng để tránh deploy CSS cũ; đặt ALLOW_STALE_PRACTICE_CSS=1 để bỏ qua.
+import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -10,7 +11,23 @@ const root = path.resolve(import.meta.dirname, "..");
 const out = path.join(root, "dist", "luyen-tap");
 const repo = process.env.DOMINION_REPO ?? "https://github.com/miyagitaisuki/imeji_dominion";
 const ref = process.env.DOMINION_REF ?? "main";
-const run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: "inherit" });
+// Trên Windows npm là npm.cmd, và Node không cho spawn .cmd/.bat trực tiếp nếu không qua shell.
+const NPM = process.platform === "win32" ? "npm.cmd" : "npm";
+const run = (cmd, args, cwd) => {
+  if (process.platform === "win32" && cmd.endsWith(".cmd")) {
+    // execSync nhận cả chuỗi lệnh nên tránh được cảnh báo DEP0190 của execFileSync + shell.
+    const command = [cmd, ...args.map((arg) => (/\s/.test(arg) ? `"${arg}"` : arg))].join(" ");
+    execSync(command, { cwd, stdio: "inherit" });
+    return;
+  }
+  execFileSync(cmd, args, { cwd, stdio: "inherit" });
+};
+
+const fatal = (message, cause) => {
+  const err = new Error(message, { cause });
+  err.fatal = true;
+  return err;
+};
 
 let tmp;
 try {
@@ -21,12 +38,24 @@ try {
     run("git", ["clone", "--depth", "1", "--branch", ref, repo, src]);
   }
 
-  // Build CSS Tailwind; nếu lỗi thì dùng file tailwind.css đã commit sẵn trong repo.
+  // Build CSS Tailwind; mặc định lỗi ở bước này sẽ dừng build để không deploy CSS cũ.
   try {
-    run("npm", ["ci", "--no-audit", "--no-fund"], src);
-    run("npm", ["run", "build:css"], src);
-  } catch {
-    console.warn("Cảnh báo: không build được CSS dominion, dùng assets/css/tailwind.css có sẵn.");
+    run(NPM, ["ci", "--no-audit", "--no-fund"], src);
+    run(NPM, ["run", "build:css"], src);
+  } catch (err) {
+    if (process.env.ALLOW_STALE_PRACTICE_CSS === "1") {
+      console.warn(
+        "Cảnh báo: không build được CSS dominion, dùng assets/css/tailwind.css có sẵn (ALLOW_STALE_PRACTICE_CSS=1)."
+      );
+      console.warn(`  Lỗi gốc: ${err.message}`);
+    } else {
+      throw fatal(
+        `Không build được CSS của dominion: ${err.message}. ` +
+          "Dừng build để không deploy /luyen-tap/ với CSS cũ. " +
+          "Sửa lỗi npm ở trên, hoặc đặt ALLOW_STALE_PRACTICE_CSS=1 nếu chấp nhận dùng CSS đã commit.",
+        err
+      );
+    }
   }
 
   // Bộ quy chuẩn thương hiệu phải giống hệt bản gốc ở repo này (src/styles/imeji-brand.css).
@@ -76,7 +105,7 @@ try {
   }
   console.log(`Đã copy luyện tập vào ${path.relative(root, out)}/`);
 } catch (err) {
-  if (process.env.LUYEN_TAP_REQUIRED === "1") throw err;
+  if (err.fatal || process.env.LUYEN_TAP_REQUIRED === "1") throw err;
   console.warn(`Cảnh báo: bỏ qua /luyen-tap/ (${err.message}). Trang chính vẫn build bình thường.`);
 } finally {
   if (tmp) fs.rmSync(tmp, { recursive: true, force: true });
