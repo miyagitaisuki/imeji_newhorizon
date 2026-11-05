@@ -39,26 +39,26 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
               <p>ThS. Nguyễn Thanh Quang</p>
               <p>{ADDRESS_FULL}</p>
               <p>
-                <a href={`tel:${PHONE}`} className="hover:text-primary-600">{PHONE_DISPLAY}</a> ・{" "}
-                <a href={ZALO_URL} target="_blank" rel="noreferrer" onClick={() => trackZalo("footer")} className="hover:text-primary-600">Zalo</a> ・{" "}
-                <a href={`mailto:${EMAIL}`} className="hover:text-primary-600">{EMAIL}</a>
+                <a href={`tel:${PHONE}`} className="inline-block py-1 hover:text-primary-600">{PHONE_DISPLAY}</a> ・{" "}
+                <a href={ZALO_URL} target="_blank" rel="noreferrer" onClick={() => trackZalo("footer")} className="inline-block py-1 hover:text-primary-600">Zalo</a> ・{" "}
+                <a href={`mailto:${EMAIL}`} className="inline-block py-1 hover:text-primary-600">{EMAIL}</a>
               </p>
             </div>
             <nav aria-label="Khóa học" className="space-y-1.5">
               <p className="font-semibold text-sm text-slate-800">Khóa học</p>
               {COURSES.map((c) => (
-                <a key={c.id} href={`/khoa-hoc/${c.id}/`} className="block hover:text-primary-600">
+                <a key={c.id} href={`/khoa-hoc/${c.id}/`} className="block py-1 hover:text-primary-600">
                   {c.title}
                 </a>
               ))}
             </nav>
             <nav aria-label="Tài nguyên" className="space-y-1.5">
               <p className="font-semibold text-sm text-slate-800">Tài nguyên</p>
-              <a href={PRACTICE_URL} className="block hover:text-primary-600">Luyện tập Minna no Nihongo (miễn phí)</a>
-              <a href={PORTAL_URL} className="block hover:text-primary-600">Cổng học viên (điểm danh, học phí, bài tập)</a>
-              <a href="/posts/" className="block hover:text-primary-600">Bài viết học tiếng Nhật</a>
-              <a href={`${base}#faq`} className="block hover:text-primary-600">Câu hỏi thường gặp</a>
-              <a href={`${base}#register`} className="block hover:text-primary-600">Đăng ký học thử miễn phí</a>
+              <a href={PRACTICE_URL} className="block py-1 hover:text-primary-600">Luyện tập Minna no Nihongo (miễn phí)</a>
+              <a href={PORTAL_URL} className="block py-1 hover:text-primary-600">Cổng học viên (điểm danh, học phí, bài tập)</a>
+              <a href="/posts/" className="block py-1 hover:text-primary-600">Bài viết học tiếng Nhật</a>
+              <a href={`${base}#faq`} className="block py-1 hover:text-primary-600">Câu hỏi thường gặp</a>
+              <a href={`${base}#register`} className="block py-1 hover:text-primary-600">Đăng ký học thử miễn phí</a>
             </nav>
           </div>
           <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">© {BUILD_YEAR} IMEJI日本語教室. All rights reserved.</p>
