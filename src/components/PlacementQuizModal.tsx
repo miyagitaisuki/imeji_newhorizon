@@ -43,6 +43,9 @@ const QUESTIONS: Question[] = [
   },
 ];
 
+const JLPT_RANK: Record<string, number> = { "JLPT N5": 5, "JLPT N4": 4, "JLPT N3": 3 };
+const jlptRank = (target: string) => JLPT_RANK[target] ?? 5;
+
 export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectLevel }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ level: string; target: string }[]>([]);
@@ -71,21 +74,29 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
       const secondAns = updated[1];
 
       let recommendedCourse = "Khóa N5 Cơ Bản";
-      let recommendedLevel = firstAns.level;
-      let recommendedTarget = secondAns.target || "JLPT N5";
+      const recommendedLevel = firstAns.level;
       let reason = "Khởi đầu vững vàng với phát âm chuẩn Tokyo và 25 bài ngữ pháp sơ cấp.";
 
       if (firstAns.level === "Đã hoàn thành N5") {
         recommendedCourse = "Khóa N4 Tăng Tốc";
-        recommendedTarget = "JLPT N4";
         reason = "Bạn đã có nền N5, tiếp tục bứt phá N4 để tự tin giao tiếp phản xạ và chuẩn bị thi chứng chỉ.";
       } else if (firstAns.level === "Đã hoàn thành N4") {
         recommendedCourse = "Khóa N3 Chuyên Sâu";
-        recommendedTarget = "JLPT N3";
         reason = "Trình độ trung cấp chuyên sâu mở ra cơ hội làm việc tại doanh nghiệp Nhật Bản.";
       }
 
-      trackEvent("quiz_complete", { course: recommendedCourse, target_jlpt: recommendedTarget });
+      // Câu 2 (mục tiêu) quyết định JLPT đích, nhưng không hạ thấp hơn mức tối thiểu
+      // của trình độ hiện tại (ví dụ đã xong N4 thì không đề xuất mục tiêu N5).
+      const minimumTarget = firstAns.target || "JLPT N5";
+      const goalTarget = secondAns?.target || minimumTarget;
+      const recommendedTarget =
+        jlptRank(goalTarget) < jlptRank(minimumTarget) ? goalTarget : minimumTarget;
+
+      trackEvent("quiz_complete", {
+        course: recommendedCourse,
+        target_jlpt: recommendedTarget,
+        goal_jlpt: goalTarget,
+      });
       setResult({
         level: recommendedLevel,
         target: recommendedTarget,

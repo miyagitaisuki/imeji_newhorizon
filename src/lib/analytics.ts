@@ -4,6 +4,10 @@
 const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
 const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
 
+// Cho scripts/prerender.mjs dùng lại đúng ID đã build vào bundle, để bài viết tĩnh
+// và các trang React gửi dữ liệu về cùng một GA4/Meta Pixel.
+export { GA_ID, META_PIXEL_ID };
+
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
 const STORE_KEY = "thayquang_utm";
 

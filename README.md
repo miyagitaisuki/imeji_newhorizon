@@ -79,6 +79,8 @@ Giá trị mặc định (dùng cho HTML dựng sẵn cho Google, và khi edusca
 - `VITE_GA_ID`: ID Google Analytics 4 (dạng `G-XXXXXXX`).
 - `VITE_META_PIXEL_ID`: ID Meta Pixel.
 
+Hai ID này được dùng cho cả trang React và các bài viết tĩnh trong `public/posts/`: lúc build, `scripts/prerender.mjs` chèn GA4/Meta Pixel vào `<head>` của mọi bài đã publish (bài nháp `noindex` thì không chèn). Nhờ vậy lượt đọc blog cũng được tính pageview và giữ UTM cho form đăng ký.
+
 Các sự kiện được gửi (GA4 / Meta Pixel):
 
 | Sự kiện GA4 | Meta Pixel | Khi nào |
