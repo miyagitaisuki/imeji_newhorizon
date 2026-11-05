@@ -11,13 +11,18 @@ export interface CourseData {
 
 import { COMMITMENT_DETAIL, ADDRESS_FULL, SCHEDULE_DAYS, FREE_TRIAL } from "./siteInfo";
 
+/** Học phí niêm yết mỗi tháng (VNĐ), dùng chung cho UI và dữ liệu có cấu trúc. */
+export const MONTHLY_FEE = 900000;
+
+export const formatVnd = (n: number) => n.toLocaleString("vi-VN");
+
 export const COURSES: CourseData[] = [
   {
     id: "n5",
     title: "Khóa N5 Cơ Bản",
     tag: "Căn bản vững chắc",
     duration: "6 tháng",
-    price: "900.000",
+    price: formatVnd(MONTHLY_FEE),
     targetAudience: "Dành cho người mới bắt đầu từ con số 0",
     highlight: false,
     features: [
@@ -32,7 +37,7 @@ export const COURSES: CourseData[] = [
     title: "Khóa N4 Tăng Tốc",
     tag: "Học viên yêu thích",
     duration: "6 tháng",
-    price: "900.000",
+    price: formatVnd(MONTHLY_FEE),
     targetAudience: "Dành cho người đã hoàn thành xong N5",
     highlight: true,
     features: [
@@ -47,7 +52,7 @@ export const COURSES: CourseData[] = [
     title: "Khóa N3 Chuyên Sâu",
     tag: "Bứt phá trung cấp",
     duration: "9 tháng",
-    price: "900.000",
+    price: formatVnd(MONTHLY_FEE),
     targetAudience: "Cánh cửa làm việc cho doanh nghiệp Nhật Bản",
     highlight: false,
     features: [

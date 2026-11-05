@@ -41,7 +41,7 @@ export const InteractiveMap: React.FC = () => {
                 title="Tải bản đồ tương tác trực tiếp"
               >
                 <Eye size={15} />
-                <span className="hidden xs:inline">Xem bản đồ</span>
+                <span className="hidden sm:inline">Xem bản đồ</span>
               </button>
             )}
           </div>

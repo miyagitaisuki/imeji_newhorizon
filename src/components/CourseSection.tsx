@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Clock, Check, Sparkles, ArrowRight, BookOpen, CalendarDays, Gift } from "lucide-react";
-import { COURSES, CourseData } from "../data/courseData";
+import { COURSES, MONTHLY_FEE, formatVnd, CourseData } from "../data/courseData";
 import { SCHEDULE_SHORT, useScheduleDays, FREE_TRIAL, useNextStartLabel } from "../data/siteInfo";
 
 interface Props {
@@ -28,7 +28,7 @@ export const CourseSection: React.FC<Props> = ({ onSelectCourse, onOpenQuiz }) =
           Các khóa học tiếng Nhật tuyển sinh
         </h2>
         <p className="text-slate-500 text-xs sm:text-sm mt-3 max-w-lg mx-auto">
-          Học phí minh bạch 900.000 VNĐ/tháng, đào tạo chuẩn JLPT ngay tại Quy Nhơn.
+          Học phí minh bạch {formatVnd(MONTHLY_FEE)} VNĐ/tháng, đào tạo chuẩn JLPT ngay tại Quy Nhơn.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-slate-200 text-slate-700">

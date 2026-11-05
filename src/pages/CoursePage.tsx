@@ -19,7 +19,7 @@ import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ContactFormSection } from "../components/ContactFormSection";
 import { InteractiveMap } from "../components/InteractiveMap";
 import { useRegistrationForm } from "../hooks/useRegistrationForm";
-import { COURSES, type CourseData } from "../data/courseData";
+import { COURSES, MONTHLY_FEE, formatVnd, type CourseData } from "../data/courseData";
 import { COURSE_DETAILS } from "../data/courseDetails";
 import { PUBLISHED_POSTS, postUrl } from "../data/posts";
 import {
@@ -31,9 +31,6 @@ import {
   SCHEDULE_SHORT,
   useNextStartLabel,
 } from "../data/siteInfo";
-
-const formatVnd = (n: number) => n.toLocaleString("vi-VN");
-const MONTHLY_FEE = 900000;
 
 export default function CoursePage({ courseId }: { courseId: CourseData["id"] }) {
   const course = COURSES.find((c) => c.id === courseId)!;
