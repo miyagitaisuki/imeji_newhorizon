@@ -6,6 +6,7 @@ import { PostFooter, PostHeader } from "./components/PostChrome";
 
 export { PAGES };
 export { SITE_URL } from "./data/siteInfo";
+export { GA_ID, META_PIXEL_ID } from "./lib/analytics";
 
 export function render(path: string) {
   const meta = PAGES.find((p) => p.path === path);

@@ -9,7 +9,7 @@ const dist = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
 const ssrEntry = fs.readdirSync(ssrDir).find((f) => /^entry-server\.(m?js)$/.test(f));
-const { render, renderPostChrome, PAGES, SITE_URL } = await import(pathToFileURL(path.join(ssrDir, ssrEntry)).href);
+const { render, renderPostChrome, PAGES, SITE_URL, GA_ID, META_PIXEL_ID } = await import(pathToFileURL(path.join(ssrDir, ssrEntry)).href);
 
 const template = fs.readFileSync(path.join(dist, "index.html"), "utf-8");
 const HEAD_RE = /<!--head:start-->[\s\S]*?<!--head:end-->/;
@@ -36,6 +36,30 @@ const COURSE_LINKS = {
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const ld = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>`;
+
+// Bài viết là HTML tĩnh nên không đi qua bundle React; chèn thẳng GA4/Meta Pixel vào <head>.
+// Dùng cùng ID với src/lib/analytics.ts để không lệch cấu hình giữa trang React và bài viết.
+function analyticsHead() {
+  const gaId = GA_ID && JSON.stringify(GA_ID).replace(/</g, "\\u003c");
+  const pixelId = META_PIXEL_ID && JSON.stringify(META_PIXEL_ID).replace(/</g, "\\u003c");
+  const parts = [
+    // Giữ UTM của lượt truy cập bài viết để form đăng ký ở trang React vẫn quy được nguồn.
+    `<script>try{var q=new URLSearchParams(location.search),keys=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"],u={};keys.forEach(function(k){var v=q.get(k);if(v)u[k]=v.slice(0,100)});if(Object.keys(u).length)sessionStorage.setItem("thayquang_utm",JSON.stringify(u))}catch(e){}</script>`,
+  ];
+  if (gaId) {
+    parts.push(
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}"></script>`,
+      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config",${gaId});</script>`,
+    );
+  }
+  if (pixelId) {
+    parts.push(
+      `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init",${pixelId});fbq("track","PageView");</script>`,
+      `<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=${encodeURIComponent(META_PIXEL_ID)}&amp;ev=PageView&amp;noscript=1"></noscript>`,
+    );
+  }
+  return parts.join("\n  ");
+}
 
 // Bộ quy chuẩn thương hiệu cho các bài viết (post.css dùng các biến trong đó)
 fs.mkdirSync(path.join(dist, "assets", "brand"), { recursive: true });
@@ -108,6 +132,7 @@ for (const post of index.posts) {
     html.includes('property="og:url"') ? "" : `<meta property="og:url" content="${url}">`,
     ld(article),
     ld(breadcrumb),
+    analyticsHead(),
   ]
     .filter(Boolean)
     .map((l) => `  ${l}`)
