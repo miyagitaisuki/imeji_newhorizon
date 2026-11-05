@@ -18,7 +18,7 @@ import {
   LogIn,
 } from "lucide-react";
 
-import { ROADMAP_STEPS, FAQS } from "../data/courseData";
+import { ROADMAP_STEPS, FAQS, MONTHLY_FEE, formatVnd } from "../data/courseData";
 import { CourseSection } from "../components/CourseSection";
 import { InteractiveMap } from "../components/InteractiveMap";
 import { ContactFormSection } from "../components/ContactFormSection";
@@ -574,7 +574,7 @@ function HomeContent({ form }: { form: Form }) {
             Chi phí hợp lý cho sinh viên
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-            900.000 VNĐ <span className="text-base font-normal text-slate-500">/ tháng</span>
+            {formatVnd(MONTHLY_FEE)} VNĐ <span className="text-base font-normal text-slate-500">/ tháng</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
             Chính sách học phí đồng nhất, không phát sinh chi phí tài liệu hay giáo trình phụ trợ.

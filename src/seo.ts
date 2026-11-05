@@ -1,6 +1,6 @@
 // Thông tin SEO cho từng trang: tiêu đề, mô tả, canonical, ảnh chia sẻ và dữ liệu có cấu trúc (JSON-LD).
 // Dùng khi dựng sẵn HTML lúc build (scripts/prerender.mjs).
-import { COURSES } from "./data/courseData";
+import { COURSES, MONTHLY_FEE, formatVnd } from "./data/courseData";
 import { COURSE_DETAILS } from "./data/courseDetails";
 import {
   ADDRESS_STREET,
@@ -75,9 +75,9 @@ function courseLd(id: (typeof COURSES)[number]["id"]) {
       {
         "@type": "Offer",
         category: "Paid",
-        price: 900000 * d.months,
+        price: MONTHLY_FEE * d.months,
         priceCurrency: "VND",
-        description: `900.000 VNĐ/tháng × ${d.months} tháng. Học thử miễn phí 2 buổi.`,
+        description: `${formatVnd(MONTHLY_FEE)} VNĐ/tháng × ${d.months} tháng. Học thử miễn phí 2 buổi.`,
       },
     ],
     hasCourseInstance: [

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { X, Sparkles, CheckCircle2, ArrowRight, RotateCcw } from "lucide-react";
 import { trackEvent } from "../lib/analytics";
 import { FREE_TRIAL } from "../data/siteInfo";
+import { MONTHLY_FEE, formatVnd } from "../data/courseData";
 
 interface Props {
   isOpen: boolean;
@@ -204,7 +205,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Học phí:</span>
-                <span className="font-bold text-slate-900">900.000 VNĐ / tháng</span>
+                <span className="font-bold text-slate-900">{formatVnd(MONTHLY_FEE)} VNĐ / tháng</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Ưu đãi:</span>
