@@ -69,6 +69,14 @@
       "publish": true,
       "fb_posted": false,
       "image": "assets/fb/hero.jpg"
+    },
+    {
+      "slug": "cuoc-song-phan-loai-rac-o-nhat",
+      "title": "Cuộc sống ở Nhật: Cách phân loại rác",
+      "summary": "Phân loại rác ở Nhật (ゴミの分別): các loại rác thường gặp, cách đọc lịch thu gom khu phố và mẫu câu hữu ích.",
+      "date": "2026-11-05",
+      "publish": true,
+      "fb_posted": false
     }
   ],
   "categories": {
