@@ -213,9 +213,11 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
             {d.faqs.map((faq, idx) => (
               <div key={faq.q} className="glass-panel rounded-2xl overflow-hidden border border-slate-200">
                 <button
+                  id={`course-faq-btn-${idx}`}
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
                   aria-expanded={activeFaq === idx}
-                  className="w-full px-5 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900"
+                  aria-controls={`course-faq-ans-${idx}`}
+                  className="w-full px-5 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown size={18} className={`transition-transform text-slate-400 flex-shrink-0 ${activeFaq === idx ? "rotate-180" : ""}`} />
@@ -223,6 +225,9 @@ function CourseContent({ course, form }: { course: CourseData; form: ReturnType<
                 <AnimatePresence initial={false}>
                   {activeFaq === idx && (
                     <motion.div
+                      id={`course-faq-ans-${idx}`}
+                      role="region"
+                      aria-labelledby={`course-faq-btn-${idx}`}
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}

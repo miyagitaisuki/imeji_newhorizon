@@ -60,6 +60,16 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
     trackEvent("quiz_start");
   }, [isOpen]);
 
+  // Đóng modal khi nhấn phím Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleSelectOption = (opt: { level: string; target: string }) => {
@@ -125,13 +135,22 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 bg-white overflow-hidden">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quiz-modal-title"
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 bg-white overflow-hidden"
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
-          aria-label="Đóng"
+          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
+          aria-label="Đóng bảng trắc nghiệm"
         >
           <X size={20} />
         </button>
@@ -142,7 +161,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
               <Sparkles size={16} />
               <span>Trắc nghiệm nhanh (30 giây)</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
+            <h3 id="quiz-modal-title" className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
               Khám phá khóa học phù hợp với bạn
             </h3>
             <p className="text-xs text-slate-500 mb-6">
@@ -188,7 +207,7 @@ export const PlacementQuizModal: React.FC<Props> = ({ isOpen, onClose, onSelectL
             </div>
           </div>
         ) : (
-          <div className="text-center py-2 space-y-5 animate-fade-in">
+          <div className="text-center py-2 space-y-5 animate-fade-in" aria-live="polite">
             <div className="w-14 h-14 rounded-2xl bg-success-500/10 text-success-600 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} />
             </div>
