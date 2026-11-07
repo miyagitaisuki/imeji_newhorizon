@@ -234,7 +234,9 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   inputMode="tel"
                   autoComplete="tel"
                   required
-                  placeholder="Ví dụ: 09xx xxx xxx"
+                  pattern="^(0|\+84)[0-9]{9,10}$"
+                  title="Số điện thoại gồm 10 chữ số (bắt đầu bằng 0 hoặc +84)"
+                  placeholder="Ví dụ: 0868 608 647"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/70 text-slate-900 text-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition min-h-[44px]"
@@ -298,20 +300,29 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   required
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 flex-shrink-0"
+                  className="mt-0.5 w-4 h-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 flex-shrink-0 cursor-pointer"
                 />
-                <label htmlFor="consent" className="text-xs text-slate-600 leading-relaxed">
-                  Tôi đồng ý cho IMEJI日本語教室 sử dụng thông tin trên để liên hệ tư vấn và xếp lớp, theo{" "}
+                <div className="text-xs text-slate-600 leading-relaxed">
+                  <label htmlFor="consent" className="cursor-pointer">
+                    Tôi đồng ý cho IMEJI日本語教室 sử dụng thông tin trên để liên hệ tư vấn và xếp lớp, theo{" "}
+                  </label>
                   <button
                     type="button"
                     onClick={() => setPrivacyOpen(true)}
-                    className="text-primary-600 font-semibold underline underline-offset-2"
+                    className="text-primary-600 font-semibold underline underline-offset-2 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded"
                   >
                     chính sách bảo vệ dữ liệu cá nhân
                   </button>
-                  . <span className="text-danger-500">*</span>
-                </label>
+                  <span>. </span>
+                  <span className="text-danger-500" aria-hidden="true">*</span>
+                </div>
               </div>
+
+              {submitError && (
+                <div role="alert" className="p-3 rounded-xl bg-danger-50 border border-danger-200 text-xs text-danger-700 text-center font-medium">
+                  {submitError}
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -322,13 +333,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 <span>{sending ? "Đang gửi..." : "Gửi đăng ký học thử miễn phí"}</span>
               </button>
 
-              {submitError && (
-                <p role="alert" className="text-xs text-danger-600 text-center">
-                  {submitError}
-                </p>
-              )}
-
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-[11px] text-slate-500 text-center">
                 🔒 Thông tin chỉ dùng để tư vấn và xếp lớp, không chia sẻ cho bên thứ ba.
               </p>
             </form>
@@ -362,7 +367,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                     <Phone size={18} />
                   </div>
                   <div>
-                    <p className="text-[11px] text-slate-400">Hotline / Zalo</p>
+                    <p className="text-[11px] text-slate-500 font-medium">Hotline / Zalo</p>
                     <p className="text-sm font-bold text-slate-900 group-hover:text-primary-600 transition">
                       {PHONE_DISPLAY}
                     </p>
@@ -370,11 +375,15 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                 </a>
                 <button
                   onClick={handleCopyPhone}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+                  className="p-2 rounded-xl text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-primary-500"
                   title="Sao chép số điện thoại"
+                  aria-label="Sao chép số điện thoại"
                 >
                   {copiedPhone ? <CheckCheck size={16} className="text-success-500" /> : <Copy size={16} />}
                 </button>
+                <span className="sr-only" role="status">
+                  {copiedPhone ? "Đã sao chép số điện thoại vào bộ nhớ tạm" : ""}
+                </span>
               </div>
 
               {/* Email */}
@@ -386,7 +395,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   <Mail size={18} />
                 </div>
                 <div className="overflow-hidden">
-                  <p className="text-[11px] text-slate-400">Email</p>
+                  <p className="text-[11px] text-slate-500 font-medium">Email</p>
                   <p className="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-primary-600 transition">
                     {EMAIL}
                   </p>
@@ -399,7 +408,7 @@ export const ContactFormSection: React.FC<Props> = ({ formData, setFormData }) =
                   <MapPin size={18} />
                 </div>
                 <div>
-                  <p className="text-[11px] text-slate-400">Địa chỉ lớp học</p>
+                  <p className="text-[11px] text-slate-500 font-medium">Địa chỉ lớp học</p>
                   <p className="text-xs sm:text-sm font-bold text-slate-900">
                     {ADDRESS_FULL}
                   </p>

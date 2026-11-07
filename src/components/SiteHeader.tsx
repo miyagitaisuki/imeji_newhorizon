@@ -53,6 +53,16 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
     return () => io.disconnect();
   }, [isHome]);
 
+  // Đóng menu di động khi nhấn phím Escape
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
+
   return (
     <>
   {/* =========================================================================
@@ -88,7 +98,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
       </a>
 
       {/* Desktop Nav Items */}
-      <nav className="hidden 2xl:flex items-center gap-1 text-[15px] font-semibold">
+      <nav aria-label="Điều hướng chính" className="hidden xl:flex items-center gap-0.5 2xl:gap-1 text-[14px] 2xl:text-[15px] font-semibold">
         {NAV_ITEMS.filter((i) => !i.mobileOnly).map((i) => {
           const active = !!i.id && activeId === i.id;
           const tone = active
@@ -103,7 +113,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
               key={i.label}
               href={i.href ?? `${base}#${i.id}`}
               aria-current={active ? "true" : undefined}
-              className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors ${tone}`}
+              className={`px-3 2xl:px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors ${tone}`}
             >
               {i.label}
             </a>
@@ -129,8 +139,10 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
         {/* Mobile Menu Hamburger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`2xl:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10"}`}
-          aria-label="Mở menu điều hướng"
+          className={`xl:hidden p-2 rounded-xl transition ${scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10"}`}
+          aria-label={mobileMenuOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-nav-menu"
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -144,8 +156,9 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="2xl:hidden border-b border-slate-200 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm"
+          className="xl:hidden border border-slate-200 glass-panel px-6 py-4 flex flex-col gap-2.5 text-sm mt-2 rounded-2xl shadow-xl max-h-[calc(100vh-5.5rem)] overflow-y-auto"
         >
+          <nav id="mobile-nav-menu" aria-label="Menu di động" className="flex flex-col gap-2.5">
           <div className="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200">
             <a
               onClick={() => { setMobileMenuOpen(false); trackEcosystem("practice", "mobile_menu"); }}
@@ -233,6 +246,7 @@ export const SiteHeader: React.FC<Props> = ({ isHome, onOpenQuiz }) => {
               <span>Trắc nghiệm kiểm tra trình độ (30 giây)</span>
             </button>
           </div>
+          </nav>
         </motion.div>
       )}
     </AnimatePresence>

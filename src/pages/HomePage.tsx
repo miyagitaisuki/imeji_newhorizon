@@ -125,16 +125,16 @@ function HomeContent({ form }: { form: Form }) {
             {/* Trust Indicators */}
             <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-white/90 font-semibold border-t border-white/20">
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-success-600 flex-shrink-0" /> {FREE_TRIAL}
+                <Check size={15} className="text-success-300 flex-shrink-0" /> {FREE_TRIAL}
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-success-600 flex-shrink-0" /> Sĩ số dưới 6 bạn
+                <Check size={15} className="text-success-300 flex-shrink-0" /> Sĩ số dưới 6 bạn
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-success-600 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
+                <Check size={15} className="text-success-300 flex-shrink-0" /> Học trực tiếp 80 Võ Mười
               </span>
               <span className="flex items-center gap-1.5">
-                <Check size={15} className="text-success-600 flex-shrink-0" /> {COMMITMENT_TITLE}
+                <Check size={15} className="text-success-300 flex-shrink-0" /> {COMMITMENT_TITLE}
               </span>
             </div>
           </div>
@@ -346,7 +346,7 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 4: ĐIỂM KHÁC BIỆT
     ========================================================================= */}
-    <section id="features" className="py-20 bg-slate-100/50">
+    <section id="features" className="py-20 sm:py-24 bg-slate-100/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
@@ -429,7 +429,7 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 6: LỘ TRÌNH HỌC (TIMELINE)
     ========================================================================= */}
-    <section id="roadmap" className="py-20 bg-slate-100/60">
+    <section id="roadmap" className="py-20 sm:py-24 bg-slate-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
@@ -573,9 +573,12 @@ function HomeContent({ form }: { form: Form }) {
           <span className="px-3.5 py-1 rounded-full bg-primary-100 text-primary-700 font-semibold text-xs uppercase tracking-wider">
             Chi phí hợp lý cho sinh viên
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-            {formatVnd(MONTHLY_FEE)} VNĐ <span className="text-base font-normal text-slate-500">/ tháng</span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            Chính sách học phí minh bạch
           </h2>
+          <p className="text-3xl sm:text-4xl font-black text-primary-600 tracking-tight">
+            {formatVnd(MONTHLY_FEE)} VNĐ <span className="text-base font-normal text-slate-500">/ tháng</span>
+          </p>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
             Chính sách học phí đồng nhất, không phát sinh chi phí tài liệu hay giáo trình phụ trợ.
           </p>
@@ -619,7 +622,7 @@ function HomeContent({ form }: { form: Form }) {
     {/* =========================================================================
         SECTION 10: FAQ (ACCORDION)
     ========================================================================= */}
-    <section id="faq" className="py-20 bg-slate-100/50">
+    <section id="faq" className="py-20 sm:py-24 bg-slate-100/50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-12">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2">
@@ -637,8 +640,11 @@ function HomeContent({ form }: { form: Form }) {
               className="glass-panel rounded-2xl overflow-hidden transition-colors border border-slate-200"
             >
               <button
+                id={`faq-btn-${idx}`}
                 onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                className="w-full px-5 sm:px-6 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 min-h-[48px]"
+                aria-expanded={activeFaq === idx}
+                aria-controls={`faq-ans-${idx}`}
+                className="w-full px-5 sm:px-6 py-4 text-left flex justify-between items-center gap-4 text-sm sm:text-base font-semibold text-slate-900 min-h-[48px] focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -651,6 +657,9 @@ function HomeContent({ form }: { form: Form }) {
               <AnimatePresence>
                 {activeFaq === idx && (
                   <motion.div
+                    id={`faq-ans-${idx}`}
+                    role="region"
+                    aria-labelledby={`faq-btn-${idx}`}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}

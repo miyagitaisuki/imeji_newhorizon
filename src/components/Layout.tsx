@@ -27,9 +27,16 @@ export const Layout: React.FC<Props> = ({ isHome = false, onQuizResult, children
       <div className="relative isolate min-h-screen text-slate-800 selection:bg-primary-600 selection:text-white pb-16 md:pb-0">
         {/* Nền mây cố định phía sau toàn trang, giống màn hình đăng nhập và trang luyện tập */}
         <div aria-hidden="true" className="site-cloud-bg" />
+        {/* Liên kết bỏ qua đến nội dung chính cho người dùng bàn phím */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2.5 focus:bg-primary-600 focus:text-white focus:font-semibold focus:text-xs focus:rounded-full focus:shadow-xl focus:ring-2 focus:ring-white focus:outline-none transition"
+        >
+          Bỏ qua đến nội dung chính
+        </a>
         <SiteHeader isHome={isHome} onOpenQuiz={openQuiz} />
 
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
 
         <footer className="py-10 bg-white/70 backdrop-blur-md border-t border-slate-200/70 text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
